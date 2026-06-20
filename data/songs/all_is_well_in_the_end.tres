@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SongResource" format=3 uid="uid://2babsarkyxcw"]
+
+[ext_resource type="AudioStream" uid="uid://ds8ueooduowo8" path="res://assets/audio/All is Well in the End.wav" id="1_56te2"]
+[ext_resource type="Script" uid="uid://cit0jhxgnrqrt" path="res://src/song/song_resource.gd" id="1_la44n"]
+
+[resource]
+script = ExtResource("1_la44n")
+audio = ExtResource("1_56te2")
+name = "All is Well in the End"
+bpm = 90.0
+metadata/_custom_type_script = "uid://cit0jhxgnrqrt"

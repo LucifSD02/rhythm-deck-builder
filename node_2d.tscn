@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://borbxe4d2pkpo"]
+
+[ext_resource type="Script" uid="uid://dl5y65eq3uvjo" path="res://src/rhythm/rhythm_clock.gd" id="1_wtcfe"]
+
+[sub_resource type="AudioStream" id="AudioStream_wtcfe"]
+
+[node name="Node2D" type="Node2D" unique_id=1460091666]
+script = ExtResource("1_wtcfe")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=207749145]
+stream = SubResource("AudioStream_wtcfe")
+volume_db = -18.899
+autoplay = true

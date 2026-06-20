@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CardBase" format=3 uid="uid://ne0g8cw8egjs"]
+
+[ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://src/cards/note_event.gd" id="1_bxvx2"]
+[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://src/cards/card_base.gd" id="2_f3toe"]
+
+[sub_resource type="Resource" id="Resource_bxvx2"]
+script = ExtResource("1_bxvx2")
+time = 0.5
+keys_pressed = Array[int]([1, 3])
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[sub_resource type="Resource" id="Resource_f3toe"]
+script = ExtResource("1_bxvx2")
+time = 1.0
+keys_pressed = Array[int]([2])
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[resource]
+script = ExtResource("2_f3toe")
+card_name = "Strike"
+key_amount = 4
+beat_amount = 1
+flavour_text = "Quickly strike the enemy for 10 physical damage"
+melody_notes = Array[ExtResource("1_bxvx2")]([SubResource("Resource_bxvx2"), SubResource("Resource_f3toe")])
+metadata/_custom_type_script = "uid://csvj4sdvioyh4"
