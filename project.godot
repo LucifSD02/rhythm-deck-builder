@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 driver/output_latency=8
 
+[autoload]
+
+ControlGlobal="*uid://bffdn0hyembvw"
+RhythmClock="*uid://borbxe4d2pkpo"
+
 [display]
 
 window/size/viewport_width=1920

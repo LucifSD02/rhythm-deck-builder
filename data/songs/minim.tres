@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SongResource" format=3 uid="uid://vubgoqsqb7b0"]
+
+[ext_resource type="AudioStream" uid="uid://co7d2mfpr2e5j" path="res://assets/audio/Minim 2024-05-12 1245.wav" id="1_w88r8"]
+[ext_resource type="Script" uid="uid://cit0jhxgnrqrt" path="res://src/song/song_resource.gd" id="2_bmyca"]
+
+[resource]
+script = ExtResource("2_bmyca")
+audio = ExtResource("1_w88r8")
+name = "Minim"
+bpm = 103.0
+metadata/_custom_type_script = "uid://cit0jhxgnrqrt"
