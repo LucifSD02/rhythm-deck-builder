@@ -14,7 +14,7 @@ var next_four_note_events: Array[NoteEvent]
 var active_queue: Array[NoteEvent]
 
 func _ready() -> void:
-	song_bpm = current_song.bpm
+	song_bpm = music_player.bpm()
 	seconds_per_beat = 60.0 / song_bpm
 	note_events = load_melody_card()
 	if note_events.size() >= 4:
@@ -25,9 +25,9 @@ func _ready() -> void:
 			next_four_note_events.append(note_events[x])
 
 func _process(delta: float) -> void:
-	if audio_stream_player.playing:
+	if music_player.is_playing():
 		accumulated_time += delta
-		var physical_audio_time = audio_stream_player.get_playback_position() + AudioServer.get_time_since_last_mix()
+		var physical_audio_time = music_player.get_playback_position()
 		var clock_error = abs(accumulated_time - physical_audio_time)
 		if clock_error > 0.02:
 			accumulated_time = physical_audio_time
@@ -72,14 +72,14 @@ func _process(delta: float) -> void:
 
 
 func get_current_beat(with_latency: bool) -> float:
-	var true_time = accumulated_time - current_song.first_beat
+	var true_time = accumulated_time - music_player.first_beat()
 	if with_latency:
 		var audible_time = true_time - AudioServer.get_output_latency() + manual_calibration_offset
 		return audible_time / seconds_per_beat
 	return true_time / seconds_per_beat
 
 func get_current_bar() -> int:
-	return int(floor(get_current_beat(false) / current_song.time_signature)) + 1
+	return int(floor(get_current_beat(false) / music_player.time_signature())) + 1
 
 func calculate_average_offset(offsets: Array[float]) -> float:
 	var average_offset: float = 0

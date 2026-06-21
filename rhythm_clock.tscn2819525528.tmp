@@ -6,6 +6,7 @@
 
 [node name="RhythmClock" type="Node" unique_id=815584851]
 script = ExtResource("1_dhthp")
+manual_calibration_offset = null
 
 [node name="MusicPlayer" type="Node" parent="." unique_id=1052818767]
 script = ExtResource("2_y6maa")
