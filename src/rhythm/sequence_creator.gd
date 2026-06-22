@@ -34,9 +34,8 @@ func create_note(note_event: NoteEvent) -> Note:
 	print(new_note)
 	return new_note
 
-
 func match_key_presses(new_note: Note):
-	match new_note.note_event:
+	match new_note.note_event.action_to_hit:
 		"key1": 
 			self.connect("key1_pressed", new_note.activate)
 		"key2": 
