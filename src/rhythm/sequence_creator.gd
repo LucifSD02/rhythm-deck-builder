@@ -35,26 +35,9 @@ func create_note(note_event: NoteEvent) -> Note:
 	return new_note
 
 func match_key_presses(new_note: Note):
-	match new_note.note_event.action_to_hit:
-		"key1": 
-			self.connect("key1_pressed", new_note.activate)
-		"key2": 
-			self.connect("key2_pressed", new_note.activate)
-		"key3": 
-			self.connect("key3_pressed", new_note.activate)
-		"key4": 
-			self.connect("key4_pressed", new_note.activate)
-		"key5": 
-			self.connect("key5_pressed", new_note.activate)
-		"key6": 
-			self.connect("key6_pressed", new_note.activate)
-		"key7": 
-			self.connect("key7_pressed", new_note.activate)
-		"key8": 
-			self.connect("key8_pressed", new_note.activate)
-		"rhythm_special": 
-			self.connect("rhythm_special_pressed", new_note.activate)
-			
+	var signal_name: String = new_note.note_event.action_to_hit + "_pressed"
+	self.connect(signal_name, new_note.activate)
+
 
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey:
