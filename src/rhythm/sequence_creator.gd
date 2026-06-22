@@ -38,7 +38,6 @@ func match_key_presses(new_note: Note):
 	var signal_name: String = new_note.note_event.action_to_hit + "_pressed"
 	self.connect(signal_name, new_note.activate)
 
-
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey:
 		return

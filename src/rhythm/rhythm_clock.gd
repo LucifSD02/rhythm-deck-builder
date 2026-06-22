@@ -7,7 +7,6 @@ var ten_hit_offsets: Array[float]
 var accumulated_time: float = 0.0
 var seconds_per_beat: float = 0
 
-
 func _ready() -> void:
 	song_bpm = music_player.bpm()
 	seconds_per_beat = 60.0 / song_bpm
@@ -25,7 +24,6 @@ func _process(delta: float) -> void:
 		var average_offset = calculate_average_offset(ten_hit_offsets)
 		print("Average offset distance: " + str(average_offset) + " beats, which is " + str(average_offset * seconds_per_beat) + " seconds")
 		ten_hit_offsets.remove_at(0)
-
 
 func get_current_beat(with_latency: bool) -> float:
 	var true_time = accumulated_time - music_player.first_beat()
@@ -45,3 +43,10 @@ func calculate_average_offset(offsets: Array[float]) -> float:
 	
 	average_offset = total_offset / offsets.size()
 	return average_offset
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("rhythm_special", true):
+		var target = round(get_current_beat(false))
+		var actual = get_current_beat(true)
+		ten_hit_offsets.append(target-actual)
+		print("Calibration hit, deviation is ", str(target-actual))

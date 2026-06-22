@@ -15,7 +15,7 @@ func activate(hit_beat: float) -> void:
 		print("Way too early")
 		return
 	else:
-		print("Note Struck! Node Name: ", name, " | Target Beat: ", note_event.time, " | Deviation: ", hit_deviation, " ", get_hit_judgement(hit_deviation))
+		print("Hit: ", name, " | Target Beat: ", note_event.time, " | Deviation: ", hit_deviation, " ", get_hit_judgement(hit_deviation))
 		queue_free()
 
 func get_hit_judgement(hit_deviation: float) -> String:
