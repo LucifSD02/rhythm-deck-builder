@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bffdn0hyembvw"]
 
-[ext_resource type="Script" uid="uid://ch3k0sg8ooknn" path="res://src/combat/combat_main.gd" id="1_r5ox8"]
-[ext_resource type="Script" uid="uid://cp8ocfluoj3jv" path="res://src/rhythm/sequence_creator.gd" id="2_r5ox8"]
-[ext_resource type="PackedScene" uid="uid://b5wh3euo72nhi" path="res://src/rhythm/note.tscn" id="3_2vfxv"]
+[ext_resource type="Script" uid="uid://ch3k0sg8ooknn" path="res://src/combat/combat_main.gd" id="1_3iq3s"]
+[ext_resource type="Script" uid="uid://cp8ocfluoj3jv" path="res://src/rhythm/sequence_creator.gd" id="2_6vvp7"]
+[ext_resource type="PackedScene" uid="uid://b5wh3euo72nhi" path="res://src/rhythm/note.tscn" id="2_bp4pn"]
 
 [node name="CombatMain" type="Control" unique_id=273556332]
 layout_mode = 3
@@ -11,12 +11,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_r5ox8")
+script = ExtResource("1_3iq3s")
 
 [node name="SequenceCreator" type="Node" parent="." unique_id=579970896]
-script = ExtResource("2_r5ox8")
+script = ExtResource("2_6vvp7")
 
-[node name="Note" parent="." unique_id=80892390 instance=ExtResource("3_2vfxv")]
+[node name="Note" parent="." unique_id=80892390 instance=ExtResource("2_bp4pn")]
 layout_mode = 0
 offset_left = 572.0
 offset_top = 605.0

@@ -22,7 +22,6 @@ driver/output_latency=8
 [autoload]
 
 RhythmClock="*uid://buco80x2gc4aq"
-ControlGlobal="*uid://bffdn0hyembvw"
 
 [display]
 

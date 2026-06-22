@@ -18,9 +18,9 @@ var note_events: Array[NoteEvent]
 func _ready() -> void:
 	for event in test_melody_card.melody_notes:
 		note_events.append(event)
-		var new_note: Note =  create_note(event)
+		var new_note: Note = create_note(event)
+		print(event)
 		
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -29,8 +29,9 @@ func _process(delta: float) -> void:
 func create_note(note_event: NoteEvent) -> Note:
 	var new_note: Note = note_blueprint.instantiate()
 	new_note.note_event = note_event
-	get_tree().current_scene.add_child(new_note)
+	get_tree().current_scene.add_child.call_deferred(new_note)
 	match_key_presses(new_note)
+	print(new_note)
 	return new_note
 
 
