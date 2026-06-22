@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b5wh3euo72nhi"]
+
+[ext_resource type="Script" uid="uid://cim1qcbq8g24m" path="res://src/rhythm/note.gd" id="1_4gu15"]
+
+[node name="Note" type="Control" unique_id=80892390]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_4gu15")

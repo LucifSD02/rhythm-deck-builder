@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bffdn0hyembvw"]
+
+[ext_resource type="PackedScene" uid="uid://buco80x2gc4aq" path="res://src/rhythm/rhythm_clock.tscn" id="1_c51xf"]
+[ext_resource type="Script" uid="uid://ch3k0sg8ooknn" path="res://src/combat/combat_main.gd" id="1_r5ox8"]
+[ext_resource type="Script" uid="uid://cp8ocfluoj3jv" path="res://src/rhythm/sequence_creator.gd" id="2_r5ox8"]
+[ext_resource type="PackedScene" uid="uid://b5wh3euo72nhi" path="res://src/rhythm/note.tscn" id="3_2vfxv"]
+
+[node name="CombatMain" type="Control" unique_id=273556332]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r5ox8")
+
+[node name="SequenceCreator" type="Node" parent="." unique_id=579970896]
+script = ExtResource("2_r5ox8")
+
+[node name="Note" parent="." unique_id=80892390 instance=ExtResource("3_2vfxv")]
+layout_mode = 0
+offset_left = 572.0
+offset_top = 605.0
+offset_right = 738.0
+offset_bottom = 653.0
+
+[node name="ColorRect" type="ColorRect" parent="Note" unique_id=1512503472]
+layout_mode = 0
+offset_right = 165.0
+offset_bottom = 47.0
+
+[node name="RhythmClock" parent="." unique_id=815584851 instance=ExtResource("1_c51xf")]

@@ -6,26 +6,25 @@
 [sub_resource type="Resource" id="Resource_bxvx2"]
 script = ExtResource("1_bxvx2")
 time = 4.0
-keys_pressed = Array[int]([1, 4])
-space_pressed = true
+action_to_hit = "key1"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [sub_resource type="Resource" id="Resource_cauxg"]
 script = ExtResource("1_bxvx2")
 time = 5.0
-space_pressed = true
+action_to_hit = "key2"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [sub_resource type="Resource" id="Resource_f3toe"]
 script = ExtResource("1_bxvx2")
 time = 6.0
-space_pressed = true
+action_to_hit = "key3"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [sub_resource type="Resource" id="Resource_lm6j3"]
 script = ExtResource("1_bxvx2")
 time = 7.0
-space_pressed = true
+action_to_hit = "key4"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [resource]
