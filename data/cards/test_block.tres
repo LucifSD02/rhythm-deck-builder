@@ -39,6 +39,8 @@ metadata/_custom_type_script = "uid://dy3nen47p6kce"
 [resource]
 script = ExtResource("1_dw81v")
 card_name = "Small block"
+key_amount = 4
+bar_amount = 1
 melody_notes = Array[ExtResource("1_my6nm")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf")])
 effects = Array[Resource]([SubResource("Resource_d3tok")])
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"

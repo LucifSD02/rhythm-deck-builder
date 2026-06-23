@@ -11,7 +11,8 @@ signal note_hit
 signal last_note
 
 func _ready() -> void:
-	print(note_event.time)
+	pass
+	#print(note_event.time)
 
 func check_too_late():
 	var current_beat: float = RhythmClock.get_current_beat(false)

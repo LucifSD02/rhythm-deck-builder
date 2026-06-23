@@ -4,10 +4,11 @@ extends Node
 @onready var sequence_creator: SequenceCreator = $"../SequenceCreator"
 @onready var strike_card: CardBase = ResourceLoader.load("res://data/cards/test_strike.tres")
 @onready var shield_card: CardBase = ResourceLoader.load("res://data/cards/test_block.tres")
+@onready var shield_card_big: CardBase = ResourceLoader.load("res://data/cards/test_block_big.tres")
 @onready var music_player: MusicPlayer = RhythmClock.music_player
 @onready var beats_per_bar: int = music_player.time_signature()
 @onready var timeline: Timeline = Timeline.new()
-@onready var cards: Array[CardBase] = [shield_card, strike_card, shield_card, strike_card, shield_card, shield_card, strike_card, shield_card]
+@onready var cards: Array[CardBase] = [shield_card, strike_card, shield_card, strike_card, shield_card_big, strike_card, shield_card]
 @onready var note_hits: Array[NoteHit] = []
 
 # Called when the node enters the scene tree for the first time.
