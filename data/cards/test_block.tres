@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="CardBase" format=3 uid="uid://has1yph81oqn"]
+
+[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://src/cards/card_base.gd" id="1_dw81v"]
+[ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://src/rhythm/note_event.gd" id="1_my6nm"]
+[ext_resource type="Script" uid="uid://cami0vqau5iw4" path="res://src/cards/shield.gd" id="1_ov3tc"]
+
+[sub_resource type="Resource" id="Resource_d3tok"]
+script = ExtResource("1_ov3tc")
+shield_amount = 10
+shield_duration = 1
+metadata/_custom_type_script = "uid://cami0vqau5iw4"
+
+[sub_resource type="Resource" id="Resource_ov3tc"]
+script = ExtResource("1_my6nm")
+action_to_hit = "key1"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[sub_resource type="Resource" id="Resource_uqiki"]
+resource_local_to_scene = true
+script = ExtResource("1_my6nm")
+time = 1.0
+action_to_hit = "key2"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[sub_resource type="Resource" id="Resource_fdavp"]
+resource_local_to_scene = true
+script = ExtResource("1_my6nm")
+time = 2.0
+action_to_hit = "key3"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[sub_resource type="Resource" id="Resource_7h3vf"]
+resource_local_to_scene = true
+script = ExtResource("1_my6nm")
+time = 3.0
+action_to_hit = "key4"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[resource]
+script = ExtResource("1_dw81v")
+card_name = "Small block"
+melody_notes = Array[ExtResource("1_my6nm")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf")])
+effects = Array[Resource]([SubResource("Resource_d3tok")])
+metadata/_custom_type_script = "uid://csvj4sdvioyh4"

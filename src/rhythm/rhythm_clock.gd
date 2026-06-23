@@ -2,7 +2,7 @@ extends Node
 
 @onready var music_player: MusicPlayer = $MusicPlayer
 @onready var song_bpm: float
-@export var manual_calibration_offset: float = -0.08
+@export var manual_calibration_offset: float = -0.11
 var ten_hit_offsets: Array[float]
 var accumulated_time: float = 0.0
 var seconds_per_beat: float = 0
@@ -44,9 +44,31 @@ func calculate_average_offset(offsets: Array[float]) -> float:
 	average_offset = total_offset / offsets.size()
 	return average_offset
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("rhythm_special", true):
+func _input(space: InputEvent) -> void: #Calibration hits registration
+	if space.is_action_pressed("rhythm_special", true):
+		print (get_time_until_suitable_timeline_start())
 		var target = round(get_current_beat(false))
 		var actual = get_current_beat(true)
 		ten_hit_offsets.append(target-actual)
 		print("Calibration hit, deviation is ", str(target-actual))
+
+func get_time_until_next_bar(current_bar) -> float:
+	var current_beat: float = get_current_beat(false) + 1
+	var target_beat: float = current_bar * (music_player.time_signature())
+	var time_until_next_bar: float = target_beat - current_beat
+	return time_until_next_bar
+
+func get_time_until_suitable_timeline_start() -> float:
+	var current_beat: float = get_current_beat(true)
+	var current_bar: int = get_current_bar()
+	var target_bar: int = find_next_multiple_of_four(current_bar)
+	var target_beat = target_bar * music_player.time_signature()
+	return (target_beat) - current_beat
+
+func find_next_multiple_of_four(current_bar) -> int:
+	var starting_bar = current_bar
+	var next_multiple_of_four: int
+	while starting_bar % 4 != 0:
+		starting_bar += 1
+	next_multiple_of_four = starting_bar
+	return next_multiple_of_four

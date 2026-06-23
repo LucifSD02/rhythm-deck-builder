@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="CardBase" format=3 uid="uid://7pj524t2jqd4"]
+
+[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://src/cards/card_base.gd" id="1_diquc"]
+[ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://src/rhythm/note_event.gd" id="1_rs3kt"]
+[ext_resource type="Resource" uid="uid://bsbhgp0yktwkt" path="res://data/properties/special/weak_wolf.tres" id="2_cbfhx"]
+
+[sub_resource type="Resource" id="Resource_ov3tc"]
+script = ExtResource("1_rs3kt")
+action_to_hit = "key1"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[sub_resource type="Resource" id="Resource_uqiki"]
+resource_local_to_scene = true
+script = ExtResource("1_rs3kt")
+time = 1.0
+action_to_hit = "key2"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[sub_resource type="Resource" id="Resource_fdavp"]
+resource_local_to_scene = true
+script = ExtResource("1_rs3kt")
+time = 2.0
+action_to_hit = "key3"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[sub_resource type="Resource" id="Resource_7h3vf"]
+resource_local_to_scene = true
+script = ExtResource("1_rs3kt")
+time = 3.0
+action_to_hit = "key4"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[resource]
+script = ExtResource("1_diquc")
+melody_notes = Array[ExtResource("1_rs3kt")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf")])
+effects = Array[Resource]([ExtResource("2_cbfhx")])
+metadata/_custom_type_script = "uid://csvj4sdvioyh4"

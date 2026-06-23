@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" format=3 uid="uid://rf8fmlkqtopt"]
+
+[ext_resource type="Resource" uid="uid://4dk1xpxp0lht" path="res://data/properties/accuracy_modifiers/multiply_by_2.tres" id="1_t5w4s"]
+[ext_resource type="Script" uid="uid://c6db3kjgobdi" path="res://src/cards/attack.gd" id="2_gximy"]
+
+[resource]
+script = ExtResource("2_gximy")
+attack_damage = 5
+accuracy_modifier = ExtResource("1_t5w4s")
+metadata/_custom_type_script = "uid://c6db3kjgobdi"

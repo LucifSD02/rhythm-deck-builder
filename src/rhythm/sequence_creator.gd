@@ -1,8 +1,8 @@
 class_name SequenceCreator
 extends Node
 
-@onready var test_melody_card: CardBase = ResourceLoader.load("res://data/cards/test_strike.tres")
-@export var note_blueprint: PackedScene = ResourceLoader.load("res://src/rhythm/note.tscn")
+@export var note_blueprint: PackedScene
+@onready var music_player: MusicPlayer = RhythmClock.music_player
 
 signal key1_pressed
 signal key2_pressed
@@ -13,23 +13,28 @@ signal key6_pressed
 signal key7_pressed
 signal key8_pressed
 signal rhythm_special_pressed
-var note_events: Array[NoteEvent]
 
 func _ready() -> void:
-	for event in test_melody_card.melody_notes:
-		note_events.append(event)
-		var new_note: Note = create_note(event)
-		print(event)
-		
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
-func create_note(note_event: NoteEvent) -> Note:
+func convert_to_sequence(timeline: Timeline):
+	for i in range(timeline.cards.size()):
+		var card = timeline.cards[i]
+		card.starting_bar = i 
+		for note_event in card.melody_notes:
+			create_note(note_event, card.starting_bar)
+
+func create_note(note_event: NoteEvent, starting_bar: int) -> Note:
 	var new_note: Note = note_blueprint.instantiate()
-	new_note.note_event = note_event
-	get_tree().current_scene.add_child.call_deferred(new_note)
+	new_note.note_event = note_event.duplicate()
+	var stinky = new_note.note_event.time
+	var clean = starting_bar * 4
+	new_note.note_event.time = stinky + clean
+	add_child(new_note)
 	match_key_presses(new_note)
 	print(new_note)
 	return new_note

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AccuracyModifier" format=3 uid="uid://4dk1xpxp0lht"]
+
+[ext_resource type="Script" uid="uid://y0vkd8588oy4" path="res://src/cards/accuracy_modifier.gd" id="1_dhplx"]
+
+[resource]
+script = ExtResource("1_dhplx")
+accuracy_multiplier = 1
+metadata/_custom_type_script = "uid://y0vkd8588oy4"

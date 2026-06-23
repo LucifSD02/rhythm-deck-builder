@@ -1,29 +1,33 @@
 [gd_resource type="Resource" script_class="CardBase" format=3 uid="uid://ne0g8cw8egjs"]
 
-[ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://src/cards/note_event.gd" id="1_bxvx2"]
+[ext_resource type="Resource" uid="uid://rf8fmlkqtopt" path="res://data/properties/attacks/small_slash.tres" id="1_lm6j3"]
 [ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://src/cards/card_base.gd" id="2_f3toe"]
+[ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://src/rhythm/note_event.gd" id="3_pk6ir"]
 
-[sub_resource type="Resource" id="Resource_bxvx2"]
-script = ExtResource("1_bxvx2")
-time = 4.0
+[sub_resource type="Resource" id="Resource_f3toe"]
+resource_local_to_scene = true
+script = ExtResource("3_pk6ir")
 action_to_hit = "key1"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
-[sub_resource type="Resource" id="Resource_cauxg"]
-script = ExtResource("1_bxvx2")
-time = 5.0
+[sub_resource type="Resource" id="Resource_lm6j3"]
+resource_local_to_scene = true
+script = ExtResource("3_pk6ir")
+time = 1.0
 action_to_hit = "key2"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
-[sub_resource type="Resource" id="Resource_f3toe"]
-script = ExtResource("1_bxvx2")
-time = 6.0
+[sub_resource type="Resource" id="Resource_cauxg"]
+resource_local_to_scene = true
+script = ExtResource("3_pk6ir")
+time = 2.0
 action_to_hit = "key3"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
-[sub_resource type="Resource" id="Resource_lm6j3"]
-script = ExtResource("1_bxvx2")
-time = 7.0
+[sub_resource type="Resource" id="Resource_pk6ir"]
+resource_local_to_scene = true
+script = ExtResource("3_pk6ir")
+time = 3.0
 action_to_hit = "key4"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
@@ -31,7 +35,8 @@ metadata/_custom_type_script = "uid://dy3nen47p6kce"
 script = ExtResource("2_f3toe")
 card_name = "Strike"
 key_amount = 4
-beat_amount = 1
+beat_amount = 4
 flavour_text = "Quickly strike the enemy for 10 physical damage"
-melody_notes = Array[ExtResource("1_bxvx2")]([SubResource("Resource_bxvx2"), SubResource("Resource_cauxg"), SubResource("Resource_f3toe"), SubResource("Resource_lm6j3")])
+melody_notes = Array[ExtResource("3_pk6ir")]([SubResource("Resource_f3toe"), SubResource("Resource_lm6j3"), SubResource("Resource_cauxg"), SubResource("Resource_pk6ir")])
+effects = Array[Resource]([ExtResource("1_lm6j3")])
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"
