@@ -36,13 +36,14 @@ func activate(hit_beat: float) -> void:
 
 
 func get_hit_judgement(hit_deviation: float) -> float:
-	if hit_deviation < 0:
-		hit_deviation = hit_deviation * -1
-	if hit_deviation <= 0.05:
-		return 1.5
-	elif hit_deviation <= 0.12:
+	hit_deviation = abs(hit_deviation)
+	if hit_deviation <= 0.0258:
 		return 1
-	elif hit_deviation <= 0.22:
+	elif hit_deviation <= 0.0600:
+		return 0.75
+	elif hit_deviation <= 0.1100:
 		return 0.5
+	elif hit_deviation <= 0.1800:
+		return 0.25
 	else:
 		return 0
