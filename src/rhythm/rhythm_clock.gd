@@ -26,9 +26,9 @@ func _process(delta: float) -> void:
 		ten_hit_offsets.remove_at(0)
 
 func get_current_beat(with_latency: bool) -> float:
-	var true_time = accumulated_time - music_player.first_beat()
+	var true_time: float = accumulated_time - music_player.first_beat()
 	if with_latency:
-		var audible_time = true_time - AudioServer.get_output_latency() + manual_calibration_offset
+		var audible_time: float = true_time - AudioServer.get_output_latency() + manual_calibration_offset
 		return audible_time / seconds_per_beat
 	return true_time / seconds_per_beat
 
@@ -47,8 +47,8 @@ func calculate_average_offset(offsets: Array[float]) -> float:
 func _input(space: InputEvent) -> void: #Calibration hits registration
 	if space.is_action_pressed("rhythm_special", true):
 		print (get_time_until_suitable_timeline_start())
-		var target = round(get_current_beat(false))
-		var actual = get_current_beat(true)
+		var target: float = round(get_current_beat(false))
+		var actual: float = get_current_beat(true)
 		ten_hit_offsets.append(target-actual)
 		print("Calibration hit, deviation is ", str(target-actual))
 
@@ -61,14 +61,14 @@ func get_time_until_next_bar(current_bar) -> float:
 func get_time_until_suitable_timeline_start() -> float:
 	var current_beat: float = get_current_beat(true)
 	var current_bar: int = get_current_bar()
-	var target_bar: int = find_next_multiple_of_four(current_bar)
-	var target_beat = target_bar * music_player.time_signature()
+	var target_bar: int = find_next_multiple_of_x(current_bar, 4)
+	var target_beat: int = target_bar * music_player.time_signature()
 	return (target_beat) - current_beat
 
-func find_next_multiple_of_four(current_bar) -> int:
-	var starting_bar = current_bar
-	var next_multiple_of_four: int
-	while starting_bar % 4 != 0:
-		starting_bar += 1
-	next_multiple_of_four = starting_bar
-	return next_multiple_of_four
+func find_next_multiple_of_x(value, x) -> int:
+	var starting_value: int = value + 1
+	var next_multiple_of_x: int
+	while starting_value % x != 0:
+		starting_value += 1
+	next_multiple_of_x = starting_value
+	return next_multiple_of_x

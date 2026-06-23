@@ -25,15 +25,15 @@ func convert_to_sequence(timeline: Timeline):
 	for i in range(timeline.cards.size()):
 		var card = timeline.cards[i]
 		card.starting_bar = i 
+		card.timeline_id = i
 		for note_event in card.melody_notes:
-			create_note(note_event, card.starting_bar)
+			create_note(note_event, card.starting_bar, card.timeline_id)
 
-func create_note(note_event: NoteEvent, starting_bar: int) -> Note:
+func create_note(note_event: NoteEvent, starting_bar: int, card_id) -> Note:
 	var new_note: Note = note_blueprint.instantiate()
 	new_note.note_event = note_event.duplicate()
-	var stinky = new_note.note_event.time
-	var clean = starting_bar * 4
-	new_note.note_event.time = stinky + clean
+	new_note.note_event.time += starting_bar * 4
+	new_note.card_id = card_id
 	add_child(new_note)
 	match_key_presses(new_note)
 	print(new_note)
