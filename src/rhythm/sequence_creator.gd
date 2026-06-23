@@ -3,7 +3,9 @@ extends Node
 
 @export var note_blueprint: PackedScene
 @onready var music_player: MusicPlayer = RhythmClock.music_player
+var miss_check: float = 0
 
+signal check_missed_notes
 signal key1_pressed
 signal key2_pressed
 signal key3_pressed
@@ -19,7 +21,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	miss_check += delta
+	if miss_check > 0.5:
+		emit_signal("check_missed_notes")
+		miss_check = 0
 
 func convert_to_sequence(timeline: Timeline):
 	for i in range(timeline.cards.size()):
@@ -36,8 +41,12 @@ func create_note(note_event: NoteEvent, starting_bar: int, card_id) -> Note:
 	new_note.card_id = card_id
 	add_child(new_note)
 	match_key_presses(new_note)
+	connect("check_missed_notes", new_note.check_too_late)
 	print(new_note)
 	return new_note
+
+func check_missed():
+	emit_signal("check_missed_notes")
 
 func match_key_presses(new_note: Note):
 	var signal_name: String = new_note.note_event.action_to_hit + "_pressed"

@@ -13,6 +13,12 @@ func _ready() -> void:
 	connect("note_hit", timeline_manager.log_note_hits)
 	print(note_event.time)
 
+func check_too_late():
+	var current_beat: float = RhythmClock.get_current_beat(false)
+	if note_event.time - current_beat < -0.5:
+		print("Miss")
+		queue_free() 
+
 func activate(hit_beat: float) -> void:
 	var hit_deviation = hit_beat - note_event.time - RhythmClock.manual_calibration_offset
 	if abs(hit_deviation) > 0.40:

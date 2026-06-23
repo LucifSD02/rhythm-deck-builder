@@ -36,9 +36,15 @@ time = 3.0
 action_to_hit = "key4"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
+[sub_resource type="Resource" id="Resource_6vvp7"]
+script = ExtResource("1_my6nm")
+time = 3.0
+action_to_hit = "key1"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
 [resource]
 script = ExtResource("1_dw81v")
 card_name = "Small block"
-melody_notes = Array[ExtResource("1_my6nm")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf")])
+melody_notes = Array[ExtResource("1_my6nm")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf"), SubResource("Resource_6vvp7")])
 effects = Array[Resource]([SubResource("Resource_d3tok")])
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"

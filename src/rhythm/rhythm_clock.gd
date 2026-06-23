@@ -7,6 +7,7 @@ var ten_hit_offsets: Array[float]
 var accumulated_time: float = 0.0
 var seconds_per_beat: float = 0
 
+
 func _ready() -> void:
 	song_bpm = music_player.bpm()
 	seconds_per_beat = 60.0 / song_bpm
@@ -14,6 +15,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if music_player.is_playing():
 		accumulated_time += delta
+
 		var physical_audio_time = music_player.get_playback_position()
 		var clock_error = abs(accumulated_time - physical_audio_time)
 		if clock_error > 0.02:
