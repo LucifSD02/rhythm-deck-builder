@@ -31,22 +31,28 @@ func convert_to_sequence(timeline: Timeline):
 		var card = timeline.cards[i]
 		card.starting_bar = i 
 		card.timeline_id = i
-		for note_event in card.melody_notes:
-			create_note(note_event, card.starting_bar, card.timeline_id)
+		for j in range(card.melody_notes.size()):
+			var note_event = card.melody_notes[j]
+			if (i == timeline.cards.size() - 1) && (j == card.melody_notes.size() - 1):
+				create_note(note_event, card.starting_bar, card.timeline_id, true)
+				print("made last note") 
+			else:
+				create_note(note_event, card.starting_bar, card.timeline_id, false)
 
-func create_note(note_event: NoteEvent, starting_bar: int, card_id) -> Note:
+func create_note(note_event: NoteEvent, starting_bar: int, card_id, is_last_note) -> Note:
+	var physical_manager: TimelineManager = get_node("../TimelineManager")
 	var new_note: Note = note_blueprint.instantiate()
+	new_note.connect("note_hit", physical_manager.log_note_hits)
+	new_note.connect("last_note", physical_manager.sequence_complete)
 	new_note.note_event = note_event.duplicate()
 	new_note.note_event.time += starting_bar * 4
 	new_note.card_id = card_id
+	new_note.is_last_note = is_last_note
 	add_child(new_note)
 	match_key_presses(new_note)
 	connect("check_missed_notes", new_note.check_too_late)
 	print(new_note)
 	return new_note
-
-func check_missed():
-	emit_signal("check_missed_notes")
 
 func match_key_presses(new_note: Note):
 	var signal_name: String = new_note.note_event.action_to_hit + "_pressed"

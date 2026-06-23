@@ -1,22 +1,25 @@
 class_name Note
 extends Control
 
-@onready var timeline_manager: TimelineManager = TimelineManager.new()
 @export var card_id: int
+@export var is_last_note: bool
 @export var note_event: NoteEvent: 
 	set(value): 
 		note_event = value
 
 signal note_hit
+signal last_note
 
 func _ready() -> void:
-	connect("note_hit", timeline_manager.log_note_hits)
 	print(note_event.time)
 
 func check_too_late():
 	var current_beat: float = RhythmClock.get_current_beat(false)
 	if note_event.time - current_beat < -0.5:
-		print("Miss")
+		emit_signal("note_hit", card_id, 0)
+		if is_last_note:
+			print("last note!")
+			emit_signal("last_note")
 		queue_free() 
 
 func activate(hit_beat: float) -> void:
@@ -26,16 +29,20 @@ func activate(hit_beat: float) -> void:
 	else:
 		print("Hit: ", name, " | Target Beat: ", note_event.time, " | Deviation: ", hit_deviation)
 		emit_signal("note_hit", card_id, get_hit_judgement(hit_deviation))
+		if is_last_note:
+			print("last note!")
+			emit_signal("last_note")
 		queue_free()
 
-func get_hit_judgement(hit_deviation: float) -> String:
+
+func get_hit_judgement(hit_deviation: float) -> float:
 	if hit_deviation < 0:
 		hit_deviation = hit_deviation * -1
 	if hit_deviation <= 0.05:
-		return "Perfect"
+		return 1.5
 	elif hit_deviation <= 0.12:
-		return "Great"
+		return 1
 	elif hit_deviation <= 0.22:
-		return "Okay"
+		return 0.5
 	else:
-		return "Miss"
+		return 0
