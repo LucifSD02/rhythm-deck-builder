@@ -1,7 +1,6 @@
 class_name SequenceCreator
 extends Node
 
-@export var note_blueprint: PackedScene
 @onready var music_player: MusicPlayer = RhythmClock.music_player
 var miss_check: float = 0
 
@@ -33,9 +32,14 @@ func convert_to_sequence(timeline: Timeline):
 		var card = timeline.cards[i]
 		card.timeline_id = i
 
+		if card.bar_amount <= 0:
+			push_error("Resource isse, Card ", card.card_name, "has a bar_amount of 0 or lower, defaulting to 1")
+			card.bar_amount = 1
+
 		for j in range(card.melody_notes.size()):
 			var note_event: NoteEvent = card.melody_notes[j]
 			if not note_event:
+				push_error("Resource issue, Card ", card.card_name, " has a missing NoteEvent at index ", j)
 				continue
 
 			var is_last_note = (i == timeline.cards.size() - 1) && (j == card.melody_notes.size() - 1)
@@ -44,28 +48,19 @@ func convert_to_sequence(timeline: Timeline):
 				print("made last note") 
 			else:
 				create_note(note_event, running_timeline_bar, card.timeline_id, false)
-
+				
 		running_timeline_bar += card.bar_amount
 
-
-
 func create_note(note_event: NoteEvent, starting_bar: int, card_id, is_last_note) -> Note:
-	var physical_manager: TimelineManager = get_node("../TimelineManager")
-	var new_note: Note = note_blueprint.instantiate()
-	new_note.connect("note_hit", physical_manager.log_note_hits)
-	new_note.connect("last_note", physical_manager.sequence_complete)
-	new_note.note_event = note_event.duplicate()
-	var beat_time: int = int(new_note.note_event.time)
-	#print(new_note.note_event.time)
-	new_note.note_event.time = (4 * starting_bar) + beat_time
-	print(new_note.note_event.time)
-	new_note.card_id = card_id
-	new_note.is_last_note = is_last_note
-	add_child(new_note)
-	match_key_presses(new_note)
-	connect("check_missed_notes", new_note.check_too_late)
-	#print(new_note)
-	return new_note
+	var timeline_manager: TimelineManager = get_node("../TimelineManager")
+	var note_instance: Note = Note.new()
+	var built_note = note_instance.build_note(note_event, starting_bar, card_id, is_last_note)
+	match_key_presses(built_note)
+	connect("check_missed_notes", built_note.check_too_late)
+	built_note.connect("note_hit", timeline_manager.log_note_hits)
+	built_note.connect("last_note", timeline_manager.sequence_complete)
+	add_child(built_note)
+	return built_note
 
 func match_key_presses(new_note: Note):
 	var signal_name: String = new_note.note_event.action_to_hit + "_pressed"

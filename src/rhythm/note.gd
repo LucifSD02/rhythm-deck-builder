@@ -3,6 +3,7 @@ extends Control
 
 @export var card_id: int
 @export var is_last_note: bool
+@export var note_blueprint: PackedScene = preload("res://src/rhythm/note.tscn")
 @export var note_event: NoteEvent: 
 	set(value): 
 		note_event = value
@@ -35,6 +36,15 @@ func activate(hit_beat: float) -> void:
 			emit_signal("last_note")
 		queue_free()
 
+func build_note(note_event: NoteEvent, starting_bar: int, card_id, is_last_note) -> Note:
+	var new_note: Note = note_blueprint.instantiate()
+	new_note.note_event = note_event.duplicate()
+	var beat_time: int = int(new_note.note_event.time)
+	new_note.note_event.time = (4 * starting_bar) + beat_time
+	print(new_note.note_event.time)
+	new_note.card_id = card_id
+	new_note.is_last_note = is_last_note
+	return new_note
 
 func get_hit_judgement(hit_deviation: float) -> float:
 	hit_deviation = abs(hit_deviation)
