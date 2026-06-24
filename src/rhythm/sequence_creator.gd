@@ -30,8 +30,6 @@ func convert_to_sequence(timeline: Timeline):
 	var running_timeline_bar: int = 0
 	
 	for i in range(timeline.cards.size()):
-		
-		var actual_card_length_bars: int = 1
 		var card = timeline.cards[i]
 		card.timeline_id = i
 
@@ -40,19 +38,15 @@ func convert_to_sequence(timeline: Timeline):
 			if not note_event:
 				continue
 
-			var internal_note_bar = int(note_event.time / 4) + 1
-			if internal_note_bar > actual_card_length_bars:
-				actual_card_length_bars = internal_note_bar
-
 			var is_last_note = (i == timeline.cards.size() - 1) && (j == card.melody_notes.size() - 1)
 			if is_last_note:
 				create_note(note_event, running_timeline_bar, card.timeline_id, true)
 				print("made last note") 
-
 			else:
 				create_note(note_event, running_timeline_bar, card.timeline_id, false)
 
-		running_timeline_bar += actual_card_length_bars
+		running_timeline_bar += card.bar_amount
+
 
 
 func create_note(note_event: NoteEvent, starting_bar: int, card_id, is_last_note) -> Note:

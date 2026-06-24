@@ -48,12 +48,18 @@ time = 6.0
 action_to_hit = "key3"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
+[sub_resource type="Resource" id="Resource_f3toe"]
+script = ExtResource("1_mul5o")
+time = 7.0
+action_to_hit = "key4"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
 [resource]
 script = ExtResource("2_3eeen")
 card_name = "Huge block"
 key_amount = 4
 bar_amount = 2
 flavour_text = "A long heavy block"
-melody_notes = Array[ExtResource("1_mul5o")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf"), SubResource("Resource_3k58x"), SubResource("Resource_d5gd2"), SubResource("Resource_yxl5k"), null])
+melody_notes = Array[ExtResource("1_mul5o")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf"), SubResource("Resource_3k58x"), SubResource("Resource_d5gd2"), SubResource("Resource_yxl5k"), SubResource("Resource_f3toe")])
 effects = Array[Resource]([ExtResource("1_3eeen")])
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"
