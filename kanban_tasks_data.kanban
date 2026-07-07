@@ -1,0 +1,220 @@
+{
+	"categories": [
+		{
+			"uuid": "3e9c9bf1-acd6-47c0-ad2d-7d57febfdee7",
+			"title": "UI",
+			"color": "61e671"
+		},
+		{
+			"uuid": "d6c2157a-a43f-43ac-9a84-6cd18350fc4a",
+			"title": "Logic",
+			"color": "0098ea"
+		},
+		{
+			"uuid": "43bb11ce-27c2-47a5-8169-e7af838c305d",
+			"title": "Content",
+			"color": "ff4848"
+		},
+		{
+			"uuid": "437889c4-5e0b-437a-ae58-a0eb9ea051c3",
+			"title": "Ui - BLOCKED",
+			"color": "1b401f"
+		},
+		{
+			"uuid": "75edb97f-9d7a-4dfd-827b-adb33b7922e6",
+			"title": "Logic - BLOCKED",
+			"color": "002940"
+		},
+		{
+			"uuid": "f8f4b1b1-3cd1-4b43-89cd-81a437d2ea40",
+			"title": "Content - BLOCKED",
+			"color": "6b1e1e"
+		},
+		{
+			"uuid": "b80e8924-1a42-4b19-bbeb-c6d794624024",
+			"title": "Other",
+			"color": "c55eff"
+		},
+		{
+			"uuid": "2bc16edc-dadc-46b1-b688-834f1b2770ef",
+			"title": "Other - BLOCKED",
+			"color": "4b2461"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "2b5903b9-44bc-49b1-ad0a-efcb2be0f095",
+			"title": "To Do",
+			"tasks": [
+				"5c7967b4-305c-4dba-ad09-b0d0ebedc627",
+				"9fc2a828-b230-44b1-b2be-908650e7fd53",
+				"2def0520-2bfb-4dec-b519-f9254e93bb91",
+				"62a893cd-0a48-47d9-b0a4-edd40a0ecdff",
+				"6e3eaa99-02c2-49bb-90e2-1eded7dbb140"
+			]
+		},
+		{
+			"uuid": "d1334c4b-90c9-4d8d-8eed-578a352ea561",
+			"title": "Done",
+			"tasks": []
+		},
+		{
+			"uuid": "0145ca97-27db-4354-a5e3-00cab1aafde5",
+			"title": "In progress/Unfinished ",
+			"tasks": [
+				"a74c0631-05a0-4393-a79a-a26119d9e861"
+			]
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "a74c0631-05a0-4393-a79a-a26119d9e861",
+			"title": "Custom Resource Editor",
+			"description": "",
+			"category": "3e9c9bf1-acd6-47c0-ad2d-7d57febfdee7",
+			"steps": [
+				{
+					"details": "Resource creation",
+					"done": false
+				},
+				{
+					"details": "UI for filling in card details ",
+					"done": false
+				},
+				{
+					"details": "Proper editor to place notes",
+					"done": false
+				},
+				{
+					"details": "RichTextLabel shows ACTUAL key to be pressed instead of key1, key2 etc",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "5c7967b4-305c-4dba-ad09-b0d0ebedc627",
+			"title": "Timeline Creator",
+			"description": "",
+			"category": "3e9c9bf1-acd6-47c0-ad2d-7d57febfdee7",
+			"steps": []
+		},
+		{
+			"uuid": "9fc2a828-b230-44b1-b2be-908650e7fd53",
+			"title": "Basic Fight Fundamentals",
+			"description": "",
+			"category": "d6c2157a-a43f-43ac-9a84-6cd18350fc4a",
+			"steps": [
+				{
+					"details": "Player/Enemy health",
+					"done": false
+				},
+				{
+					"details": "Reading timeline score",
+					"done": false
+				},
+				{
+					"details": "Using timeline score to deal damage ",
+					"done": false
+				},
+				{
+					"details": "Conclusion of battle ",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "2def0520-2bfb-4dec-b519-f9254e93bb91",
+			"title": "Statemachine for Combat ",
+			"description": "",
+			"category": "d6c2157a-a43f-43ac-9a84-6cd18350fc4a",
+			"steps": [
+				{
+					"details": "State machine itself",
+					"done": false
+				},
+				{
+					"details": "Preparation state",
+					"done": false
+				},
+				{
+					"details": "Rhythm state",
+					"done": false
+				},
+				{
+					"details": "Execution state",
+					"done": false
+				},
+				{
+					"details": "Fight finished state?",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "62a893cd-0a48-47d9-b0a4-edd40a0ecdff",
+			"title": "Card milestones",
+			"description": "",
+			"category": "f8f4b1b1-3cd1-4b43-89cd-81a437d2ea40",
+			"steps": [
+				{
+					"details": "5",
+					"done": false
+				},
+				{
+					"details": "10",
+					"done": false
+				},
+				{
+					"details": "15",
+					"done": false
+				},
+				{
+					"details": "20",
+					"done": false
+				},
+				{
+					"details": "25",
+					"done": false
+				},
+				{
+					"details": "30",
+					"done": false
+				},
+				{
+					"details": "35",
+					"done": false
+				},
+				{
+					"details": "40",
+					"done": false
+				},
+				{
+					"details": "45",
+					"done": false
+				},
+				{
+					"details": "50\n",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "6e3eaa99-02c2-49bb-90e2-1eded7dbb140",
+			"title": "Rename NoteEvent \"time\" to time_beat, rename everywhere else",
+			"description": "",
+			"category": "b80e8924-1a42-4b19-bbeb-c6d794624024",
+			"steps": []
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"2b5903b9-44bc-49b1-ad0a-efcb2be0f095"
+			],
+			[
+				"d1334c4b-90c9-4d8d-8eed-578a352ea561",
+				"0145ca97-27db-4354-a5e3-00cab1aafde5"
+			]
+		]
+	}
+}
