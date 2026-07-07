@@ -145,6 +145,20 @@ offset_right = 358.0
 offset_bottom = 394.0
 text = "SAVE EXISTING CARD"
 
+[node name="CreateCardButton" type="Button" parent="SaveCardButton" unique_id=1312272488]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.48900002
+anchor_top = 1.0
+anchor_right = 0.48900002
+anchor_bottom = 1.0
+offset_left = -158.925
+offset_top = 6.0
+offset_right = 166.075
+offset_bottom = 54.0
+text = "CREATE NEW CARD"
+
 [connection signal="item_selected" from="ExistingCardDropdown" to="." method="_on_existing_card_dropdown_item_selected"]
 [connection signal="button_down" from="KeysDropdown/AddNoteEventButton" to="." method="_on_add_note_event_button_button_down"]
 [connection signal="button_down" from="SaveCardButton" to="." method="_on_save_card_button_button_down"]
+[connection signal="button_down" from="SaveCardButton/CreateCardButton" to="." method="_on_create_card_button_button_down"]
