@@ -1,6 +1,5 @@
 extends Node
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -9,6 +8,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
 
 func load_resources_in_folder(folder: String) -> Array[Resource]:
 	var resources: Array[Resource]
@@ -26,3 +26,10 @@ func load_resources_in_folder(folder: String) -> Array[Resource]:
 			file_name = directory.get_next()
 
 	return resources
+
+func format_string(input_text: String) -> String:
+	return input_text.to_lower().replace(" ", "_")
+
+func force_editor_file_refresh(absolute_path: String) -> void:
+	var global_path : String = ProjectSettings.globalize_path(absolute_path)
+	OS.execute("powershell", ["-Command", "(Get-Item '" + global_path + "').LastWriteTime = [DateTime]::Now"])
