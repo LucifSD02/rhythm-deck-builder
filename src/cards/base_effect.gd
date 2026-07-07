@@ -1,5 +1,5 @@
 class_name BaseEffect
 extends Resource
 
-func trigger(accuracy: float) -> Array:
+func trigger(_accuracy: float) -> Array:
 	return []

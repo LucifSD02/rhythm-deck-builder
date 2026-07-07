@@ -13,13 +13,13 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func get_playback_position() -> float:
 	return music_player.get_playback_position() + AudioServer.get_time_since_last_mix()
 
-func play():
+func play() -> void:
 	music_player.play()
 
 func bpm() -> float:

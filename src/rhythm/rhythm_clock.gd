@@ -16,14 +16,14 @@ func _process(delta: float) -> void:
 	if music_player.is_playing():
 		accumulated_time += delta
 
-		var physical_audio_time = music_player.get_playback_position()
-		var clock_error = abs(accumulated_time - physical_audio_time)
+		var physical_audio_time: float = music_player.get_playback_position()
+		var clock_error: float = abs(accumulated_time - physical_audio_time)
 		if clock_error > 0.02:
 			accumulated_time = physical_audio_time
 			print("Bar: " + str(get_current_bar()) + " | Beat: " + str(get_current_beat(false)) + ", clock adjusted")
 
 	if ten_hit_offsets.size() > 9:
-		var average_offset = calculate_average_offset(ten_hit_offsets)
+		var average_offset: float = calculate_average_offset(ten_hit_offsets)
 		print("Average offset distance: " + str(average_offset) + " beats, which is " + str(average_offset * seconds_per_beat) + " seconds")
 		ten_hit_offsets.remove_at(0)
 
@@ -54,7 +54,7 @@ func _input(space: InputEvent) -> void: #Calibration hits registration
 		ten_hit_offsets.append(target-actual)
 		print("Calibration hit, deviation is ", str(target-actual))
 
-func get_time_until_next_bar(current_bar) -> float:
+func get_time_until_next_bar(current_bar: int) -> float:
 	var current_beat: float = get_current_beat(false) + 1
 	var target_beat: float = current_bar * (music_player.time_signature())
 	var time_until_next_bar: float = target_beat - current_beat
@@ -67,7 +67,7 @@ func get_time_until_suitable_timeline_start() -> float:
 	var target_beat: int = target_bar * music_player.time_signature()
 	return (target_beat) - current_beat
 
-func find_next_multiple_of_x(value, x) -> int:
+func find_next_multiple_of_x(value: int, x: int) -> int:
 	var starting_value: int = value + 1
 	var next_multiple_of_x: int
 	while starting_value % x != 0:

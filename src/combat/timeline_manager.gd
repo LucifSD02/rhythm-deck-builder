@@ -17,51 +17,51 @@ func _ready() -> void:
 	sequence_creator.convert_to_sequence(timeline)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
-func construct_timeline(cards) -> Timeline:
+func construct_timeline(_cards : Array[CardBase]) -> Timeline:
 	timeline.beats_per_bar = music_player.time_signature()
 	timeline.length_in_bars = 8
-	for card in cards:
+	for card in _cards:
 		timeline.cards.append(card)
 	return timeline
 
 class NoteHit:
 	var card_id: int
 	var score: float
-	func _init(card_id: int, score:float) -> void:
-		self.card_id = card_id
-		self.score = score
+	func _init(_card_id: int, _score:float) -> void:
+		self.card_id = _card_id
+		self.score = _score
 
-func log_note_hits(id, judgement):
+func log_note_hits(id: int, judgement: float) -> void:
 	var new_hit: NoteHit = NoteHit.new(id, judgement)
 	note_hits.append(new_hit)
 	print(id, " " , judgement)
 
-func sequence_complete():
+func sequence_complete() -> void:
 	print("Sequence complete")
-	var timeline_accuracy = get_accuracy_for_timeline(note_hits)
+	var timeline_accuracy: float = get_accuracy_for_timeline(note_hits)
 	print("Accuracy of timeline: ", timeline_accuracy)
 	for card in range(timeline.cards.size()):
-		var card_accuracy = get_accuracy_for_card(note_hits, card)
+		var card_accuracy: float = get_accuracy_for_card(note_hits, card)
 		print("Accuracy of card ", card, ": ", card_accuracy)
 		pass
 
-func get_accuracy_for_timeline(note_hits: Array[NoteHit]) -> float:
+func get_accuracy_for_timeline(_note_hits: Array[NoteHit]) -> float:
 	var total_timeline_score: float = 0
-	var total_note_hits: int = note_hits.size()
+	var total_note_hits: int = _note_hits.size()
 	
 	for note_hit in note_hits:
 		total_timeline_score += note_hit.score
 	
 	return total_timeline_score / total_note_hits
 
-func get_accuracy_for_card(note_hits: Array[NoteHit], card_id: int) -> float:
+func get_accuracy_for_card(_note_hits: Array[NoteHit], card_id: int) -> float:
 	var total_card_score: float = 0
 	var total_note_hits: int = 0
 	
-	for note_hit in note_hits:
+	for note_hit in _note_hits:
 		if note_hit.card_id == card_id:
 			total_card_score += note_hit.score
 			total_note_hits += 1
