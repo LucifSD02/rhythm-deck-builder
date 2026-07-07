@@ -32,6 +32,7 @@ metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [resource]
 script = ExtResource("1_diquc")
+card_name = "Weak werewolf transformation"
 melody_notes = Array[ExtResource("1_rs3kt")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf")])
 effects = Array[Resource]([ExtResource("2_cbfhx")])
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"
