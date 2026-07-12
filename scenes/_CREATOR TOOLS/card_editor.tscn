@@ -1,0 +1,189 @@
+[gd_scene format=3 uid="uid://c8dq4gct4h7ub"]
+
+[ext_resource type="Script" uid="uid://dov850witl554" path="res://scripts/_CREATOR TOOLS/card_editor.gd" id="1_ybtjn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7fmhi"]
+font_size = 92
+
+[node name="CardEditor" type="Control" unique_id=1146456908]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ybtjn")
+
+[node name="Title" type="Label" parent="." unique_id=227649843]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.323
+anchor_top = -5.6580005
+anchor_right = -0.323
+anchor_bottom = -5.6580005
+offset_left = 637.16003
+offset_top = 6116.6406
+offset_right = 1156.16
+offset_bottom = 6262.6406
+text = "Card editor"
+label_settings = SubResource("LabelSettings_7fmhi")
+
+[node name="CardNameBox" type="LineEdit" parent="." unique_id=829721462]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 186.0
+offset_right = 357.0
+offset_bottom = 231.0
+placeholder_text = "Insert name"
+
+[node name="CardNameLabel" type="Label" parent="CardNameBox" unique_id=772334987]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -24.0
+offset_right = 140.0
+offset_bottom = -1.0
+text = "Card name"
+
+[node name="KeysSpinBox" type="SpinBox" parent="." unique_id=1647674533]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 274.0
+offset_right = 119.5
+offset_bottom = 305.0
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+rounded = true
+
+[node name="KeysLabel" type="Label" parent="KeysSpinBox" unique_id=1422769053]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -24.0
+offset_right = 39.0
+offset_bottom = -1.0
+text = "Keys"
+
+[node name="BarsSpinBox" type="SpinBox" parent="." unique_id=1684762397]
+layout_mode = 0
+offset_left = 137.0
+offset_top = 273.0
+offset_right = 223.5
+offset_bottom = 304.0
+
+[node name="BarsLabel" type="Label" parent="BarsSpinBox" unique_id=1141002745]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -24.0
+offset_right = 39.0
+offset_bottom = -1.0
+text = "Bars"
+
+[node name="ExistingCardDropdown" type="OptionButton" parent="." unique_id=1657473704]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.279
+anchor_top = 0.080000006
+anchor_right = 0.279
+anchor_bottom = 0.080000006
+offset_left = 16.319946
+offset_top = -22.40001
+offset_right = 212.48645
+offset_bottom = 22.59999
+flat = true
+item_count = 1
+popup/item_0/id = 0
+
+[node name="ExistingCardLabel" type="Label" parent="ExistingCardDropdown" unique_id=1078697531]
+layout_mode = 1
+anchors_preset = -1
+offset_top = -23.0
+offset_right = 139.0
+text = "Select existing card"
+
+[node name="NoteEventList" type="RichTextLabel" parent="." unique_id=1159613630]
+layout_mode = 0
+offset_left = 936.0
+offset_top = 64.0
+offset_right = 1420.2
+offset_bottom = 409.8
+bbcode_enabled = true
+
+[node name="KeysDropdown" type="OptionButton" parent="." unique_id=1944194890]
+layout_mode = 0
+offset_left = 433.0
+offset_top = 186.0
+offset_right = 517.18176
+offset_bottom = 256.0
+selected = 0
+item_count = 8
+popup/item_0/text = "key1"
+popup/item_0/id = 0
+popup/item_1/text = "key2"
+popup/item_1/id = 1
+popup/item_2/text = "key3"
+popup/item_2/id = 2
+popup/item_3/text = "key4"
+popup/item_3/id = 3
+popup/item_4/text = "key5"
+popup/item_4/id = 4
+popup/item_5/text = "key6"
+popup/item_5/id = 5
+popup/item_6/text = "key7"
+popup/item_6/id = 6
+popup/item_7/text = "key8"
+popup/item_7/id = 7
+
+[node name="AddNoteEventLabel" type="Label" parent="KeysDropdown" unique_id=174495436]
+layout_mode = 0
+offset_top = -24.0
+offset_right = 175.0
+offset_bottom = -1.0
+text = "Add new NoteEvent"
+
+[node name="BeatSpinBox" type="SpinBox" parent="KeysDropdown" unique_id=1270536798]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 87.0
+offset_right = 173.5
+offset_bottom = 31.0
+step = 0.25
+allow_greater = true
+custom_arrow_step = 0.25
+custom_arrow_round = true
+
+[node name="AddNoteEventButton" type="Button" parent="KeysDropdown" unique_id=805038947]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 87.0
+offset_top = 35.0
+offset_right = 156.0
+offset_bottom = 70.0
+text = "ADD"
+
+[node name="SaveCardButton" type="Button" parent="." unique_id=2029603869]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 344.0
+offset_right = 358.0
+offset_bottom = 394.0
+disabled = true
+text = "SAVE EXISTING CARD"
+
+[node name="CreateCardButton" type="Button" parent="SaveCardButton" unique_id=1312272488]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.48900002
+anchor_top = 1.0
+anchor_right = 0.48900002
+anchor_bottom = 1.0
+offset_left = -158.925
+offset_top = 6.0
+offset_right = 166.075
+offset_bottom = 54.0
+text = "CREATE NEW CARD"
+
+[connection signal="item_selected" from="ExistingCardDropdown" to="." method="_on_existing_card_dropdown_item_selected"]
+[connection signal="button_down" from="KeysDropdown/AddNoteEventButton" to="." method="_on_add_note_event_button_button_down"]
+[connection signal="button_down" from="SaveCardButton" to="." method="_on_save_card_button_button_down"]
+[connection signal="button_down" from="SaveCardButton/CreateCardButton" to="." method="_on_create_card_button_button_down"]

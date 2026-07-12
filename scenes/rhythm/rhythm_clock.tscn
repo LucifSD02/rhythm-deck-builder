@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://buco80x2gc4aq"]
+
+[ext_resource type="Script" uid="uid://dl5y65eq3uvjo" path="res://scripts/rhythm/rhythm_clock.gd" id="1_de50e"]
+[ext_resource type="Script" uid="uid://cemxwl8sjhnw" path="res://scripts/rhythm/music_player.gd" id="2_ispnq"]
+[ext_resource type="AudioStream" uid="uid://co7d2mfpr2e5j" path="res://assets/audio/Minim 2024-05-12 1245.wav" id="3_4auo2"]
+
+[node name="RhythmClock" type="Node" unique_id=815584851]
+script = ExtResource("1_de50e")
+
+[node name="MusicPlayer" type="Node" parent="." unique_id=1052818767]
+script = ExtResource("2_ispnq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicPlayer" unique_id=207749145]
+stream = ExtResource("3_4auo2")
+volume_db = -18.899
+autoplay = true

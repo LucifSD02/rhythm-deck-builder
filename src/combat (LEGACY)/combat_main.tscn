@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bffdn0hyembvw"]
+
+[ext_resource type="Script" uid="uid://ch3k0sg8ooknn" path="res://src/combat (LEGACY)/combat_main.gd" id="1_dgx5n"]
+[ext_resource type="Script" uid="uid://cp8ocfluoj3jv" path="res://scripts/rhythm/sequence_creator.gd" id="2_dgx5n"]
+[ext_resource type="Script" uid="uid://btsknds0tdc2d" path="res://scripts/states/combat_states/timeline_manager.gd" id="3_pw0fo"]
+[ext_resource type="Texture2D" uid="uid://boqtlk4jva3xa" path="res://addons/at-icons/node/checkmark.svg" id="4_1lcvl"]
+
+[node name="CombatState" type="Control" unique_id=273556332]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dgx5n")
+
+[node name="SequenceCreator" type="Node" parent="." unique_id=579970896]
+script = ExtResource("2_dgx5n")
+
+[node name="TimelineManager" type="Node" parent="." unique_id=1818432069]
+script = ExtResource("3_pw0fo")
+
+[node name="ConfirmTimelineButton" type="Button" parent="." unique_id=562527093]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 49.0
+offset_right = 287.0
+offset_bottom = 111.0
+text = "CONFIRM TIMELINE"
+icon = ExtResource("4_1lcvl")
+
+[connection signal="button_up" from="ConfirmTimelineButton" to="." method="_on_confirm_timeline_button_button_up"]
