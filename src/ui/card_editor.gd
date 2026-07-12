@@ -4,8 +4,9 @@ extends Control
 var card_resource_files: Array[Resource]
 @onready var loaded_cards: Array[CardBase] = load_all_cards()
 var card_index: int
-var keys: Array[String] = ["key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8"]
-
+var card_template: CardBase
+const keys: Array[String] = ["key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8"]
+const cards_path: String = "res://data/cards/"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,10 +25,9 @@ func _process(_delta: float) -> void:
 
 
 func _on_existing_card_dropdown_item_selected(index: int) -> void:
-	print(loaded_cards[index].card_name)
-	$CardNameBox.text = loaded_cards[index].card_name
-	$KeysSpinBox.value = loaded_cards[index].key_amount
-	$BarsSpinBox.value = loaded_cards[index].bar_amount
+	card_template = loaded_cards[index]
+	print(card_template.card_name)
+	apply_all_inputs()
 	card_index = index
 	populate_rich_text_label()
 	$SaveCardButton.disabled = false
@@ -77,9 +77,7 @@ func _on_add_note_event_button_button_down() -> void:
 
 func _on_save_card_button_button_down() -> void:
 	var card_to_save: CardBase = loaded_cards[card_index]
-	$CardNameBox.apply_ime()
-	$BarsSpinBox.apply()
-	$KeysSpinBox.apply()
+	apply_all_inputs()
 	card_to_save.card_name = $CardNameBox.text
 	card_to_save.bar_amount = $BarsSpinBox.value
 	card_to_save.key_amount = $KeysSpinBox.value
@@ -89,13 +87,17 @@ func _on_save_card_button_button_down() -> void:
 
 func _on_create_card_button_button_down() -> void:
 	var new_card_resource: CardBase = CardBase.new()
-	$CardNameBox.apply_ime()
-	$BarsSpinBox.apply()
-	$KeysSpinBox.apply()
+	apply_all_inputs()
 	new_card_resource.card_name = $CardNameBox.text
 	new_card_resource.bar_amount = $BarsSpinBox.value
 	new_card_resource.key_amount = $KeysSpinBox.value
+	if card_template.melody_notes.size() != 0:
+		new_card_resource.melody_notes = card_template.melody_notes
 	var file_name: String = Utilities.format_string($CardNameBox.text)
-	var cards_path: String = "res://data/cards/"
 	var error: Error = ResourceSaver.save(new_card_resource, cards_path + file_name + ".tres")
 	Utilities.force_editor_file_refresh(cards_path)
+
+func apply_all_inputs() -> void:
+	$CardNameBox.apply_ime()
+	$BarsSpinBox.apply()
+	$KeysSpinBox.apply()
