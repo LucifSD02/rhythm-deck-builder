@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cxvni8efntpdf"]
+
+[ext_resource type="Script" uid="uid://be7ey45ar4ups" path="res://scripts/states/combat_states/combat_state_machine.gd" id="1_n4wlu"]
+[ext_resource type="Script" uid="uid://btsknds0tdc2d" path="res://scripts/states/combat_states/timeline_manager.gd" id="2_1o3m1"]
+[ext_resource type="Script" uid="uid://cp8ocfluoj3jv" path="res://scripts/rhythm/sequence_creator.gd" id="3_tk63j"]
+[ext_resource type="Script" uid="uid://cj6icfdqvh5hf" path="res://scripts/states/combat_states/rhythm_state.gd" id="4_lctmc"]
+[ext_resource type="Script" uid="uid://snxg8iyixpjo" path="res://scripts/states/combat_states/preparation_state.gd" id="5_vqwp0"]
+[ext_resource type="Script" uid="uid://bq8mhpexgf61m" path="res://scenes/states/canvas_layer.gd" id="6_1o3m1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pp4gc"]
+font_size = 300
+
+[node name="CombatMain" type="Control" unique_id=1812578690]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CombatStateMachine" type="Control" parent="." unique_id=2042884181]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n4wlu")
+
+[node name="TimelineManager" type="Node" parent="CombatStateMachine" unique_id=287527349]
+script = ExtResource("2_1o3m1")
+
+[node name="SequenceCreator" type="Node" parent="CombatStateMachine" unique_id=390845522]
+script = ExtResource("3_tk63j")
+
+[node name="RhythmState" type="Node" parent="CombatStateMachine" unique_id=1977267432]
+unique_name_in_owner = true
+script = ExtResource("4_lctmc")
+
+[node name="PreparationState" type="Node" parent="CombatStateMachine" unique_id=2008417687]
+unique_name_in_owner = true
+script = ExtResource("5_vqwp0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1707874949]
+script = ExtResource("6_1o3m1")
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1610044576]
+offset_left = 277.56836
+offset_top = 170.12048
+offset_right = 317.56836
+offset_bottom = 193.12048
+text = "RAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHH"
+label_settings = SubResource("LabelSettings_pp4gc")
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=920261331]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 200
+text = "CONFIRM TIMELINE"
+
+[connection signal="button_up" from="CanvasLayer/Button" to="CombatStateMachine/RhythmState" method="_on_button_button_up"]
+[connection signal="button_up" from="CanvasLayer/Button" to="CombatStateMachine/PreparationState" method="_on_button_button_up"]
