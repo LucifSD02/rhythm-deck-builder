@@ -1,9 +1,7 @@
 [gd_resource type="Resource" script_class="Special" format=3 uid="uid://bsbhgp0yktwkt"]
 
-[ext_resource type="Script" uid="uid://coof5jtlcawur" path="res://src/cards/special.gd" id="1_rchrv"]
+[ext_resource type="Script" uid="uid://coof5jtlcawur" path="res://scripts/cards/special.gd" id="1_rchrv"]
 
 [resource]
 script = ExtResource("1_rchrv")
-curse_type = 0
-transform_type = 2
 metadata/_custom_type_script = "uid://coof5jtlcawur"

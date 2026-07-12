@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CardBase" format=3 uid="uid://dh23m5bthuu24"]
 
-[ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://src/rhythm/note_event.gd" id="1_fvrmd"]
-[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://src/cards/card_base.gd" id="2_8cuwd"]
+[ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://scripts/rhythm/note_event.gd" id="1_fvrmd"]
+[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_base.gd" id="2_8cuwd"]
 
 [sub_resource type="Resource" id="Resource_ov3tc"]
 script = ExtResource("1_fvrmd")
