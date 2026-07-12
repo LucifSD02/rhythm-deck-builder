@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="RhythmDeckBuilder"
-run/main_scene="uid://bffdn0hyembvw"
+run/main_scene="uid://cxvni8efntpdf"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -49,8 +49,9 @@ folder_colors={
 "res://addons/": "gray",
 "res://assets/": "red",
 "res://data/": "red",
-"res://src/": "blue",
-"res://src/ui/": "green"
+"res://scenes/": "green",
+"res://scripts/": "blue",
+"res://src/": "gray"
 }
 
 [input]

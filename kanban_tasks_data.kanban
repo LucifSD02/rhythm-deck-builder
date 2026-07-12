@@ -130,15 +130,15 @@
 			"steps": [
 				{
 					"details": "State machine itself",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Preparation state",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Rhythm state",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Execution state",
