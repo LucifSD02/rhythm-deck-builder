@@ -47,8 +47,8 @@
 			"title": "To Do",
 			"tasks": [
 				"5c7967b4-305c-4dba-ad09-b0d0ebedc627",
+				"a74c0631-05a0-4393-a79a-a26119d9e861",
 				"9fc2a828-b230-44b1-b2be-908650e7fd53",
-				"2def0520-2bfb-4dec-b519-f9254e93bb91",
 				"62a893cd-0a48-47d9-b0a4-edd40a0ecdff",
 				"6e3eaa99-02c2-49bb-90e2-1eded7dbb140"
 			]
@@ -62,7 +62,7 @@
 			"uuid": "0145ca97-27db-4354-a5e3-00cab1aafde5",
 			"title": "In progress/Unfinished ",
 			"tasks": [
-				"a74c0631-05a0-4393-a79a-a26119d9e861"
+				"2def0520-2bfb-4dec-b519-f9254e93bb91"
 			]
 		}
 	],
@@ -75,11 +75,11 @@
 			"steps": [
 				{
 					"details": "Resource creation",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "UI for filling in card details ",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Proper editor to place notes",
