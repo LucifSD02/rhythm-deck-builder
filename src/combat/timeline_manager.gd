@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/wrench.svg")
 class_name TimelineManager
 extends Node
 
@@ -7,23 +8,25 @@ extends Node
 @onready var shield_card_big: CardBase = ResourceLoader.load("res://data/cards/test_block_big.tres")
 @onready var music_player: MusicPlayer = RhythmClock.music_player
 @onready var beats_per_bar: int = music_player.time_signature()
-@onready var timeline: Timeline = Timeline.new()
+@onready var timeline: Timeline
 @onready var cards: Array[CardBase] = [shield_card, strike_card, shield_card, strike_card, shield_card_big, strike_card, shield_card]
 @onready var note_hits: Array[NoteHit] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	timeline = construct_timeline(cards)
-	sequence_creator.convert_to_sequence(timeline)
+	pass
+	#timeline = construct_timeline(cards)
+	#sequence_creator.convert_to_sequence(timeline)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
 
-func construct_timeline(_cards : Array[CardBase]) -> Timeline:
+func construct_timeline() -> Timeline:
+	clear_timeline()
 	timeline.beats_per_bar = music_player.time_signature()
 	timeline.length_in_bars = 8
-	for card in _cards:
+	for card in cards:
 		timeline.cards.append(card)
 	return timeline
 
@@ -67,3 +70,6 @@ func get_accuracy_for_card(_note_hits: Array[NoteHit], card_id: int) -> float:
 			total_note_hits += 1
 	
 	return total_card_score / total_note_hits
+
+func clear_timeline() -> void:
+	timeline = Timeline.new()
