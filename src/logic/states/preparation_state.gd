@@ -1,7 +1,4 @@
-class_name State
-extends Node
-
-signal transition_requested(next_state: String, context: GameContext)
+extends State
 
 func enter(context: GameContext) -> void:
 	pass

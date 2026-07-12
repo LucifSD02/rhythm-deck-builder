@@ -1,6 +1,7 @@
 class_name GameContext
 extends Resource
 
+@export var player_card_pool: Array[CardBase]
 @export var bpm: float
 @export var timeline: Timeline
 @export var judements_individual_cards: Array[float]
