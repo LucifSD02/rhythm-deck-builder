@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardBase" format=3 uid="uid://ne0g8cw8egjs"]
+[gd_resource type="Resource" script_class="CardBase" format=3 uid="uid://b8mjgxq4drvvy"]
 
 [ext_resource type="Resource" uid="uid://rf8fmlkqtopt" path="res://data/properties/attacks/small_slash.tres" id="1_lm6j3"]
 [ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://src/cards/card_base.gd" id="2_f3toe"]
