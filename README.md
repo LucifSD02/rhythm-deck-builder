@@ -1,6 +1,6 @@
 ## **Rhythm Roguelite Deckbuilder: Game Design Document (GDD)**
 
-
+* https://lucid.app/lucidchart/33f650e4-51dc-40d9-bae2-8721c5b8c000/view
 ### **1\. Core Gameplay Loop & Architecture**
 
 * **Genre**: 2D Rhythm Roguelite Deckbuilder (Single-player, PC-only, indie release).  
