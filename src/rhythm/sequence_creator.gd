@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/hammer.svg")
 class_name SequenceCreator
 extends Node
 
