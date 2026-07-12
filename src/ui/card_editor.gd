@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/pencil.svg")
 @tool
 extends Control
 
@@ -95,6 +96,8 @@ func _on_create_card_button_button_down() -> void:
 		new_card_resource.melody_notes = card_template.melody_notes
 	var file_name: String = Utilities.format_string($CardNameBox.text)
 	var error: Error = ResourceSaver.save(new_card_resource, cards_path + file_name + ".tres")
+	if error:
+		print("error code: ", error)
 	Utilities.force_editor_file_refresh(cards_path)
 
 func apply_all_inputs() -> void:

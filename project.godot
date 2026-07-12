@@ -43,6 +43,16 @@ project/assembly_name="RhythmDeckBuilder"
 
 enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg", "res://addons/at-icons/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/yard/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "gray",
+"res://assets/": "red",
+"res://data/": "red",
+"res://src/": "blue",
+"res://src/ui/": "green"
+}
+
 [input]
 
 rhythm_special={

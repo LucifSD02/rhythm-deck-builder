@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/note_double.svg")
 class_name MusicPlayer
 extends Node
 

@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/stopwatch.svg")
 extends Node
 
 @onready var music_player: MusicPlayer = $MusicPlayer

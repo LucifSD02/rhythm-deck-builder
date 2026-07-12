@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/note.svg")
 class_name Note
 extends Control
 
