@@ -5,10 +5,11 @@
 [ext_resource type="Script" uid="uid://cp8ocfluoj3jv" path="res://scripts/rhythm/sequence_creator.gd" id="3_tk63j"]
 [ext_resource type="Script" uid="uid://cj6icfdqvh5hf" path="res://scripts/states/combat_states/rhythm_state.gd" id="4_lctmc"]
 [ext_resource type="Script" uid="uid://snxg8iyixpjo" path="res://scripts/states/combat_states/preparation_state.gd" id="5_vqwp0"]
-[ext_resource type="Script" uid="uid://bq8mhpexgf61m" path="res://scenes/states/canvas_layer.gd" id="6_1o3m1"]
+[ext_resource type="Script" uid="uid://bq8mhpexgf61m" path="res://scripts/ui/canvas_layer.gd" id="6_1o3m1"]
+[ext_resource type="Script" uid="uid://c5l5ac7wib3hq" path="res://scenes/states/main_grid.gd" id="7_tk63j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pp4gc"]
-font_size = 300
+font_size = 44
 
 [node name="CombatMain" type="Control" unique_id=1812578690]
 layout_mode = 3
@@ -43,18 +44,27 @@ script = ExtResource("5_vqwp0")
 script = ExtResource("6_1o3m1")
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=1610044576]
-offset_left = 277.56836
-offset_top = 170.12048
-offset_right = 317.56836
-offset_bottom = 193.12048
-text = "RAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHH"
+offset_left = 22.0
+offset_top = 612.0
+offset_right = 1205.0
+offset_bottom = 695.0
+text = "Current State: None"
 label_settings = SubResource("LabelSettings_pp4gc")
 
 [node name="Button" type="Button" parent="CanvasLayer" unique_id=920261331]
 offset_right = 8.0
 offset_bottom = 8.0
-theme_override_font_sizes/font_size = 200
+theme_override_font_sizes/font_size = 30
 text = "CONFIRM TIMELINE"
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer" unique_id=229109756]
+custom_minimum_size = Vector2(5, 5)
+offset_left = 42.0
+offset_top = 148.0
+offset_right = 963.0
+offset_bottom = 571.0
+columns = 4
+script = ExtResource("7_tk63j")
 
 [connection signal="button_up" from="CanvasLayer/Button" to="CombatStateMachine/RhythmState" method="_on_button_button_up"]
 [connection signal="button_up" from="CanvasLayer/Button" to="CombatStateMachine/PreparationState" method="_on_button_button_up"]

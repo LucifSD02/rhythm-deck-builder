@@ -60,11 +60,13 @@ func create_note(note_event: NoteEvent, starting_bar: int, card_id: int, is_last
 	var timeline_manager: TimelineManager = get_node("../TimelineManager")
 	var note_instance: Note = Note.new()
 	var built_note: Note = note_instance.build_note(note_event, starting_bar, card_id, is_last_note)
+	built_note.set_label()
 	match_key_presses(built_note)
 	connect("check_missed_notes", built_note.check_too_late)
 	built_note.connect("note_hit", timeline_manager.log_note_hits)
 	built_note.connect("last_note", timeline_manager.sequence_complete)
 	add_child(built_note)
+	move_child(built_note, 0 - int(built_note.note_event.time))
 	return built_note
 
 

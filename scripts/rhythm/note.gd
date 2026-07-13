@@ -6,13 +6,14 @@ extends Control
 @export var is_last_note: bool
 @export var note_blueprint: PackedScene = preload("res://scenes/rhythm/note.tscn")
 @export var note_event: NoteEvent
+@onready var label: Label
+
 
 signal note_hit
 signal last_note
 
 func _ready() -> void:
 	pass
-	#print(note_event.time)
 
 func check_too_late() -> void:
 	var current_beat: float = RhythmClock.get_current_beat(false)
@@ -57,3 +58,8 @@ func get_hit_judgement(hit_deviation: float) -> float:
 		return 0.25
 	else:
 		return 0
+
+func set_label() -> void:
+	label = $ColorRect/Label
+	label.text = str(note_event.time) + ", " + str(note_event.action_to_hit) 
+	print("success", label.text)
