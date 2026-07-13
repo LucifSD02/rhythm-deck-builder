@@ -8,17 +8,35 @@ resource_local_to_scene = true
 script = ExtResource("2_abr4r")
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
+[sub_resource type="LabelSettings" id="LabelSettings_l2u5r"]
+
 [node name="Note" type="Control" unique_id=80892390]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -43.0
+offset_top = 6.0
+offset_right = -3.0
+offset_bottom = 46.0
 script = ExtResource("1_l2u5r")
 note_event = SubResource("Resource_ov3tc")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=825986367]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2043398915]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 6.0
-offset_right = 1078.0
-offset_bottom = 510.0
+offset_left = -104.0
+offset_top = -1.0
+offset_right = 26.0
+offset_bottom = 89.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=1768280186]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -129.0
+offset_top = 2.0
+offset_right = 3.0
+offset_bottom = 90.0
+text = "Test"
+label_settings = SubResource("LabelSettings_l2u5r")
