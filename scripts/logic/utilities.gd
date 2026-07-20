@@ -27,6 +27,23 @@ func load_resources_in_folder(folder: String) -> Array[Resource]:
 
 	return resources
 
+func load_images_in_folder(folder: String) -> Array[Image]:
+	var images: Array[Image]
+	var directory: DirAccess = DirAccess.open(folder)
+	var error: Error = directory.list_dir_begin()
+	if error:
+		print("Critical error with listing folder ", error, " path = ", folder)
+	var file_name: String = directory.get_next()
+
+	while file_name != "":
+		if not directory.current_is_dir():
+			var file_path: String = folder + "/" + file_name
+			var loaded_image: Image = load(file_path) as Image
+			images.append(loaded_image)
+			file_name = directory.get_next()
+
+	return images
+
 func format_string(input_text: String) -> String:
 	return input_text.to_lower().replace(" ", "_")
 
