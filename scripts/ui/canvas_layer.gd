@@ -1,9 +1,7 @@
 extends CanvasLayer
+
 @onready var label: Label = $Label
 @onready var grid_container: GridContainer = $Timeline
-
-
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

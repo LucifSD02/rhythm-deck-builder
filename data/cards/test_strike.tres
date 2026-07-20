@@ -3,6 +3,7 @@
 [ext_resource type="Resource" uid="uid://rf8fmlkqtopt" path="res://data/properties/attacks/small_slash.tres" id="1_lm6j3"]
 [ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_base.gd" id="2_f3toe"]
 [ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://scripts/rhythm/note_event.gd" id="3_pk6ir"]
+[ext_resource type="Texture2D" uid="uid://dxte1b3e25ags" path="res://assets/textures/cards/pngtree-big-sword-silhouette-png-image_7107742.png" id="4_lm6j3"]
 
 [sub_resource type="Resource" id="Resource_f3toe"]
 resource_local_to_scene = true
@@ -33,10 +34,11 @@ metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [resource]
 script = ExtResource("2_f3toe")
-card_name = "Strike"
+name = "Test Strike"
 key_amount = 4
 bar_amount = 1
 flavour_text = "Quickly strike the enemy for 10 physical damage"
 melody_notes = Array[ExtResource("3_pk6ir")]([SubResource("Resource_f3toe"), SubResource("Resource_lm6j3"), SubResource("Resource_cauxg"), SubResource("Resource_pk6ir")])
 effects = Array[Resource]([ExtResource("1_lm6j3")])
+texture = ExtResource("4_lm6j3")
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"

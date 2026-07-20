@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://scripts/rhythm/note_event.gd" id="1_fvrmd"]
 [ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_base.gd" id="2_8cuwd"]
+[ext_resource type="Texture2D" uid="uid://do6fgi7frdxex" path="res://assets/textures/cards/photo_2023-03-17_22-45-25.jpg" id="3_8cuwd"]
 
 [sub_resource type="Resource" id="Resource_ov3tc"]
 script = ExtResource("1_fvrmd")
@@ -41,6 +42,8 @@ metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [resource]
 script = ExtResource("2_8cuwd")
+name = "Small Block"
 key_amount = 4
 bar_amount = 1
 melody_notes = Array[ExtResource("1_fvrmd")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_0d2w5"), SubResource("Resource_fdavp"), SubResource("Resource_d5gd2"), SubResource("Resource_7h3vf")])
+texture = ExtResource("3_8cuwd")

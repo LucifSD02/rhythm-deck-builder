@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_base.gd" id="1_dw81v"]
 [ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://scripts/rhythm/note_event.gd" id="1_my6nm"]
 [ext_resource type="Script" uid="uid://cami0vqau5iw4" path="res://scripts/cards/shield.gd" id="1_ov3tc"]
+[ext_resource type="Texture2D" uid="uid://bquht66qi4y7t" path="res://assets/textures/cards/5723525.png" id="4_d3tok"]
 
 [sub_resource type="Resource" id="Resource_d3tok"]
 script = ExtResource("1_ov3tc")
@@ -36,9 +37,10 @@ metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [resource]
 script = ExtResource("1_dw81v")
-card_name = "Small block"
+name = "Test Block"
 key_amount = 4
 bar_amount = 1
 melody_notes = Array[ExtResource("1_my6nm")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_d5gd2"), SubResource("Resource_7h3vf")])
 effects = Array[Resource]([SubResource("Resource_d3tok")])
+texture = ExtResource("4_d3tok")
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"

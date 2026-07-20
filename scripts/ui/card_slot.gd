@@ -11,12 +11,11 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 		print("no item here")
 		return
 	var data: DragData = DragData.new(self, current_item)
-	print("item node: ", data.item_node, ", origin slot: ", data.origin_slot)
+	print("dragged item node: ", data.item_node, ", origin slot: ", data.origin_slot)
 	var preview: Card = current_item.duplicate()
 	preview.custom_maximum_size = current_item.size
 	preview.position = -size / 2
 	set_drag_preview(preview)
-	print(data)
 	return data
 
 
@@ -24,7 +23,7 @@ func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 	return data is DragData
 
 func _drop_data(_at_position: Vector2, data: Variant) -> void:
-	var drag_data: DragData = data as DragData
+	var drag_data: DragData = data
 	var origin_slot: PanelContainer = drag_data.origin_slot
 	var dragged_item: Card = drag_data.item_node
 	if origin_slot == self:
