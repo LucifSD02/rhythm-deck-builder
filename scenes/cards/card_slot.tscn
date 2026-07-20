@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dqfr2akfd8hq0"]
+
+[ext_resource type="Script" uid="uid://bc6ttwy4es5xt" path="res://scripts/ui/card_slot.gd" id="1_ow25f"]
+
+[node name="CardSlot" type="PanelContainer" unique_id=1109850941]
+custom_minimum_size = Vector2(125, 200)
+offset_right = 140.0
+offset_bottom = 170.0
+script = ExtResource("1_ow25f")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

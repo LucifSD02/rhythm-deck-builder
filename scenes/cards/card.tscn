@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://rg038ppgrcbd"]
+
+[ext_resource type="Script" uid="uid://dnd34id7e4stf" path="res://scripts/cards/card.gd" id="1_0qqw3"]
+[ext_resource type="Script" uid="uid://vnsj8ofj627i" path="res://scripts/ui/texture_rect.gd" id="2_jl6rh"]
+
+[node name="Card" type="Control" unique_id=1916416915]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0qqw3")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=981006716]
+custom_minimum_size = Vector2(125, 200)
+layout_mode = 0
+expand_mode = 5
+stretch_mode = 6
+script = ExtResource("2_jl6rh")
+
+[node name="Label" type="Label" parent="." unique_id=404929171]
+layout_mode = 0
+offset_top = 88.0
+offset_right = 140.0
+offset_bottom = 111.0

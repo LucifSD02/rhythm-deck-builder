@@ -1,27 +1,26 @@
 extends PanelContainer
 
-var current_item: Label = null
+var current_item: Card
 
 func _ready() -> void:
-	if get_child_count() > 0:
-		var first_child: Node = get_child(0)
-		if first_child is Label:
-			current_item = first_child
+	pass
 
 func _get_drag_data(_at_position: Vector2) -> Variant:
 	print("drag started")
 	if not current_item:
-		print ("this item was not selected")
-		return null
+		print(current_item)
+		return
 	var data: DragData = DragData.new(self, current_item)
 	print("item node: ", data.item_node, ", origin slot: ", data.origin_slot)
-	var preview: Label = Label.new()
-	preview.text = current_item.text
-	preview.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	preview.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	preview.custom_minimum_size = size
+	var preview: Card = Card.new()
+	preview.texture_rect = TextureRect.new()
+	preview.texture_rect.texture = current_item.texture_rect.texture
+	#preview.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	#preview.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	preview.custom_maximum_size = current_item.size
 	preview.position = -size / 2
 	set_drag_preview(preview)
+	print(data)
 	return data
 
 
@@ -31,12 +30,12 @@ func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	var drag_data: DragData = data as DragData
 	var origin_slot: PanelContainer = drag_data.origin_slot
-	var dragged_item: Label = drag_data.item_node
+	var dragged_item: Card = drag_data.item_node
 	if origin_slot == self:
 		return
 
 	if current_item:
-		var target_item: Label = current_item
+		var target_item: Card = current_item
 		remove_child(target_item)
 		origin_slot.add_child(target_item)
 		if origin_slot.has_method("set_current_item"):
@@ -50,5 +49,14 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	add_child(dragged_item)
 	current_item = dragged_item
 
-func set_current_item(new_item: Label) -> void:
+func set_current_item(new_item: Card) -> void:
 	current_item = new_item
+
+
+func _on_child_entered_tree(node: Node) -> void:
+	print(node)
+	if get_child_count() > 0:
+		print(get_child_count(), "Children")
+		var first_child: Node = get_child(0)
+		if first_child is Card:
+			current_item = first_child

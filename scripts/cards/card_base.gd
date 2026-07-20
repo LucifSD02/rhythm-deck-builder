@@ -9,3 +9,4 @@ var starting_bar : int
 @export var flavour_text : String
 @export var melody_notes : Array[NoteEvent]
 @export var effects : Array[Resource]
+@export var texture : Texture2D

@@ -59,7 +59,7 @@ offset_bottom = 8.0
 theme_override_font_sizes/font_size = 30
 text = "CONFIRM TIMELINE"
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer" unique_id=229109756]
+[node name="Timeline" type="GridContainer" parent="CanvasLayer" unique_id=229109756]
 custom_minimum_size = Vector2(5, 5)
 offset_left = 42.0
 offset_top = 148.0

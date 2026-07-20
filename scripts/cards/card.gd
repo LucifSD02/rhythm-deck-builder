@@ -1,20 +1,16 @@
-extends CanvasLayer
-@onready var label: Label = $Label
-@onready var grid_container: GridContainer = $Timeline
+class_name Card
+extends Control
 
-
+@onready var label: Label
+@onready var texture_rect: TextureRect = get_node("TextureRect")
+@export var stats: CardBase
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-
+	label = get_node("Label")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func combat_check() -> void:
-	print("combat finished")
-	label.text = "combat finished"
