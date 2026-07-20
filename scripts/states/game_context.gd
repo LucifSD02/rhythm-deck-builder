@@ -6,10 +6,11 @@ extends Resource
 @export var timeline: Timeline
 @export var judements_individual_cards: Array[float]
 @export var judgement_whole_timeline: float
+var run_inventory: RunInventory
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	run_inventory = RunInventory
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

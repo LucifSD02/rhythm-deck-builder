@@ -4,6 +4,6 @@ extends RefCounted
 var origin_slot: PanelContainer
 var item_node: Card
 
-func _init(p_origin_slot: PanelContainer, p_item_node: Card) -> void:
-	origin_slot = p_origin_slot
-	item_node = p_item_node
+func _init(_origin_slot: PanelContainer, _item_node: Card) -> void:
+	origin_slot = _origin_slot
+	item_node = _item_node

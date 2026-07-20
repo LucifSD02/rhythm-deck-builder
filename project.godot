@@ -23,6 +23,7 @@ driver/output_latency=8
 
 RhythmClock="*uid://buco80x2gc4aq"
 Utilities="*uid://bddwp7mctai3t"
+RunInventory="*uid://4l7hac3ckyo8"
 
 [debug]
 

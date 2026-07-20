@@ -3,7 +3,7 @@ extends Node
 
 @onready var music_player: MusicPlayer = $MusicPlayer
 @onready var song_bpm: float
-@export var manual_calibration_offset: float = -0.11
+@export var manual_calibration_offset: float = 0
 var ten_hit_offsets: Array[float]
 var accumulated_time: float = 0.0
 var seconds_per_beat: float = 0
@@ -64,14 +64,6 @@ func get_time_until_next_bar(current_bar: int) -> float:
 func get_time_until_suitable_timeline_start() -> float:
 	var current_beat: float = get_current_beat(true)
 	var current_bar: int = get_current_bar()
-	var target_bar: int = find_next_multiple_of_x(current_bar, 4)
+	var target_bar: int = Utilities.find_next_multiple_of_x(current_bar, 4)
 	var target_beat: int = target_bar * music_player.time_signature()
 	return (target_beat) - current_beat
-
-func find_next_multiple_of_x(value: int, x: int) -> int:
-	var starting_value: int = value + 1
-	var next_multiple_of_x: int
-	while starting_value % x != 0:
-		starting_value += 1
-	next_multiple_of_x = starting_value
-	return next_multiple_of_x
