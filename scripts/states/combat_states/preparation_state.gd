@@ -1,4 +1,4 @@
-@icon("res://addons/at-icons/control/brain.svg")
+@icon("res://addons/at-icons/node/brain.svg")
 extends State
 
 @onready var timeline_manager: TimelineManager = $"../TimelineManager"

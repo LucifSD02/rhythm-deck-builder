@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cxvni8efntpdf"]
 
+[ext_resource type="Script" uid="uid://dwafwxysa68uc" path="res://scripts/states/combat_states/combat_level.gd" id="1_lctmc"]
 [ext_resource type="Script" uid="uid://be7ey45ar4ups" path="res://scripts/states/combat_states/combat_state_machine.gd" id="1_n4wlu"]
 [ext_resource type="Script" uid="uid://btsknds0tdc2d" path="res://scripts/states/combat_states/timeline_manager.gd" id="2_1o3m1"]
 [ext_resource type="Script" uid="uid://cp8ocfluoj3jv" path="res://scripts/rhythm/sequence_creator.gd" id="3_tk63j"]
@@ -11,11 +12,12 @@
 [sub_resource type="LabelSettings" id="LabelSettings_pp4gc"]
 font_size = 44
 
-[node name="CombatMain" type="Control" unique_id=1812578690]
+[node name="CombatLevel" type="Control" unique_id=1812578690]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_lctmc")
 
 [node name="CombatStateMachine" type="Control" parent="." unique_id=2042884181]
 layout_mode = 1

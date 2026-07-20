@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/swatches.svg")
 class_name CombatStateMachine
 extends Node
 

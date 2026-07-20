@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/note_double.svg")
 extends State
 
 @onready var sequence_creator: SequenceCreator = $"../SequenceCreator"

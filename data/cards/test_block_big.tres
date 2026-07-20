@@ -56,7 +56,6 @@ metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [resource]
 script = ExtResource("2_3eeen")
-card_name = "Huge block"
 key_amount = 8
 bar_amount = 2
 flavour_text = "A long heavy block"

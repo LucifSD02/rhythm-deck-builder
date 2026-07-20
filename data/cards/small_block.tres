@@ -41,7 +41,6 @@ metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [resource]
 script = ExtResource("2_8cuwd")
-card_name = "Small block"
 key_amount = 4
 bar_amount = 1
 melody_notes = Array[ExtResource("1_fvrmd")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_0d2w5"), SubResource("Resource_fdavp"), SubResource("Resource_d5gd2"), SubResource("Resource_7h3vf")])
