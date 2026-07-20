@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://snxg8iyixpjo" path="res://scripts/states/combat_states/preparation_state.gd" id="5_vqwp0"]
 [ext_resource type="Script" uid="uid://bq8mhpexgf61m" path="res://scripts/ui/canvas_layer.gd" id="6_1o3m1"]
 [ext_resource type="Script" uid="uid://c5l5ac7wib3hq" path="res://scenes/states/main_grid.gd" id="7_tk63j"]
+[ext_resource type="Script" uid="uid://m4xm6tgyp8k1" path="res://scripts/cards/inventory.gd" id="9_vqwp0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pp4gc"]
 font_size = 44
@@ -63,10 +64,19 @@ text = "CONFIRM TIMELINE"
 custom_minimum_size = Vector2(5, 5)
 offset_left = 42.0
 offset_top = 148.0
-offset_right = 963.0
+offset_right = 648.0
 offset_bottom = 571.0
 columns = 4
 script = ExtResource("7_tk63j")
+
+[node name="Inventory" type="GridContainer" parent="CanvasLayer" unique_id=1080258137]
+custom_minimum_size = Vector2(5, 5)
+offset_left = 735.0
+offset_top = 45.0
+offset_right = 1227.0
+offset_bottom = 511.0
+columns = 4
+script = ExtResource("9_vqwp0")
 
 [connection signal="button_up" from="CanvasLayer/Button" to="CombatStateMachine/RhythmState" method="_on_button_button_up"]
 [connection signal="button_up" from="CanvasLayer/Button" to="CombatStateMachine/PreparationState" method="_on_button_button_up"]
