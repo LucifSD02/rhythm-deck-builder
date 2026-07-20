@@ -3,9 +3,10 @@ extends Node
 
 @onready var music_player: MusicPlayer = $MusicPlayer
 @onready var song_bpm: float
-@export var manual_calibration_offset: float = -0.17
+@onready var output_latency_seconds: float = AudioServer.get_output_latency() / 1000 
+@export var manual_calibration_offset_seconds: float = -0.18
 var ten_hit_offsets: Array[float]
-var accumulated_time: float = 0.0
+var accumulated_time_seconds: float = 0.0
 var seconds_per_beat: float = 0
 
 
@@ -13,14 +14,15 @@ func _ready() -> void:
 	song_bpm = music_player.bpm()
 	seconds_per_beat = 60.0 / song_bpm
 
+
 func _process(delta: float) -> void:
 	if music_player.is_playing():
-		accumulated_time += delta
+		accumulated_time_seconds += delta
 
 		var physical_audio_time: float = music_player.get_playback_position()
-		var clock_error: float = abs(accumulated_time - physical_audio_time)
+		var clock_error: float = abs(accumulated_time_seconds - physical_audio_time)
 		if clock_error > 0.02:
-			accumulated_time = physical_audio_time
+			accumulated_time_seconds = physical_audio_time
 			print("Bar: " + str(get_current_bar()) + " | Beat: " + str(get_current_beat(false)) + ", clock adjusted")
 
 	if ten_hit_offsets.size() > 9:
@@ -29,9 +31,10 @@ func _process(delta: float) -> void:
 		ten_hit_offsets.remove_at(0)
 
 func get_current_beat(with_latency: bool) -> float:
-	var true_time: float = accumulated_time - music_player.first_beat()
+	var true_time: float = accumulated_time_seconds - music_player.first_beat()
+	
 	if with_latency:
-		var audible_time: float = true_time - AudioServer.get_output_latency() + manual_calibration_offset
+		var audible_time: float = true_time - output_latency_seconds + manual_calibration_offset_seconds
 		return audible_time / seconds_per_beat
 	return true_time / seconds_per_beat
 
@@ -52,8 +55,8 @@ func _input(space: InputEvent) -> void: #Calibration hits registration
 		print (get_time_until_suitable_timeline_start())
 		var target: float = round(get_current_beat(false))
 		var actual: float = get_current_beat(true)
-		ten_hit_offsets.append(target-actual)
-		print("Calibration hit, deviation is ", str(target-actual))
+		ten_hit_offsets.append(actual-target)
+		print("Calibration hit, deviation is ", str(actual-target))
 
 func get_time_until_next_bar(current_bar: int) -> float:
 	var current_beat: float = get_current_beat(false) + 1

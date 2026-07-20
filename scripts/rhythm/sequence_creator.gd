@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 
 func convert_to_sequence(timeline: Timeline) -> void:
 	var running_timeline_bar: int = 0
-	running_timeline_bar += (RhythmClock.get_current_bar() / 2) * 2
+	running_timeline_bar += (RhythmClock.get_current_bar() / 4) * 4
 
 	for i in range(timeline.cards.size()):
 		var card: CardBase = timeline.cards[i]

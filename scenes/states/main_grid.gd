@@ -18,6 +18,8 @@ func get_timeline() -> Array[CardBase]:
 	var cards: Array[CardBase]
 	for child_index in range(self.get_child_count()):
 		var child_card_slot: PanelContainer = get_child(child_index)
+		if child_card_slot.get_child_count() == 0:
+			continue
 		var child_card: Card = child_card_slot.get_child(0)
 		if child_card == null:
 			continue
