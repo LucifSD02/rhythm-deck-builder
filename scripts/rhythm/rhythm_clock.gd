@@ -3,7 +3,7 @@ extends Node
 
 @onready var music_player: MusicPlayer = $MusicPlayer
 @onready var song_bpm: float
-@export var manual_calibration_offset: float = 0
+@export var manual_calibration_offset: float = -0.17
 var ten_hit_offsets: Array[float]
 var accumulated_time: float = 0.0
 var seconds_per_beat: float = 0

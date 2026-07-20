@@ -30,20 +30,21 @@ func _process(delta: float) -> void:
 
 
 func convert_to_sequence(timeline: Timeline) -> void:
-	var running_timeline_bar: int = (RhythmClock.get_current_bar() / 8) * 8
+	var running_timeline_bar: int = 0
+	running_timeline_bar += (RhythmClock.get_current_bar() / 2) * 2
 
 	for i in range(timeline.cards.size()):
 		var card: CardBase = timeline.cards[i]
 		card.timeline_id = i
 
 		if card.bar_amount <= 0:
-			push_error("Resource issue, Card ", card.name, "has a bar_amount of 0 or lower, defaulting to 1")
+			push_error("Resource isse, Card ", card.card_name, "has a bar_amount of 0 or lower, defaulting to 1")
 			card.bar_amount = 1
 
 		for j in range(card.melody_notes.size()):
 			var note_event: NoteEvent = card.melody_notes[j]
 			if not note_event:
-				push_error("Resource issue, Card ", card.name, " has a missing NoteEvent at index ", j)
+				push_error("Resource issue, Card ", card.card_name, " has a missing NoteEvent at index ", j)
 				continue
 
 			var is_last_note: bool = (i == timeline.cards.size() - 1) && (j == card.melody_notes.size() - 1)
@@ -54,6 +55,7 @@ func convert_to_sequence(timeline: Timeline) -> void:
 				create_note(note_event, running_timeline_bar, card.timeline_id, false)
 
 		running_timeline_bar += card.bar_amount
+
 
 
 func create_note(note_event: NoteEvent, starting_bar: int, card_id: int, is_last_note: bool) -> Note:
