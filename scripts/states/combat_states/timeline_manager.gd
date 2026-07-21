@@ -13,9 +13,11 @@ extends Node
 func _ready() -> void:
 	pass
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
 
 func construct_timeline() -> Timeline:
 	clear_timeline()
@@ -24,23 +26,29 @@ func construct_timeline() -> Timeline:
 	timeline.length_in_bars = 8
 	return timeline
 
+
 func set_all_relative_note_event_timings(timeline: Timeline) -> void:
 	for i in range(timeline.cards.size()):
 		var notes: Array[NoteEvent] = timeline.cards[i].melody_notes
 		for note in notes:
 			note.time += i * timeline.beats_per_bar
 
+
 class NoteHit:
 	var card_id: int
 	var score: float
-	func _init(_card_id: int, _score:float) -> void:
+
+
+	func _init(_card_id: int, _score: float) -> void:
 		self.card_id = _card_id
 		self.score = _score
+
 
 func log_note_hits(id: int, judgement: float) -> void:
 	var new_hit: NoteHit = NoteHit.new(id, judgement)
 	note_hits.append(new_hit)
-	print(id, " " , judgement)
+	print(id, " ", judgement)
+
 
 func sequence_complete() -> void:
 	print("Sequence complete")
@@ -51,25 +59,28 @@ func sequence_complete() -> void:
 		print("Accuracy of card ", card, ": ", card_accuracy)
 		pass
 
+
 func get_accuracy_for_timeline(_note_hits: Array[NoteHit]) -> float:
 	var total_timeline_score: float = 0
 	var total_note_hits: int = _note_hits.size()
-	
+
 	for note_hit in note_hits:
 		total_timeline_score += note_hit.score
-	
+
 	return total_timeline_score / total_note_hits
+
 
 func get_accuracy_for_card(_note_hits: Array[NoteHit], card_id: int) -> float:
 	var total_card_score: float = 0
 	var total_note_hits: int = 0
-	
+
 	for note_hit in _note_hits:
 		if note_hit.card_id == card_id:
 			total_card_score += note_hit.score
 			total_note_hits += 1
-	
+
 	return total_card_score / total_note_hits
+
 
 func clear_timeline() -> void:
 	timeline = Timeline.new()

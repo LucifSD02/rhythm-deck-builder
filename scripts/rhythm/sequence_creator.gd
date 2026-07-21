@@ -31,6 +31,7 @@ func _process(delta: float) -> void:
 		emit_signal("check_missed_notes")
 		miss_check = 0
 
+
 func convert_to_sequence(_timeline: Timeline) -> void:
 	timeline = _timeline
 	cards = timeline.cards
@@ -50,6 +51,7 @@ func remove_silence_card(index: int) -> void:
 	if card.name == "Silence":
 		cards.remove_at(index)
 
+
 func create_all_notes(card: CardBase, is_last_card: bool) -> void:
 	var last_note: bool = false
 	var notes: Array[NoteEvent] = card.melody_notes
@@ -59,9 +61,11 @@ func create_all_notes(card: CardBase, is_last_card: bool) -> void:
 		adjust_note_events(notes[j])
 		var note: Note = create_note(notes[j], card.timeline_id, last_note)
 
+
 func adjust_note_events(_note: NoteEvent) -> void:
-		var note_event: NoteEvent = _note
-		note_event.time += timeline.starting_bar * timeline.beats_per_bar
+	var note_event: NoteEvent = _note
+	note_event.time += timeline.starting_bar * timeline.beats_per_bar
+
 
 func create_note(note_event: NoteEvent, card_id: int, is_last_note: bool) -> Note:
 	var note_instance: Note = Note.new()
@@ -73,15 +77,18 @@ func create_note(note_event: NoteEvent, card_id: int, is_last_note: bool) -> Not
 	move_child(built_note, 0 - int(built_note.note_event.time))
 	return built_note
 
+
 func connect_signals(note: Note) -> void:
 	match_key_presses(note)
 	connect("check_missed_notes", note.check_too_late)
 	note.connect("note_hit", timeline_manager.log_note_hits)
 	note.connect("last_note", timeline_manager.sequence_complete)
 
+
 func match_key_presses(new_note: Note) -> void:
 	var signal_name: String = new_note.note_event.action_to_hit + "_pressed"
 	self.connect(signal_name, new_note.activate)
+
 
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey:
@@ -121,7 +128,7 @@ func convert_to_sequence_old(timeline: Timeline) -> void:
 				create_note_old(note_event, running_timeline_bar, card.timeline_id, false)
 
 		running_timeline_bar += card.bar_amount
-		
+
 
 func create_note_old(note_event: NoteEvent, starting_bar: int, card_id: int, is_last_note: bool) -> Note:
 	var note_instance: Note = Note.new()

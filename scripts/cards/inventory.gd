@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func generate_grid(slot_count: int) -> void:
 	for i: int in range(slot_count):
-		var slot_instance: PanelContainer = SLOT_SCENE.instantiate() as PanelContainer
+		var slot_instance: CardSlot = SLOT_SCENE.instantiate() as CardSlot
 		add_child(slot_instance)
 		if i >= cards.size():
 			return
