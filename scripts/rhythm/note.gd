@@ -2,7 +2,7 @@
 class_name Note
 extends Control
 
-@export var card_id: int
+@onready var card_id: int
 @export var is_last_note: bool
 @export var note_blueprint: PackedScene = preload("res://scenes/rhythm/note.tscn")
 @export var note_event: NoteEvent
@@ -36,7 +36,17 @@ func activate(hit_beat: float) -> void:
 			emit_signal("last_note")
 		queue_free()
 
-func build_note(event: NoteEvent, starting_bar: int, _card_id: int, _is_last_note: bool) -> Note:
+func build_note(event: NoteEvent, _card_id: int, _is_last_note: bool) -> Note:
+	var new_note: Note = note_blueprint.instantiate()
+	new_note.note_event = event.duplicate()
+	new_note.card_id = _card_id
+	new_note.is_last_note = _is_last_note
+	print(new_note.note_event.time)
+	if _is_last_note == true:
+		print("made last note")
+	return new_note
+	
+func build_note_old(event: NoteEvent, starting_bar: int, _card_id: int, _is_last_note: bool) -> Note:
 	var new_note: Note = note_blueprint.instantiate()
 	new_note.note_event = event.duplicate()
 	var beat_time: int = int(new_note.note_event.time)

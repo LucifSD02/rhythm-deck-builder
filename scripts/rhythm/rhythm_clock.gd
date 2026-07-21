@@ -70,3 +70,10 @@ func get_time_until_suitable_timeline_start() -> float:
 	var target_bar: int = Utilities.find_next_multiple_of_x(current_bar, 4)
 	var target_beat: int = target_bar * music_player.time_signature()
 	return (target_beat) - current_beat
+
+func get_next_suitable_starting_bar(multiple_of: int) -> int:
+	var current_bar: int = get_current_bar()
+	var target_bar: int = Utilities.find_next_multiple_of_x(current_bar, multiple_of)
+	if target_bar - current_bar >= 2:
+		return target_bar
+	return target_bar + multiple_of

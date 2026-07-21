@@ -3,13 +3,15 @@ extends State
 
 @onready var sequence_creator: SequenceCreator = $"../SequenceCreator"
 @onready var label: Label = $"../../CanvasLayer/Label"
-
+@onready var context: GameContext
 
 var combat_state_machine: CombatStateMachine
 
-func enter(context: GameContext, _combat_state_machine: CombatStateMachine) -> void:
+func enter(_context: GameContext, _combat_state_machine: CombatStateMachine) -> void:
 	combat_state_machine = _combat_state_machine
-	sequence_creator.convert_to_sequence(context.timeline)
+	context = _context
+	var timeline: Timeline = context.timeline
+	sequence_creator.convert_to_sequence(timeline)
 	label.text = "Current State: Rhythm state"
 
 func update(_delta: float) -> void:

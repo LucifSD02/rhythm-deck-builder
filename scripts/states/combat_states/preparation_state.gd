@@ -21,8 +21,8 @@ func update(_delta: float) -> void:
 
 func exit() -> void:
 	timeline = timeline_manager.construct_timeline()
-	timeline.length_in_bars = 8
-	timeline.cards = timeline_ui.get_timeline()
+	timeline.cards = timeline_ui.get_cards_from_timeline_ui()
+	timeline_manager.set_all_relative_note_event_timings(timeline)
 	context.timeline = timeline
 	combat_state_machine.change_state(combat_state_machine.rhythm_state, self)
 	button.disabled = true

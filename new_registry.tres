@@ -18,9 +18,11 @@ _uids_to_string_ids = Dictionary[StringName, StringName]({
 &"uid://b8mjgxq4drvvy": &"test_strike",
 &"uid://buumhuy5ks5uo": &"test_block",
 &"uid://d1afw8kxtpl12": &"test_block_big",
+&"uid://d1ykg17wc4e62": &"silence",
 &"uid://dh23m5bthuu24": &"small_block"
 })
 _string_ids_to_uids = Dictionary[StringName, StringName]({
+&"silence": &"uid://d1ykg17wc4e62",
 &"small_block": &"uid://dh23m5bthuu24",
 &"test_block": &"uid://buumhuy5ks5uo",
 &"test_block_big": &"uid://d1afw8kxtpl12",

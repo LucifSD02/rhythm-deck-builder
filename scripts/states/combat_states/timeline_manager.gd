@@ -7,7 +7,6 @@ extends Node
 @onready var beats_per_bar: int = music_player.time_signature()
 @onready var timeline: Timeline
 @onready var note_hits: Array[NoteHit] = []
-var cards: Array[CardBase]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,11 +19,16 @@ func _process(_delta: float) -> void:
 
 func construct_timeline() -> Timeline:
 	clear_timeline()
+	timeline.starting_bar = RhythmClock.get_next_suitable_starting_bar(4)
 	timeline.beats_per_bar = music_player.time_signature()
 	timeline.length_in_bars = 8
-	for card: CardBase in cards:
-		timeline.cards.append(card)
 	return timeline
+
+func set_all_relative_note_event_timings(timeline: Timeline) -> void:
+	for i in range(timeline.cards.size()):
+		var notes: Array[NoteEvent] = timeline.cards[i].melody_notes
+		for note in notes:
+			note.time += i * timeline.beats_per_bar
 
 class NoteHit:
 	var card_id: int

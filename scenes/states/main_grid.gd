@@ -3,6 +3,7 @@ extends GridContainer
 
 const SLOT_SCENE: PackedScene = preload("res://scenes/cards/card_slot.tscn")
 const CARD_SCENE: PackedScene = preload("res://scenes/cards/card.tscn")
+const SILENCE = preload("uid://d1ykg17wc4e62")
 
 func _ready() -> void:
 	columns = 4
@@ -14,14 +15,15 @@ func generate_grid(slot_count: int) -> void:
 		slot_instance.accessibility_name = "slot " + str(i)
 		add_child(slot_instance)
 
-func get_timeline() -> Array[CardBase]:
+func get_cards_from_timeline_ui() -> Array[CardBase]:
 	var cards: Array[CardBase]
 	for child_index in range(self.get_child_count()):
 		var child_card_slot: PanelContainer = get_child(child_index)
 		if child_card_slot.get_child_count() == 0:
+			cards.append(SILENCE)
 			continue
 		var child_card: Card = child_card_slot.get_child(0)
 		if child_card == null:
 			continue
-		cards.append(child_card.stats)
+		cards.append(child_card.stats.duplicate(true))
 	return cards
