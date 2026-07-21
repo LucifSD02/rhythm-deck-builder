@@ -5,3 +5,10 @@ var cards: Array[CardBase]
 var length_in_bars: int
 var beats_per_bar: int
 var starting_bar: int
+var cells: Array[TimelineCell]
+var already_converted: bool = false
+
+class TimelineCell:
+	var card_reference: CardBase
+	var column: int
+	var row: int 

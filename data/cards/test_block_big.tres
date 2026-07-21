@@ -64,4 +64,5 @@ flavour_text = "A long heavy block"
 melody_notes = Array[ExtResource("1_mul5o")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf"), SubResource("Resource_3k58x"), SubResource("Resource_d5gd2"), SubResource("Resource_yxl5k"), SubResource("Resource_3eeen")])
 effects = Array[Resource]([ExtResource("1_3eeen")])
 texture = ExtResource("4_3k58x")
+grid_shape = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 1)])
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"

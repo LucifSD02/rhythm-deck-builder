@@ -5,7 +5,7 @@ extends State
 @onready var label: Label = $"../../CanvasLayer/Label"
 @onready var button: Button = $"../../CanvasLayer/Button"
 @onready var inventory: GridContainer = $"../../CanvasLayer/Inventory"
-@onready var timeline_ui: TimelineUi = %Timeline
+@onready var timeline_ui: TimelineUi = %TimelineUI
 
 var combat_state_machine: CombatStateMachine
 var context: GameContext

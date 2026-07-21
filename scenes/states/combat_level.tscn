@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cj6icfdqvh5hf" path="res://scripts/states/combat_states/rhythm_state.gd" id="4_lctmc"]
 [ext_resource type="Script" uid="uid://snxg8iyixpjo" path="res://scripts/states/combat_states/preparation_state.gd" id="5_vqwp0"]
 [ext_resource type="Script" uid="uid://bq8mhpexgf61m" path="res://scripts/ui/canvas_layer.gd" id="6_1o3m1"]
-[ext_resource type="Script" uid="uid://c5l5ac7wib3hq" path="res://scenes/states/main_grid.gd" id="7_tk63j"]
+[ext_resource type="Script" uid="uid://c5l5ac7wib3hq" path="res://scripts/ui/timeline_ui.gd" id="7_tk63j"]
 [ext_resource type="Script" uid="uid://m4xm6tgyp8k1" path="res://scripts/cards/inventory.gd" id="9_vqwp0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pp4gc"]
@@ -60,7 +60,7 @@ offset_bottom = 8.0
 theme_override_font_sizes/font_size = 30
 text = "CONFIRM TIMELINE"
 
-[node name="Timeline" type="GridContainer" parent="CanvasLayer" unique_id=229109756]
+[node name="TimelineUI" type="GridContainer" parent="CanvasLayer" unique_id=229109756]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
 offset_left = 42.0
