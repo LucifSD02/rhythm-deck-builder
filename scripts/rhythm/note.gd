@@ -43,7 +43,7 @@ func build_note(event: NoteEvent, _card_id: int, _is_last_note: bool) -> Note:
 	new_note.is_last_note = _is_last_note
 	print(new_note.note_event.time)
 	if _is_last_note == true:
-		print("made last note")
+		print("made last note: ", new_note.note_event.time)
 	return new_note
 	
 func build_note_old(event: NoteEvent, starting_bar: int, _card_id: int, _is_last_note: bool) -> Note:

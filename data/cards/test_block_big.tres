@@ -33,25 +33,49 @@ metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [sub_resource type="Resource" id="Resource_3k58x"]
 script = ExtResource("1_mul5o")
-time = 4.0
+time = 16.0
 action_to_hit = "key1"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [sub_resource type="Resource" id="Resource_d5gd2"]
 script = ExtResource("1_mul5o")
-time = 5.0
+time = 17.0
 action_to_hit = "key2"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [sub_resource type="Resource" id="Resource_yxl5k"]
 script = ExtResource("1_mul5o")
-time = 6.0
+time = 18.0
 action_to_hit = "key3"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
 [sub_resource type="Resource" id="Resource_3eeen"]
 script = ExtResource("1_mul5o")
-time = 7.0
+time = 19.0
+action_to_hit = "key4"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[sub_resource type="Resource" id="Resource_vox7f"]
+script = ExtResource("1_mul5o")
+time = 20.0
+action_to_hit = "key1"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[sub_resource type="Resource" id="Resource_0ei0q"]
+script = ExtResource("1_mul5o")
+time = 21.0
+action_to_hit = "key2"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[sub_resource type="Resource" id="Resource_nnxgg"]
+script = ExtResource("1_mul5o")
+time = 22.0
+action_to_hit = "key3"
+metadata/_custom_type_script = "uid://dy3nen47p6kce"
+
+[sub_resource type="Resource" id="Resource_fe7fl"]
+script = ExtResource("1_mul5o")
+time = 23.0
 action_to_hit = "key4"
 metadata/_custom_type_script = "uid://dy3nen47p6kce"
 
@@ -61,7 +85,7 @@ name = "BIG Block"
 key_amount = 8
 bar_amount = 2
 flavour_text = "A long heavy block"
-melody_notes = Array[ExtResource("1_mul5o")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf"), SubResource("Resource_3k58x"), SubResource("Resource_d5gd2"), SubResource("Resource_yxl5k"), SubResource("Resource_3eeen")])
+melody_notes = Array[ExtResource("1_mul5o")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf"), SubResource("Resource_3k58x"), SubResource("Resource_d5gd2"), SubResource("Resource_yxl5k"), SubResource("Resource_3eeen"), SubResource("Resource_vox7f"), SubResource("Resource_0ei0q"), SubResource("Resource_nnxgg"), SubResource("Resource_fe7fl")])
 effects = Array[Resource]([ExtResource("1_3eeen")])
 texture = ExtResource("4_3k58x")
 grid_shape = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 1)])

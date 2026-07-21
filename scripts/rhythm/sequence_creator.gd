@@ -7,6 +7,7 @@ extends Node
 @onready var cards: Array[CardBase]
 @onready var timeline_manager: TimelineManager = get_node("../TimelineManager")
 var miss_check: float = 0
+var all_notes: Array[NoteEvent] = []
 
 signal check_missed_notes
 signal key1_pressed
@@ -33,33 +34,35 @@ func _process(delta: float) -> void:
 
 
 func convert_to_sequence(_timeline: Timeline) -> void:
+	all_notes = []
 	timeline = _timeline
 	cards = timeline.cards
-	var is_last_card: bool = false
 	for i in range(cards.size() - 1, -1, -1):
 		remove_silence_card(i)
 	for i in range(cards.size()):
-		if i == cards.size() - 1:
-			is_last_card = true
 		var card: CardBase = cards[i]
 		card.timeline_id = i
-		create_all_notes(card, is_last_card)
-
+		gather_all_notes(card)
+	create_all_notes() 
 
 func remove_silence_card(index: int) -> void:
 	var card: CardBase = cards[index]
 	if card.name == "Silence":
 		cards.remove_at(index)
 
-
-func create_all_notes(card: CardBase, is_last_card: bool) -> void:
-	var last_note: bool = false
+func gather_all_notes(card: CardBase) -> void:
 	var notes: Array[NoteEvent] = card.melody_notes
 	for j in range(notes.size()):
-		if (j == notes.size() - 1) && (is_last_card == true):
-			last_note = true
 		adjust_note_events(notes[j])
-		var note: Note = create_note(notes[j], card.timeline_id, last_note)
+		notes[j].related_card_id = card.timeline_id
+		all_notes.append(notes[j])
+
+func create_all_notes() -> void:
+	all_notes.sort_custom(func(a: NoteEvent, b: NoteEvent) -> bool: return a.time < b.time)
+	for i in range(all_notes.size()):
+		var note_event: NoteEvent = all_notes[i]
+		var is_last: bool = (i == all_notes.size() - 1)
+		var note: Note = create_note(note_event, note_event.related_card_id, is_last)
 
 
 func adjust_note_events(_note: NoteEvent) -> void:
@@ -128,7 +131,6 @@ func convert_to_sequence_old(timeline: Timeline) -> void:
 				create_note_old(note_event, running_timeline_bar, card.timeline_id, false)
 
 		running_timeline_bar += card.bar_amount
-
 
 func create_note_old(note_event: NoteEvent, starting_bar: int, card_id: int, is_last_note: bool) -> Note:
 	var note_instance: Note = Note.new()

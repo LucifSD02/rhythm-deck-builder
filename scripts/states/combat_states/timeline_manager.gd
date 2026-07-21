@@ -27,7 +27,7 @@ func construct_timeline() -> Timeline:
 	return timeline
 
 
-func set_all_relative_note_event_timings(timeline: Timeline) -> void:
+func set_all_relative_note_event_timings() -> void:
 	for i in range(timeline.cards.size()):
 		var notes: Array[NoteEvent] = timeline.cards[i].melody_notes
 		for note in notes:

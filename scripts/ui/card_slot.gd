@@ -11,7 +11,8 @@ var occupancy: OccupancyBlock = null
 
 
 func _ready() -> void:
-	timeline_ui = get_parent() as TimelineUi
+	if get_parent() is TimelineUi:
+		timeline_ui = get_parent() as TimelineUi
 
 
 func is_occupied() -> OccupancyBlock:
@@ -28,16 +29,111 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 	var drag_data: DragData = DragData.new(self, current_item)
 	print("dragged item: ", self.current_item.stats.name)
 
-	var preview: Card = current_item.duplicate()
-	var current_coord: Vector2i = Vector2i(column, row)
-
-	# Safe type verification handles the removal loop without fragile string-name matching
-	if get_parent() is TimelineUi:
-		timeline_ui.clear_card_from_grid(current_coord, current_item)
-
+	var preview: Card = current_item.duplicate() as Card
 	set_preview(preview, _at_position)
-	clear_visual_state()
+	
+	# FIXED: Do NOT scrub variables or grids here! Just hide the item visually
+	# so it stays safely anchored if the player aborts the drag move.
+	current_item.visible = false
+	
 	return drag_data
+
+
+func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
+	if not data is DragData:
+		return false
+		
+	var drag_data: DragData = data as DragData
+	if not drag_data or not drag_data.item_node:
+		return false
+		
+	# If we are testing a landing inside the Timeline, run shape calculations
+	if get_parent() is TimelineUi and timeline_ui:
+		var target_coord: Vector2i = Vector2i(column, row)
+		
+		# EXCEPTION RULE: If the card is testing its own starting position during an abort/re-drop,
+		# ignore the collision so it is allowed to land back in its original home slot box!
+		if drag_data.origin_slot == self:
+			return true
+			
+		return timeline_ui.check_occupancy(drag_data.item_node.stats, target_coord, drag_data.origin_slot)
+		
+	return current_item == null
+
+
+func _drop_data(_at_position: Vector2, data: Variant) -> void:
+	var drag_data: DragData = data as DragData
+	if not drag_data:
+		return
+		
+	var dragged_item: Card = drag_data.item_node as Card
+	var origin_slot: CardSlot = drag_data.origin_slot as CardSlot
+	if not dragged_item or not origin_slot or origin_slot == self:
+		return
+
+	var target_coord: Vector2i = Vector2i(column, row)
+	var origin_coord: Vector2i = Vector2i(origin_slot.column, origin_slot.row)
+	
+	# THE FIX: Dynamically identify the true container types at runtime!
+	var target_parent: Node = get_parent()
+	var origin_parent: Node = origin_slot.get_parent()
+	
+	var is_target_timeline: bool = target_parent is TimelineUi
+	var is_origin_timeline: bool = origin_parent is TimelineUi
+
+	# 1. Placement Validation Gate
+	if is_target_timeline:
+		var target_timeline: TimelineUi = target_parent as TimelineUi
+		if not target_timeline.check_occupancy(dragged_item.stats, target_coord, origin_slot):
+			print("Drop rejected: Matrix collision or boundary break.")
+			return
+
+	# 2. Clear Grid Matrix Ledgers Safely Using the True Parents
+	if is_origin_timeline:
+		var origin_timeline: TimelineUi = origin_parent as TimelineUi
+		origin_timeline.clear_card_from_grid(origin_coord, dragged_item)
+		
+	if is_target_timeline and current_item:
+		var target_timeline: TimelineUi = target_parent as TimelineUi
+		target_timeline.clear_card_from_grid(target_coord, current_item)
+
+	# 3. Cache the Target Card reference before isolating node trees
+	var target_item: Card = current_item
+
+	# 4. Physical Tree Detachment (Prevents frame-overlap glitches inside _on_child_entered_tree)
+	origin_slot.remove_child(dragged_item)
+	if target_item:
+		remove_child(target_item)
+
+	# 5. Execute Node Swapping Handshake
+	if target_item:
+		origin_slot.add_child(target_item)
+		origin_slot.current_item = target_item
+		if is_origin_timeline:
+			var origin_timeline: TimelineUi = origin_parent as TimelineUi
+			origin_timeline.place_card_in_grid(origin_coord, target_item)
+	else:
+		# If the slot was completely empty, safely scrub the old visual states
+		origin_slot.clear_visual_state()
+		origin_slot.current_item = null
+
+	# 6. Finalize Landing Assignment
+	add_child(dragged_item)
+	current_item = dragged_item
+	
+	if is_target_timeline:
+		var target_timeline: TimelineUi = target_parent as TimelineUi
+		target_timeline.place_card_in_grid(target_coord, dragged_item)
+
+
+func clear_visual_state() -> void:
+	occupancy = null
+	# REMOVED: current_item = null (Let _drop_data manage this reference swap!)
+	self.mouse_filter = Control.MOUSE_FILTER_STOP
+
+	self.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+	self.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	self.mouse_filter = Control.MOUSE_FILTER_STOP
 
 
 func set_preview(preview: Card, _position: Vector2) -> void:
@@ -47,78 +143,22 @@ func set_preview(preview: Card, _position: Vector2) -> void:
 	set_drag_preview(control)
 
 
-func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
-	return data is DragData
-
-
-func _drop_data(_at_position: Vector2, data: Variant) -> void:
-	var drag_data: DragData = data
-	var dragged_item: Card = drag_data.item_node
-	var target_coord: Vector2i = Vector2i(column, row)
-	var origin_slot: CardSlot = drag_data.origin_slot
-
-	if origin_slot == self:
-		return
-	
-	if check_occupancy(dragged_item.stats, target_coord) == false:
-		return
-	# If the drop location has an item
-	if current_item != null:
-		# Replace the ORIGIN'S Slot with the target item first
-		replace_origin_with_target_card(current_item, origin_slot)
-	else: #If the drop location is empty
-		# Just set the origin slot to NULL
-		origin_slot.current_item = null
-
-	# Set the card in the target slot to the card in DragData
-	set_target_slot_card(dragged_item)
-
-	if get_parent() is TimelineUi:
-		timeline_ui.place_card_in_grid(target_coord, dragged_item)
-
-
 func set_target_slot_card(dragged_item: Card) -> void:
 	dragged_item.reparent(self)
 	current_item = dragged_item
 
 
 func replace_origin_with_target_card(target: Card, origin: CardSlot) -> void:
+	target.visible = true
 	target.reparent(origin)
 	origin.current_item = target
-
-
-func clear_visual_state() -> void:
-	occupancy = null
-	self.mouse_filter = Control.MOUSE_FILTER_STOP
-
-
-func check_occupancy(card_stats: CardBase, target_coords: Vector2i) -> bool:
-	var shape: Array[Vector2i] = card_stats.grid_shape
-
-
-
-	for coords in shape:
-		var check_pos: Vector2i = target_coords + coords
-
-		# 4x2 matrix guard rail check (4 columns, 2 rows)
-		if check_pos.x < 0 or check_pos.x >= 4 or check_pos.y < 0 or check_pos.y >= 2:
-			return false
-		var slot: CardSlot = timeline_ui.get_slot_at_coord(check_pos)
-		# Reject placement if the target block cell is occupied by any card element
-
-		if slot == null or slot.occupancy != null:
-			print("collision detected at: ", check_pos)
-			return false
-
-	print("no collisions")
-	return true
 
 
 func display_card_visual(card: Card) -> void:
 	card.reparent(self)
 	current_item = card
+	card.visible = true
 
-	# Restore standard alpha mouse tracking parameters on the target anchor panel box
 	self.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
 	self.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	self.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -126,16 +166,20 @@ func display_card_visual(card: Card) -> void:
 
 
 func convert_to_ghost_slot() -> void:
-	# Hide panel borders completely so multi-slot graphics span downward uninterrupted
 	self.self_modulate = Color(0.353, 0.353, 0.353, 0.596)
 	self.modulate = Color(0.2, 0.5, 1.0, 0.3)
-
-	# Pass clicks straight through the ghost space to hit the card floating over it
 	self.mouse_filter = Control.MOUSE_FILTER_PASS
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_DRAG_END:
+		if current_item and not current_item.visible:
+			current_item.visible = true
+			if get_parent() is TimelineUi and timeline_ui:
+				var current_coord: Vector2i = Vector2i(column, row)
+				timeline_ui.place_card_in_grid(current_coord, current_item)
 
 
 func _on_child_entered_tree(node: Node) -> void:
-	print("added child ", node)
 	if get_child_count() > 0:
 		var first_child: Node = get_child(0)
 		if first_child is Card:

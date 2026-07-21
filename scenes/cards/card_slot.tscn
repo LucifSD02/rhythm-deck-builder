@@ -6,6 +6,7 @@
 custom_minimum_size = Vector2(125, 200)
 offset_right = 140.0
 offset_bottom = 170.0
+mouse_filter = 1
 script = ExtResource("1_ow25f")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
