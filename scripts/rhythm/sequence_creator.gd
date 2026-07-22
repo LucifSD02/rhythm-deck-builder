@@ -59,10 +59,14 @@ func gather_all_notes(card: CardBase) -> void:
 
 func create_all_notes() -> void:
 	all_notes.sort_custom(func(a: NoteEvent, b: NoteEvent) -> bool: return a.time < b.time)
+	var next_suitable_starting_beat: float = RhythmClock.get_next_suitable_starting_bar(4) * 4
+	var current_beat: float = RhythmClock.get_current_beat(false)
+	var notes_offset: float = next_suitable_starting_beat - current_beat
 	for i in range(all_notes.size()):
 		var note_event: NoteEvent = all_notes[i]
 		var is_last: bool = (i == all_notes.size() - 1)
 		var note: Note = create_note(note_event, note_event.related_card_id, is_last)
+		note.position.y = ((note_event.time + notes_offset) * -75) + (1250 * RhythmClock.get_next_suitable_starting_bar(4) / 4)
 
 
 func adjust_note_events(_note: NoteEvent) -> void:

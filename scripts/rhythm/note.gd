@@ -15,6 +15,9 @@ signal last_note
 func _ready() -> void:
 	pass
 
+func _process(delta: float) -> void:
+	position.y += 0.54
+
 func check_too_late() -> void:
 	var current_beat: float = RhythmClock.get_current_beat(false)
 	if note_event.time - current_beat < -0.5:
