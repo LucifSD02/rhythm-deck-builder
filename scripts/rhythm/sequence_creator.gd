@@ -85,6 +85,8 @@ func create_note(note_event: NoteEvent, card_id: int, is_last_note: bool) -> Not
 	built_note.card_id = card_id
 	built_note.is_last_note_of_card = note_event.is_last_note_of_card
 	built_note.set_label()
+	if is_last_note == true:
+		print("made last note: ", built_note.note_event.time)
 	connect_signals(built_note)
 	add_child(built_note)
 	return built_note

@@ -25,7 +25,6 @@ func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -
 func update(_delta: float) -> void:
 	pass
 
-# Inside preparation_state.gd -> exit()
 func exit() -> void:
 	timeline = timeline_manager.construct_timeline()
 	timeline.coordinate_to_slot_map = timeline_ui.coordinate_to_slot_map
