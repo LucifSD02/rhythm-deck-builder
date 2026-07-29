@@ -81,7 +81,6 @@ func create_note(note_event: NoteEvent, card_id: int, is_last_note: bool) -> Not
 	built_note.set_label()
 	connect_signals(built_note)
 	add_child(built_note)
-	move_child(built_note, 0 - int(built_note.note_event.time))
 	return built_note
 
 

@@ -4,7 +4,7 @@ extends Node
 @onready var music_player: MusicPlayer = $MusicPlayer
 @onready var song_bpm: float
 @onready var output_latency_seconds: float = AudioServer.get_output_latency() / 1000 
-@export var manual_calibration_offset_seconds: float = -0.18
+@export var manual_calibration_offset_seconds: float = -0.067
 var ten_hit_offsets: Array[float]
 var accumulated_time_seconds: float = 0.0
 var seconds_per_beat: float = 0

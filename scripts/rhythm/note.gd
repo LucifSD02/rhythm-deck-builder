@@ -28,7 +28,7 @@ func check_too_late() -> void:
 		queue_free() 
 
 func activate(hit_beat: float) -> void:
-	var hit_deviation: float = hit_beat - note_event.time - RhythmClock.manual_calibration_offset_seconds
+	var hit_deviation: float = hit_beat - note_event.time
 	if abs(hit_deviation) > 0.40:
 		return
 	else:
