@@ -47,7 +47,6 @@ func build_note(event: NoteEvent, _card_id: int, _is_last_note: bool) -> Note:
 	new_note.note_event = event.duplicate()
 	new_note.card_id = _card_id
 	new_note.is_last_note = _is_last_note
-	print(new_note.note_event.time)
 	if _is_last_note == true:
 		print("made last note: ", new_note.note_event.time)
 	return new_note
@@ -68,4 +67,4 @@ func get_hit_judgement(hit_deviation: float) -> float:
 func set_label() -> void:
 	label = $ColorRect/Label
 	label.text = str(note_event.time) + ", " + str(note_event.action_to_hit) 
-	print("success", label.text)
+	print("Spawned note: ", label.text)

@@ -127,8 +127,10 @@ func get_slot_at_coord(coordinate: Vector2i) -> CardSlot:
 	return null
 
 
+# --- SAFE LEGACY CARD RETRIEVER ---
 func get_cards_from_timeline_ui() -> Array[CardBase]:
 	var cards_array: Array[CardBase] = []
+	
 	for child_index: int in range(get_child_count()):
 		var child_card_slot: CardSlot = get_child(child_index) as CardSlot
 		if not child_card_slot:
@@ -143,7 +145,39 @@ func get_cards_from_timeline_ui() -> Array[CardBase]:
 			continue
 
 		cards_array.append(child_card.stats.duplicate(true) as CardBase)
+		
 	return cards_array
+
+
+# --- SAFE GRID EXTRACTION MATRIX FOR COMBAT ---
+func get_cells_for_timeline() -> Array[Timeline.TimelineCell]:
+	var compiled_cells: Array[Timeline.TimelineCell] = []
+	
+	# Explicitly loop across our strict 4x2 matrix dimensions
+	for r: int in range(2): 
+		for c: int in range(4):
+			var coord: Vector2i = Vector2i(c, r)
+			
+			var cell_data: Timeline.TimelineCell = Timeline.TimelineCell.new()
+			cell_data.column = c
+			cell_data.row = r
+			
+			# THE CRITICAL WORKAROUND: Use .get() to prevent hard crashes on unmapped keys!
+			var block: OccupancyBlock = grid_occupancy.get(coord, null)
+			
+			if block != null and block.card_reference != null:
+				cell_data.card_reference = block.card_reference.stats.duplicate(true) as CardBase
+				cell_data.is_anchor = block.is_anchor
+				cell_data.local_offset = block.local_offset
+			else:
+				# Fallback safety net if the slot is completely clear
+				cell_data.card_reference = SILENCE.duplicate(true) as CardBase
+				cell_data.is_anchor = true
+				cell_data.local_offset = Vector2i(0, 0)
+				
+			compiled_cells.append(cell_data)
+			
+	return compiled_cells
 
 
 func get_slot_by_id(id: int) -> CardSlot:

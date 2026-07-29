@@ -11,3 +11,4 @@ var starting_bar: int
 @export var effects: Array[Resource]
 @export var texture: Texture2D
 @export var grid_shape: Array[Vector2i] = [ Vector2i(0, 0) ]
+var already_converted: bool = false

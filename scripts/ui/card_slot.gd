@@ -3,7 +3,6 @@ extends PanelContainer
 
 var timeline_ui: TimelineUi
 var current_item: Card
-var contains_other_card: bool = false
 var timeline_id: int
 var column: int
 var row: int
@@ -180,7 +179,5 @@ func _notification(what: int) -> void:
 
 
 func _on_child_entered_tree(node: Node) -> void:
-	if get_child_count() > 0:
-		var first_child: Node = get_child(0)
-		if first_child is Card:
-			current_item = first_child
+	if current_item == null and node is Card:
+		current_item = node
