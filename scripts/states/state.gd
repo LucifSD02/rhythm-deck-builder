@@ -1,9 +1,9 @@
 class_name State
 extends Node
 
-signal transition_requested(next_state: String, context: GameContext)
+signal transition_requested(next_state: String, context: CombatContext)
 
-func enter(context: GameContext, combat_state_machine: CombatStateMachine) -> void:
+func enter(context: CombatContext, combat_state_machine: CombatStateMachine) -> void:
 	pass
 
 func update(_delta: float) -> void:

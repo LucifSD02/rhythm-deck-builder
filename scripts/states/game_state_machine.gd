@@ -2,7 +2,7 @@ class_name GameStateMachine
 extends Node
 
 var current_state: State
-var game_context: GameContext
+var game_context: 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

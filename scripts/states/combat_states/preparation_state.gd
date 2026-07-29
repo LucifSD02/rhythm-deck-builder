@@ -4,17 +4,23 @@ extends State
 @onready var timeline_manager: TimelineManager = $"../TimelineManager"
 @onready var label: Label = $"../../CanvasLayer/Label"
 @onready var button: Button = $"../../CanvasLayer/Button"
-@onready var inventory: GridContainer = $"../../CanvasLayer/Inventory"
+@onready var inventory: InventoryUi = $"../../CanvasLayer/Inventory"
 @onready var timeline_ui: TimelineUi = %TimelineUI
+@onready var button_2: Button = $"../../CanvasLayer/Button2"
 
 var combat_state_machine: CombatStateMachine
-var context: GameContext
+var context: CombatContext
 var timeline: Timeline
 
-func enter(_context: GameContext, _combat_state_machine: CombatStateMachine) -> void:
+func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -> void:
+	inventory.reload_inventory()
 	combat_state_machine = _combat_state_machine
 	context = _context
 	label.text = "Current State: Preparation state"
+	button.disabled = false
+	timeline_ui.visible = true
+	inventory.visible = true
+	button_2.disabled = true
 
 func update(_delta: float) -> void:
 	pass

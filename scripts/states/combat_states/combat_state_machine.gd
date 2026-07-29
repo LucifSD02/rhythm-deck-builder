@@ -5,9 +5,10 @@ extends Node
 @onready var canvas_layer: CanvasLayer = $"../CanvasLayer"
 @onready var rhythm_state: State = %RhythmState
 @onready var preparation_state: State = %PreparationState
+@onready var execution_state: State = %ExecutionState
 
 var current_state: State
-var game_context: GameContext = GameContext.new()
+var game_context:  = CombatContext.new()
 signal combat_finished
 
 func _ready() -> void:

@@ -3,7 +3,7 @@ class_name CombatLevel
 extends Control
 
 
-func enter(context: GameContext) -> void:
+func enter(context: CombatContext) -> void:
 	pass
 
 func update(_delta: float) -> void:

@@ -7,7 +7,8 @@
 [ext_resource type="Script" uid="uid://cj6icfdqvh5hf" path="res://scripts/states/combat_states/rhythm_state.gd" id="4_lctmc"]
 [ext_resource type="Script" uid="uid://snxg8iyixpjo" path="res://scripts/states/combat_states/preparation_state.gd" id="5_vqwp0"]
 [ext_resource type="Script" uid="uid://bq8mhpexgf61m" path="res://scripts/ui/canvas_layer.gd" id="6_1o3m1"]
-[ext_resource type="Script" uid="uid://c5l5ac7wib3hq" path="res://scripts/ui/timeline_ui.gd" id="7_tk63j"]
+[ext_resource type="Script" uid="uid://lyas7khdifpb" path="res://scripts/ui/timeline_ui.gd" id="7_tk63j"]
+[ext_resource type="Script" uid="uid://c0tgmvx8nelq4" path="res://scripts/states/combat_states/execution_state.gd" id="7_wro8u"]
 [ext_resource type="Script" uid="uid://m4xm6tgyp8k1" path="res://scripts/cards/inventory.gd" id="9_vqwp0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pp4gc"]
@@ -43,6 +44,11 @@ script = ExtResource("4_lctmc")
 unique_name_in_owner = true
 script = ExtResource("5_vqwp0")
 
+[node name="ExecutionState" type="Node" parent="CombatStateMachine" unique_id=557879548]
+unique_name_in_owner = true
+script = ExtResource("7_wro8u")
+metadata/_custom_type_script = "uid://c2txh5lqtr422"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1707874949]
 script = ExtResource("6_1o3m1")
 
@@ -69,6 +75,7 @@ offset_right = 648.0
 offset_bottom = 571.0
 columns = 4
 script = ExtResource("7_tk63j")
+rows = null
 
 [node name="Inventory" type="GridContainer" parent="CanvasLayer" unique_id=1080258137]
 custom_minimum_size = Vector2(5, 5)
@@ -79,5 +86,20 @@ offset_bottom = 511.0
 columns = 4
 script = ExtResource("9_vqwp0")
 
+[node name="Button2" type="Button" parent="CanvasLayer" unique_id=2060518360]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -196.0
+offset_top = -53.0
+offset_right = -7.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "BACK TO PREPARATION"
+
 [connection signal="button_up" from="CanvasLayer/Button" to="CombatStateMachine/RhythmState" method="_on_button_button_up"]
 [connection signal="button_up" from="CanvasLayer/Button" to="CombatStateMachine/PreparationState" method="_on_button_button_up"]
+[connection signal="button_up" from="CanvasLayer/Button2" to="CombatStateMachine/ExecutionState" method="_on_button_2_button_up"]

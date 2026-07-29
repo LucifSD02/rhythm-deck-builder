@@ -153,3 +153,11 @@ func get_slot_by_id(id: int) -> CardSlot:
 		if card_slot and card_slot.timeline_id == id:
 			return card_slot
 	return null
+
+
+func clear_timeline() -> void:
+	for i in range(self.get_child_count() - 1):
+		var slot: CardSlot = self.get_child(i)
+		remove_child(slot)
+		slot.free()
+		generate_grid(8)

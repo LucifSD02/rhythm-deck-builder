@@ -4,13 +4,14 @@ extends Control
 
 @onready var card_id: int
 @export var is_last_note: bool
+@export var is_last_note_of_card: bool
 @export var note_blueprint: PackedScene = preload("res://scenes/rhythm/note.tscn")
 @export var note_event: NoteEvent
 @onready var label: Label
 
-
 signal note_hit
 signal last_note
+signal last_note_of_card
 
 func _ready() -> void:
 	pass
@@ -34,6 +35,8 @@ func activate(hit_beat: float) -> void:
 	else:
 		print("Hit: ", name, " | Target Beat: ", note_event.time, " | Deviation: ", hit_deviation)
 		emit_signal("note_hit", card_id, get_hit_judgement(hit_deviation))
+		if is_last_note_of_card:
+			emit_signal("last_note_of_card", card_id)
 		if is_last_note:
 			print("last note!")
 			emit_signal("last_note")
@@ -47,16 +50,6 @@ func build_note(event: NoteEvent, _card_id: int, _is_last_note: bool) -> Note:
 	print(new_note.note_event.time)
 	if _is_last_note == true:
 		print("made last note: ", new_note.note_event.time)
-	return new_note
-	
-func build_note_old(event: NoteEvent, starting_bar: int, _card_id: int, _is_last_note: bool) -> Note:
-	var new_note: Note = note_blueprint.instantiate()
-	new_note.note_event = event.duplicate()
-	var beat_time: int = int(new_note.note_event.time)
-	new_note.note_event.time = (4 * starting_bar) + beat_time
-	print(new_note.note_event.time)
-	new_note.card_id = _card_id
-	new_note.is_last_note = _is_last_note
 	return new_note
 
 func get_hit_judgement(hit_deviation: float) -> float:
