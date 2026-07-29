@@ -28,6 +28,7 @@ func instantiate_slot(i: int) -> CardSlot:
 	slot_instance.accessibility_name = "slot " + str(i)
 	slot_instance.timeline_id = i
 	slot_instance.column = i % 4
+	@warning_ignore("integer_division")
 	slot_instance.row = i / 4
 
 	var coord: Vector2i = Vector2i(slot_instance.column, slot_instance.row)
@@ -37,7 +38,6 @@ func instantiate_slot(i: int) -> CardSlot:
 
 
 func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
-	# Purely tests the data type payload as intended by the engine. Zero processing here.
 	return data is DragData
 
 

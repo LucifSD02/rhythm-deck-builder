@@ -4,7 +4,6 @@ extends State
 @onready var label: Label = $"../../CanvasLayer/Label"
 @onready var context: CombatContext
 @onready var button_2: Button = $"../../CanvasLayer/Button2"
-@onready var timeline_ui: TimelineUi = %TimelineUI
 @onready var inventory: GridContainer = $"../../CanvasLayer/Inventory"
 
 var timeline: Timeline
@@ -25,7 +24,6 @@ func update(_delta: float) -> void:
 	pass
 
 func exit() -> void:
-	timeline_ui.clear_timeline()
 	if combat_state_machine == null:
 		return
 	combat_state_machine.change_state(combat_state_machine.preparation_state, self)
