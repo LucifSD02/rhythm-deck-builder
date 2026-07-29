@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://cxvni8efntpdf"]
 
-[ext_resource type="Script" uid="uid://dwafwxysa68uc" path="res://scripts/states/combat_states/combat_level.gd" id="1_lctmc"]
-[ext_resource type="Script" uid="uid://be7ey45ar4ups" path="res://scripts/states/combat_states/combat_state_machine.gd" id="1_n4wlu"]
-[ext_resource type="Script" uid="uid://btsknds0tdc2d" path="res://scripts/states/combat_states/timeline_manager.gd" id="2_1o3m1"]
+[ext_resource type="Script" uid="uid://dwafwxysa68uc" path="res://scripts/combat/combat_level.gd" id="1_lctmc"]
+[ext_resource type="Script" uid="uid://be7ey45ar4ups" path="res://scripts/combat/combat_states/combat_state_machine.gd" id="1_n4wlu"]
+[ext_resource type="Script" uid="uid://btsknds0tdc2d" path="res://scripts/combat/managers/timeline_manager.gd" id="2_1o3m1"]
 [ext_resource type="Script" uid="uid://cp8ocfluoj3jv" path="res://scripts/rhythm/sequence_creator.gd" id="3_tk63j"]
-[ext_resource type="Script" uid="uid://cj6icfdqvh5hf" path="res://scripts/states/combat_states/rhythm_state.gd" id="4_lctmc"]
-[ext_resource type="Script" uid="uid://snxg8iyixpjo" path="res://scripts/states/combat_states/preparation_state.gd" id="5_vqwp0"]
+[ext_resource type="Script" uid="uid://cj6icfdqvh5hf" path="res://scripts/combat/combat_states/rhythm_state.gd" id="4_lctmc"]
+[ext_resource type="Script" uid="uid://snxg8iyixpjo" path="res://scripts/combat/combat_states/preparation_state.gd" id="5_vqwp0"]
 [ext_resource type="Script" uid="uid://bq8mhpexgf61m" path="res://scripts/ui/canvas_layer.gd" id="6_1o3m1"]
 [ext_resource type="Script" uid="uid://lyas7khdifpb" path="res://scripts/ui/timeline_ui.gd" id="7_tk63j"]
-[ext_resource type="Script" uid="uid://c0tgmvx8nelq4" path="res://scripts/states/combat_states/execution_state.gd" id="7_wro8u"]
+[ext_resource type="Script" uid="uid://c0tgmvx8nelq4" path="res://scripts/combat/combat_states/execution_state.gd" id="7_wro8u"]
+[ext_resource type="Script" uid="uid://krjmcqh3pfyf" path="res://scripts/combat/crowd.gd" id="8_0if8w"]
 [ext_resource type="Script" uid="uid://m4xm6tgyp8k1" path="res://scripts/cards/inventory.gd" id="9_vqwp0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pp4gc"]
@@ -47,7 +48,9 @@ script = ExtResource("5_vqwp0")
 [node name="ExecutionState" type="Node" parent="CombatStateMachine" unique_id=557879548]
 unique_name_in_owner = true
 script = ExtResource("7_wro8u")
-metadata/_custom_type_script = "uid://c2txh5lqtr422"
+
+[node name="Crowd" type="Node" parent="CombatStateMachine" unique_id=332475580]
+script = ExtResource("8_0if8w")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1707874949]
 script = ExtResource("6_1o3m1")

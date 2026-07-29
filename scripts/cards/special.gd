@@ -1,5 +1,5 @@
 class_name Special
-extends Resource
+extends BaseEffect
 
 @export_enum("No curse", "Weaken curse", "Slowness curse") var curse_type: String
 @export_enum("No transformation", "Wolf", "Dragon") var transform_type: String

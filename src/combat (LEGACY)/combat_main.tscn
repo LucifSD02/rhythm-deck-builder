@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ch3k0sg8ooknn" path="res://src/combat (LEGACY)/combat_main.gd" id="1_dgx5n"]
 [ext_resource type="Script" uid="uid://cp8ocfluoj3jv" path="res://scripts/rhythm/sequence_creator.gd" id="2_dgx5n"]
-[ext_resource type="Script" uid="uid://btsknds0tdc2d" path="res://scripts/states/combat_states/timeline_manager.gd" id="3_pw0fo"]
+[ext_resource type="Script" uid="uid://btsknds0tdc2d" path="res://scripts/combat/managers/timeline_manager.gd" id="3_pw0fo"]
 [ext_resource type="Texture2D" uid="uid://boqtlk4jva3xa" path="res://addons/at-icons/node/checkmark.svg" id="4_1lcvl"]
 
 [node name="CombatState" type="Control" unique_id=273556332]

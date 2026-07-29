@@ -9,8 +9,3 @@ var shield_card_big: CardBase = ResourceLoader.load("res://data/cards/test_block
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	card_inventory = [strike_card, strike_card, strike_card, strike_card, shield_card, shield_card, shield_card, shield_card, shield_card_big, shield_card_big]
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
