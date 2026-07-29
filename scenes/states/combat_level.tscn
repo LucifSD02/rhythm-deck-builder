@@ -75,7 +75,6 @@ offset_right = 648.0
 offset_bottom = 571.0
 columns = 4
 script = ExtResource("7_tk63j")
-rows = null
 
 [node name="Inventory" type="GridContainer" parent="CanvasLayer" unique_id=1080258137]
 custom_minimum_size = Vector2(5, 5)

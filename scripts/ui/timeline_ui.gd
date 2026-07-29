@@ -156,8 +156,9 @@ func get_slot_by_id(id: int) -> CardSlot:
 
 
 func clear_timeline() -> void:
-	for i in range(self.get_child_count() - 1):
+	var child_count: int =  self.get_child_count() 
+	var last_child_index: int = child_count - 1
+	for i in range(last_child_index, -1, -1):
 		var slot: CardSlot = self.get_child(i)
-		remove_child(slot)
 		slot.free()
-		generate_grid(8)
+	generate_grid(8)
