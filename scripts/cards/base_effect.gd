@@ -1,7 +1,8 @@
 class_name BaseEffect
 extends Resource
 
-var activation_bar: int = 0
+@export var accuracy_modifier: float
+@export var activation_bar_offset: int = 0
 
 
 func trigger(_accuracy: float) -> Array:

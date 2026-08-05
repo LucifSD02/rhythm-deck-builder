@@ -8,12 +8,3 @@ extends Resource
 @export var judgement_whole_timeline: float
 
 var run_inventory: RunInventory
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	run_inventory = RunInventory
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
