@@ -154,15 +154,12 @@ func get_cells_for_timeline() -> Array[Timeline.TimelineCell]:
 	var compiled_cells: Array[Timeline.TimelineCell] = []
 	
 	# Explicitly loop across our strict 4x2 matrix dimensions
-	for r: int in range(2): 
-		for c: int in range(4):
-			var coord: Vector2i = Vector2i(c, r)
-			
+	for row: int in range(2): 
+		for column: int in range(4):
+			var coord: Vector2i = Vector2i(column, row)
 			var cell_data: Timeline.TimelineCell = Timeline.TimelineCell.new()
-			cell_data.column = c
-			cell_data.row = r
-			
-			# THE CRITICAL WORKAROUND: Use .get() to prevent hard crashes on unmapped keys!
+			cell_data.column = column
+			cell_data.row = row
 			var block: OccupancyBlock = grid_occupancy.get(coord, null)
 			
 			if block != null and block.card_reference != null:
