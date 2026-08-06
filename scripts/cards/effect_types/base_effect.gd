@@ -4,10 +4,8 @@ extends Resource
 enum Target { SELF, OPPONENT, CROWD }
 
 @export var accuracy_modifier: float
-@export var activation_bar_offset: int = 0
 @export var target: Target = Target.OPPONENT
 @export var conditions: Array[Condition] = []
-var comments: Array[String]
 
 
 func conditions_met(context: CombatContext, cell: TimelineCell) -> bool:
@@ -18,10 +16,11 @@ func conditions_met(context: CombatContext, cell: TimelineCell) -> bool:
 
 
 func get_cell_allocation(card: CardBase) -> Dictionary[Vector2i, float]:
+	var override: EffectCellOffsets = card.effect_cell_overrides.get(self, null)
+	var offsets: Array[Vector2i] = override.offsets if override != null else card.grid_shape
 	var allocation: Dictionary[Vector2i, float] = {}
-	var occupied_cells: int = card.grid_shape.size()
-	for offset in card.grid_shape:
-		allocation[offset] = 1.0 / occupied_cells
+	for offset in offsets:
+		allocation[offset] = 1.0 / offsets.size()
 	return allocation
 
 

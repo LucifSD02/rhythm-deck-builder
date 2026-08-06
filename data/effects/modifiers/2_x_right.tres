@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Modifier" format=3 uid="uid://dm5xbndd1jyqv"]
+
+[ext_resource type="Script" uid="uid://qcgobeju2s7t" path="res://scripts/cards/condition_types/condition.gd" id="1_57viu"]
+[ext_resource type="Script" uid="uid://bd128ch4g83ol" path="res://scripts/cards/condition_types/accuracy_condition.gd" id="2_6vqvx"]
+[ext_resource type="Script" uid="uid://blx8kbjx0s3b7" path="res://scripts/cards/effect_types/modifier.gd" id="3_lwwvl"]
+
+[sub_resource type="Resource" id="Resource_cauxg"]
+script = ExtResource("2_6vqvx")
+threshold = 0.5
+metadata/_custom_type_script = "uid://bd128ch4g83ol"
+
+[resource]
+script = ExtResource("3_lwwvl")
+target = 0
+conditions = Array[ExtResource("1_57viu")]([SubResource("Resource_cauxg")])
+metadata/_custom_type_script = "uid://blx8kbjx0s3b7"

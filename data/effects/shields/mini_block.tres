@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Shield" format=3 uid="uid://bmw1eqwbml462"]
+
+[ext_resource type="Script" uid="uid://qcgobeju2s7t" path="res://scripts/cards/condition_types/condition.gd" id="1_eiktm"]
+[ext_resource type="Script" uid="uid://cami0vqau5iw4" path="res://scripts/cards/effect_types/shield.gd" id="2_g1oy0"]
+
+[resource]
+script = ExtResource("2_g1oy0")
+metadata/_custom_type_script = "uid://cami0vqau5iw4"

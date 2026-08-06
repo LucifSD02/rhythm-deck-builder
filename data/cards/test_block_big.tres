@@ -3,6 +3,7 @@
 [ext_resource type="Resource" uid="uid://bdj4ebpjg1kbr" path="res://data/effects/shields/gigantic_huge_fucking_shield_holy_shit.tres" id="1_3eeen"]
 [ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://scripts/rhythm/note_event.gd" id="1_mul5o"]
 [ext_resource type="Script" uid="uid://bnb0o8gn60236" path="res://scripts/cards/effect_types/base_effect.gd" id="1_vox7f"]
+[ext_resource type="Script" uid="uid://c2wope7xyfav5" path="res://scripts/cards/effect_cell_offsets.gd" id="2_0ei0q"]
 [ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_base.gd" id="2_3eeen"]
 [ext_resource type="Texture2D" uid="uid://wwdi0vbkodat" path="res://assets/textures/cards/images.jpg" id="4_3k58x"]
 
