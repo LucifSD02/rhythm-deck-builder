@@ -27,14 +27,6 @@ func construct_timeline() -> Timeline:
 	timeline.length_in_bars = 8
 	return timeline
 
-func convert_to_timeline_cells(timeline: Timeline) -> void:
-	for card in timeline.cards:
-		convert_card_to_timeline_cells(card)
-
-func convert_card_to_timeline_cells(card: CardBase) -> TimelineCell:
-	var timeline_cell: TimelineCell = TimelineCell.new()
-	
-	return timeline_cell
 
 func set_all_relative_note_event_timings() -> void:
 	for i in range(timeline.flattened_cells.size()):

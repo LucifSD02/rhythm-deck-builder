@@ -1,8 +1,11 @@
 [gd_resource type="Resource" script_class="Attack" format=3 uid="uid://rf8fmlkqtopt"]
 
-[ext_resource type="Script" uid="uid://c6db3kjgobdi" path="res://scripts/cards/attack.gd" id="2_gximy"]
+[ext_resource type="Script" uid="uid://qcgobeju2s7t" path="res://scripts/cards/condition_types/condition.gd" id="1_3oxtr"]
+[ext_resource type="Script" uid="uid://c6db3kjgobdi" path="res://scripts/cards/effect_types/attack.gd" id="2_gximy"]
+[ext_resource type="Resource" uid="uid://drplehjws4rsw" path="res://data/conditions/accuracy/80_percent_or_higher.tres" id="2_w1ek5"]
 
 [resource]
 script = ExtResource("2_gximy")
 attack_damage = 5
+conditions = Array[ExtResource("1_3oxtr")]([ExtResource("2_w1ek5")])
 metadata/_custom_type_script = "uid://c6db3kjgobdi"

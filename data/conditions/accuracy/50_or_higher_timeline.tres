@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AccuracyCondition" format=3 uid="uid://o7ly8nrofmd1"]
+
+[ext_resource type="Script" uid="uid://bd128ch4g83ol" path="res://scripts/cards/condition_types/accuracy_condition.gd" id="1_igsgx"]
+
+[resource]
+script = ExtResource("1_igsgx")
+scope = 1
+comparison = 1
+threshold = 0.5
+metadata/_custom_type_script = "uid://bd128ch4g83ol"

@@ -127,6 +127,7 @@ func get_slot_at_coord(coordinate: Vector2i) -> CardSlot:
 	return null
 
 func populate_timeline_from_grid(timeline: Timeline) -> void:
+	timeline.columns = columns
 	var duplicated_cards: Dictionary[Card, CardBase] = {}
 	var cards_array: Array[CardBase] = []
 	var cells_array: Array[TimelineCell] = []

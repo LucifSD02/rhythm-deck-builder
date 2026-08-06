@@ -13,13 +13,17 @@ var combat_state_machine: CombatStateMachine
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
+	
 func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -> void:
 	combat_state_machine = _combat_state_machine
 	context = _context
 	timeline = context.timeline
 	label.text = "Current State: Execution State"
 	button_2.disabled = false
+	var results: Array[EffectResult] = EffectResolver.resolve_timeline(timeline, context)
+	for result in results:
+		print(result.source_card.name, " - ", result.category, " ", result.magnitude, " -> ", BaseEffect.Target.find_key(result.target), result.comments)
+
 
 func update(_delta: float) -> void:
 	pass

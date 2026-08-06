@@ -31,7 +31,6 @@ func exit() -> void:
 	timeline.grid_occupancy = timeline_ui.grid_occupancy
 	timeline_ui.populate_timeline_from_grid(timeline)
 	timeline_manager.set_all_relative_note_event_timings()
-	timeline_manager.convert_to_timeline_cells(timeline)
 	context.timeline = timeline
 	combat_state_machine.change_state(combat_state_machine.rhythm_state, self)
 	button.disabled = true

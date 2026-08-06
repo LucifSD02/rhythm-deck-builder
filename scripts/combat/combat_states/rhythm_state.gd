@@ -54,7 +54,7 @@ func sequence_complete() -> void:
 
 func card_complete(card_id: int) -> void:
 	var accuracy: float = get_accuracy_for_card(note_hits, card_id)
-	context.judements_individual_cards.set(card_id, accuracy)
+	context.judgements_individual_cards.set(card_id, accuracy)
 	print("Card ", card_id, " Complete, accuracy: ", accuracy)
 	
 

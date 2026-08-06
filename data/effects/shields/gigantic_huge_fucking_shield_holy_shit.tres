@@ -1,9 +1,16 @@
 [gd_resource type="Resource" script_class="Shield" format=3 uid="uid://bdj4ebpjg1kbr"]
 
-[ext_resource type="Script" uid="uid://cami0vqau5iw4" path="res://scripts/cards/shield.gd" id="1_kiihm"]
+[ext_resource type="Script" uid="uid://qcgobeju2s7t" path="res://scripts/cards/condition_types/condition.gd" id="1_bpqd0"]
+[ext_resource type="Script" uid="uid://cami0vqau5iw4" path="res://scripts/cards/effect_types/shield.gd" id="1_kiihm"]
+[ext_resource type="Script" uid="uid://bd128ch4g83ol" path="res://scripts/cards/condition_types/accuracy_condition.gd" id="2_nk1p8"]
+
+[sub_resource type="Resource" id="Resource_64rff"]
+script = ExtResource("2_nk1p8")
+metadata/_custom_type_script = "uid://bd128ch4g83ol"
 
 [resource]
 script = ExtResource("1_kiihm")
 shield_amount = 500
 shield_duration = 20
+conditions = Array[ExtResource("1_bpqd0")]([SubResource("Resource_64rff")])
 metadata/_custom_type_script = "uid://cami0vqau5iw4"
