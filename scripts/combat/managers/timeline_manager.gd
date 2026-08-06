@@ -31,14 +31,17 @@ func convert_to_timeline_cells(timeline: Timeline) -> void:
 	for card in timeline.cards:
 		convert_card_to_timeline_cells(card)
 
-func convert_card_to_timeline_cells(card: CardBase) -> Timeline.TimelineCell:
-	var timeline_cell: Timeline.TimelineCell = Timeline.TimelineCell.new()
+func convert_card_to_timeline_cells(card: CardBase) -> TimelineCell:
+	var timeline_cell: TimelineCell = TimelineCell.new()
 	
 	return timeline_cell
 
 func set_all_relative_note_event_timings() -> void:
-	for i in range(timeline.cards.size()):
-		var notes: Array[NoteEvent] = timeline.cards[i].melody_notes
+	for i in range(timeline.flattened_cells.size()):
+		var cell: TimelineCell = timeline.flattened_cells[i]
+		if not cell.is_anchor:
+			continue
+		var notes: Array[NoteEvent] = cell.card_reference.melody_notes
 		for note in notes:
 			note.time += i * timeline.beats_per_bar
 

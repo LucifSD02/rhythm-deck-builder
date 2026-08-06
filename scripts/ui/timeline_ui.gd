@@ -126,55 +126,37 @@ func get_slot_at_coord(coordinate: Vector2i) -> CardSlot:
 		return coordinate_to_slot_map[coordinate]
 	return null
 
-
-# --- SAFE LEGACY CARD RETRIEVER ---
-func get_cards_from_timeline_ui() -> Array[CardBase]:
+func populate_timeline_from_grid(timeline: Timeline) -> void:
+	var duplicated_cards: Dictionary[Card, CardBase] = {}
 	var cards_array: Array[CardBase] = []
-	
-	for child_index: int in range(get_child_count()):
-		var child_card_slot: CardSlot = get_child(child_index) as CardSlot
-		if not child_card_slot:
-			continue
+	var cells_array: Array[TimelineCell] = []
 
-		if child_card_slot.get_child_count() == 0:
-			cards_array.append(SILENCE as CardBase)
-			continue
-
-		var child_card: Card = child_card_slot.get_child(0) as Card
-		if child_card == null:
-			continue
-
-		cards_array.append(child_card.stats.duplicate(true) as CardBase)
-		
-	return cards_array
-
-
-# --- SAFE GRID EXTRACTION MATRIX FOR COMBAT ---
-func get_cells_for_timeline() -> Array[Timeline.TimelineCell]:
-	var compiled_cells: Array[Timeline.TimelineCell] = []
-	
-	# Explicitly loop across our strict 4x2 matrix dimensions
-	for row: int in range(2): 
-		for column: int in range(4):
+	for row: int in range(rows):
+		for column: int in range(columns):
 			var coord: Vector2i = Vector2i(column, row)
-			var cell_data: Timeline.TimelineCell = Timeline.TimelineCell.new()
-			cell_data.column = column
-			cell_data.row = row
-			var block: OccupancyBlock = grid_occupancy.get(coord, null)
-			
-			if block != null and block.card_reference != null:
-				cell_data.card_reference = block.card_reference.stats.duplicate(true) as CardBase
-				cell_data.is_anchor = block.is_anchor
-				cell_data.local_offset = block.local_offset
+			var occupancy_block: OccupancyBlock = grid_occupancy.get(coord, null)
+			var timeline_cell: TimelineCell = TimelineCell.new()
+			timeline_cell.column = column
+			timeline_cell.row = row
+
+			if occupancy_block != null and occupancy_block.card_reference != null:
+				var card_node: Card = occupancy_block.card_reference
+				if not duplicated_cards.has(card_node):
+					duplicated_cards[card_node] = card_node.stats.duplicate(true) as CardBase
+				timeline_cell.card_reference = duplicated_cards[card_node]
+				timeline_cell.is_anchor = occupancy_block.is_anchor
+				timeline_cell.local_offset = occupancy_block.local_offset
 			else:
-				# Fallback safety net if the slot is completely clear
-				cell_data.card_reference = SILENCE.duplicate(true) as CardBase
-				cell_data.is_anchor = true
-				cell_data.local_offset = Vector2i(0, 0)
-				
-			compiled_cells.append(cell_data)
-			
-	return compiled_cells
+				timeline_cell.card_reference = SILENCE.duplicate(true) as CardBase
+				timeline_cell.is_anchor = true
+				timeline_cell.local_offset = Vector2i.ZERO
+
+			cells_array.append(timeline_cell)
+			if timeline_cell.is_anchor:
+				cards_array.append(timeline_cell.card_reference)
+
+	timeline.cards = cards_array
+	timeline.flattened_cells = cells_array
 
 
 func get_slot_by_id(id: int) -> CardSlot:

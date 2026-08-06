@@ -29,8 +29,7 @@ func exit() -> void:
 	timeline = timeline_manager.construct_timeline()
 	timeline.coordinate_to_slot_map = timeline_ui.coordinate_to_slot_map
 	timeline.grid_occupancy = timeline_ui.grid_occupancy
-	timeline.flattened_cells = timeline_ui.get_cells_for_timeline()
-	timeline.cards = timeline_ui.get_cards_from_timeline_ui()
+	timeline_ui.populate_timeline_from_grid(timeline)
 	timeline_manager.set_all_relative_note_event_timings()
 	timeline_manager.convert_to_timeline_cells(timeline)
 	context.timeline = timeline
