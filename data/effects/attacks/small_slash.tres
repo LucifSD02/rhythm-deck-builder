@@ -7,8 +7,5 @@
 [resource]
 script = ExtResource("2_gximy")
 attack_damage = 5
-debuff_duration = null
-accuracy_modifier = null
-activation_bar_offset = null
 conditions = Array[ExtResource("1_3oxtr")]([ExtResource("2_3oxtr")])
 metadata/_custom_type_script = "uid://c6db3kjgobdi"

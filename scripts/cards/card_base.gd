@@ -8,8 +8,7 @@ var starting_bar: int
 @export var bar_amount: int
 @export var flavour_text: String
 @export var melody_notes: Array[NoteEvent]
-@export var effects: Array[BaseEffect]
-@export var effect_cell_overrides: Dictionary[BaseEffect, EffectCellOffsets] = {}
+@export var effects: Array[EffectPlacement]
 @export var texture: Texture2D
 @export var grid_shape: Array[Vector2i] = [ Vector2i(0, 0) ]
 var already_converted: bool = false

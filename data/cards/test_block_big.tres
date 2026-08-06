@@ -1,11 +1,22 @@
 [gd_resource type="Resource" script_class="CardBase" format=3 uid="uid://d1afw8kxtpl12"]
 
+[ext_resource type="Script" uid="uid://utn2y5kl2a4g" path="res://scripts/cards/effect_placement.gd" id="1_0ei0q"]
 [ext_resource type="Resource" uid="uid://bdj4ebpjg1kbr" path="res://data/effects/shields/gigantic_huge_fucking_shield_holy_shit.tres" id="1_3eeen"]
 [ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://scripts/rhythm/note_event.gd" id="1_mul5o"]
-[ext_resource type="Script" uid="uid://bnb0o8gn60236" path="res://scripts/cards/effect_types/base_effect.gd" id="1_vox7f"]
-[ext_resource type="Script" uid="uid://c2wope7xyfav5" path="res://scripts/cards/effect_cell_offsets.gd" id="2_0ei0q"]
 [ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_base.gd" id="2_3eeen"]
+[ext_resource type="Resource" uid="uid://dssx1ung3yxib" path="res://data/effects/shields/small shield.tres" id="3_nnxgg"]
 [ext_resource type="Texture2D" uid="uid://wwdi0vbkodat" path="res://assets/textures/cards/images.jpg" id="4_3k58x"]
+
+[sub_resource type="Resource" id="Resource_r0cw4"]
+script = ExtResource("1_0ei0q")
+effect = ExtResource("1_3eeen")
+trigger_offsets = Array[Vector2i]([Vector2i(1, 0)])
+metadata/_custom_type_script = "uid://utn2y5kl2a4g"
+
+[sub_resource type="Resource" id="Resource_cbivu"]
+script = ExtResource("1_0ei0q")
+effect = ExtResource("3_nnxgg")
+metadata/_custom_type_script = "uid://utn2y5kl2a4g"
 
 [sub_resource type="Resource" id="Resource_ov3tc"]
 script = ExtResource("1_mul5o")
@@ -88,7 +99,7 @@ key_amount = 8
 bar_amount = 2
 flavour_text = "A long heavy block"
 melody_notes = Array[ExtResource("1_mul5o")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_fdavp"), SubResource("Resource_7h3vf"), SubResource("Resource_3k58x"), SubResource("Resource_d5gd2"), SubResource("Resource_yxl5k"), SubResource("Resource_3eeen"), SubResource("Resource_vox7f"), SubResource("Resource_0ei0q"), SubResource("Resource_nnxgg"), SubResource("Resource_fe7fl")])
-effects = Array[ExtResource("1_vox7f")]([ExtResource("1_3eeen")])
+effects = Array[ExtResource("1_0ei0q")]([SubResource("Resource_r0cw4"), SubResource("Resource_cbivu")])
 texture = ExtResource("4_3k58x")
 grid_shape = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 1)])
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"

@@ -22,7 +22,7 @@ func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -
 	button_2.disabled = false
 	var results: Array[EffectResult] = EffectResolver.resolve_timeline(timeline, context)
 	for result in results:
-		print(result.source_card.name, " - ", result.category, " ", result.magnitude, " -> ", BaseEffect.Target.find_key(result.target), result.comments)
+		print(result.source_card.name, " - ", result.Category.find_key(result.category), " ", result.magnitude, " -> ", BaseEffect.Target.find_key(result.target), result.comments)
 
 
 func update(_delta: float) -> void:

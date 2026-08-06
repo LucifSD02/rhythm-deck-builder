@@ -11,7 +11,10 @@ enum Comparison { GREATER_EQUAL, GREATER, LESS_EQUAL, LESS, EQUAL }
 
 func is_met(context: CombatContext, cell: TimelineCell) -> bool:
 	var accuracy: float = get_accuracy(context, cell)
-	return compare(accuracy, threshold)
+	var comparison_result: bool = compare(accuracy, threshold)
+	if comparison_result == false:
+			print("Condition failed - target was ", Comparison.find_key(comparison), " than ", threshold, ", but was ", accuracy, " instead")
+	return comparison_result
 
 
 func get_accuracy(context: CombatContext, cell: TimelineCell) -> float:

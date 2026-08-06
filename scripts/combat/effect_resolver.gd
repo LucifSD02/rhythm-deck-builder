@@ -9,15 +9,20 @@ static func resolve_timeline(timeline: Timeline, context: CombatContext) -> Arra
 
 static func gather_results(timeline: Timeline, context: CombatContext) -> Array[EffectResult]:
 	var results: Array[EffectResult] = []
+	
 	for cell in timeline.flattened_cells:
 		var card: CardBase = cell.card_reference
-		for effect in card.effects:
+		
+		for placement in card.effects:
+			var effect: BaseEffect = placement.effect
 			if not effect.conditions_met(context, cell):
 				continue
+
 			var accuracy: float = context.judgements_individual_cards.get(card.timeline_id, 0.0)
-			var result: EffectResult = effect.resolve(accuracy, context, cell)
+			var result: EffectResult = effect.resolve(accuracy, context, cell, placement.trigger_offsets, timeline)
 			if result != null:
 				results.append(result)
+
 	return results
 
 

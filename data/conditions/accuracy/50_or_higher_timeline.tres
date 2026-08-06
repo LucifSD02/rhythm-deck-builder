@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_igsgx")
-scope = 1
 comparison = 1
 threshold = 0.5
 metadata/_custom_type_script = "uid://bd128ch4g83ol"

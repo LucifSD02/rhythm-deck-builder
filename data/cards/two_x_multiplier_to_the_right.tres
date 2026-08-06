@@ -1,10 +1,15 @@
 [gd_resource type="Resource" script_class="CardBase" format=3 uid="uid://cllxfelt64gju"]
 
-[ext_resource type="Script" uid="uid://bnb0o8gn60236" path="res://scripts/cards/effect_types/base_effect.gd" id="1_2dckh"]
+[ext_resource type="Script" uid="uid://utn2y5kl2a4g" path="res://scripts/cards/effect_placement.gd" id="1_2dckh"]
 [ext_resource type="Resource" uid="uid://dm5xbndd1jyqv" path="res://data/effects/modifiers/2_x_right.tres" id="2_08p5o"]
 [ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://scripts/rhythm/note_event.gd" id="3_wovdg"]
 [ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_base.gd" id="4_bqfop"]
 [ext_resource type="Texture2D" uid="uid://d34e1267fwkmr" path="res://assets/textures/cards/multiplier-2x-wyjg4wumg394lnz9xq1ixt.webp" id="5_d41cn"]
+
+[sub_resource type="Resource" id="Resource_bpqd0"]
+script = ExtResource("1_2dckh")
+effect = ExtResource("2_08p5o")
+metadata/_custom_type_script = "uid://utn2y5kl2a4g"
 
 [sub_resource type="Resource" id="Resource_ov3tc"]
 script = ExtResource("3_wovdg")
@@ -36,6 +41,6 @@ name = "2 X Mult Right"
 key_amount = 4
 bar_amount = 1
 melody_notes = Array[ExtResource("3_wovdg")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_d5gd2"), SubResource("Resource_7h3vf")])
-effects = Array[ExtResource("1_2dckh")]([ExtResource("2_08p5o")])
+effects = Array[ExtResource("1_2dckh")]([SubResource("Resource_bpqd0")])
 texture = ExtResource("5_d41cn")
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"

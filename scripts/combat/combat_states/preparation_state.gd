@@ -27,8 +27,6 @@ func update(_delta: float) -> void:
 
 func exit() -> void:
 	timeline = timeline_manager.construct_timeline()
-	timeline.coordinate_to_slot_map = timeline_ui.coordinate_to_slot_map
-	timeline.grid_occupancy = timeline_ui.grid_occupancy
 	timeline_ui.populate_timeline_from_grid(timeline)
 	timeline_manager.set_all_relative_note_event_timings()
 	context.timeline = timeline

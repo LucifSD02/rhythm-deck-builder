@@ -23,10 +23,12 @@ func check_too_late() -> void:
 	var current_beat: float = RhythmClock.get_current_beat(false)
 	if note_event.time - current_beat < -0.5:
 		emit_signal("note_hit", card_id, 0)
+		if is_last_note_of_card:
+			emit_signal("last_note_of_card", card_id)
 		if is_last_note:
 			print("last note!")
 			emit_signal("last_note")
-		queue_free() 
+		queue_free()
 
 func activate(hit_beat: float) -> void:
 	var hit_deviation: float = hit_beat - note_event.time

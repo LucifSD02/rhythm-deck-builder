@@ -15,14 +15,13 @@ func conditions_met(context: CombatContext, cell: TimelineCell) -> bool:
 	return true
 
 
-func get_cell_allocation(card: CardBase) -> Dictionary[Vector2i, float]:
-	var override: EffectCellOffsets = card.effect_cell_overrides.get(self, null)
-	var offsets: Array[Vector2i] = override.offsets if override != null else card.grid_shape
+func get_cell_allocation(card: CardBase, trigger_offsets: Array[Vector2i]) -> Dictionary[Vector2i, float]:
+	var offsets: Array[Vector2i] = trigger_offsets if not trigger_offsets.is_empty() else card.grid_shape
 	var allocation: Dictionary[Vector2i, float] = {}
 	for offset in offsets:
 		allocation[offset] = 1.0 / offsets.size()
 	return allocation
 
 
-func resolve(_accuracy: float, _context: CombatContext, _cell: TimelineCell) -> EffectResult:
+func resolve(_accuracy: float, _context: CombatContext, _cell: TimelineCell, _trigger_offsets: Array[Vector2i], _timeline: Timeline) -> EffectResult:
 	return null
