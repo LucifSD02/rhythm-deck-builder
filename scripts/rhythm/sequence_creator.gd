@@ -45,11 +45,6 @@ func convert_to_sequence(_timeline: Timeline) -> void:
 		gather_all_notes(card)
 	create_all_notes() 
 
-func remove_silence_card(index: int) -> void:
-	var card: CardBase = cards[index]
-	if card.name == "Silence":
-		cards.remove_at(index)
-
 func gather_all_notes(card: CardBase) -> void:
 	var notes: Array[NoteEvent] = card.melody_notes
 	for j in range(notes.size()):
