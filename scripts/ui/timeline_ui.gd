@@ -153,7 +153,7 @@ func populate_timeline_from_grid(timeline: Timeline) -> void:
 				timeline_cell.local_offset = Vector2i.ZERO
 
 			cells_array.append(timeline_cell)
-			if timeline_cell.is_anchor:
+			if timeline_cell.is_anchor and timeline_cell.card_reference.name != "Silence":
 				cards_array.append(timeline_cell.card_reference)
 
 	timeline.cards = cards_array

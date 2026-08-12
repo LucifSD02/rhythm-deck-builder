@@ -2,7 +2,6 @@
 class_name TimelineManager
 extends Node
 
-
 @onready var timeline_ui: TimelineUi = %TimelineUI
 @onready var sequence_creator: SequenceCreator = $"../SequenceCreator"
 @onready var music_player: MusicPlayer = RhythmClock.music_player

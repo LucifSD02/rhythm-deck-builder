@@ -51,8 +51,7 @@ folder_colors={
 "res://assets/": "red",
 "res://data/": "red",
 "res://scenes/": "green",
-"res://scripts/": "blue",
-"res://src/": "gray"
+"res://scripts/": "blue"
 }
 
 [input]

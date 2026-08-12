@@ -39,8 +39,6 @@ func convert_to_sequence(_timeline: Timeline) -> void:
 	all_notes = []
 	timeline = _timeline
 	cards = timeline.cards
-	for i in range(cards.size() - 1, -1, -1):
-		remove_silence_card(i)
 	for i in range(cards.size()):
 		var card: CardBase = cards[i]
 		card.timeline_id = i
