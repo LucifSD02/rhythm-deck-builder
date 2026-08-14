@@ -55,7 +55,7 @@ func check_occupancy(card_stats: CardBase, target_coords: Vector2i, origin_slot:
 
 	if target_slot and target_slot.occupancy != null:
 		if not origin_slot or target_slot.occupancy.card_reference != origin_slot.current_item:
-			var occupying_card_stats: CardBase = target_slot.occupancy.card_reference.stats
+			var occupying_card_stats: CardBase = target_slot.occupancy.card_reference
 			if occupying_card_stats and occupying_card_stats.grid_shape == shape:
 				return true
 
@@ -95,7 +95,7 @@ func place_card_in_grid(anchor_coord: Vector2i, card: Card) -> void:
 			continue
 
 		var block: OccupancyBlock = OccupancyBlock.new()
-		block.card_reference = card
+		block.card_reference = card.stats
 		block.local_offset = cell
 		block.is_anchor = (cell == Vector2i(0, 0))
 		grid_occupancy[global_cell] = block
@@ -128,7 +128,7 @@ func get_slot_at_coord(coordinate: Vector2i) -> CardSlot:
 
 func populate_timeline_from_grid(timeline: Timeline) -> void:
 	timeline.columns = columns
-	var duplicated_cards: Dictionary[Card, CardBase] = {}
+	var duplicated_cards: Dictionary[CardBase, CardBase] = {}
 	var cards_array: Array[CardBase] = []
 	var cells_array: Array[TimelineCell] = []
 
@@ -141,10 +141,10 @@ func populate_timeline_from_grid(timeline: Timeline) -> void:
 			timeline_cell.row = row
 
 			if occupancy_block != null and occupancy_block.card_reference != null:
-				var card_node: Card = occupancy_block.card_reference
-				if not duplicated_cards.has(card_node):
-					duplicated_cards[card_node] = card_node.stats.duplicate(true) as CardBase
-				timeline_cell.card_reference = duplicated_cards[card_node]
+				var card_base: CardBase = occupancy_block.card_reference
+				if not duplicated_cards.has(card_base):
+					duplicated_cards[card_base] = card_base.duplicate(true) as CardBase
+				timeline_cell.card_reference = duplicated_cards[card_base]
 				timeline_cell.is_anchor = occupancy_block.is_anchor
 				timeline_cell.local_offset = occupancy_block.local_offset
 			else:
