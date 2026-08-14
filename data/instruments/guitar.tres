@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BaseInstrument" format=3 uid="uid://busjw06uspoh5"]
+
+[ext_resource type="Script" uid="uid://dhsw47m46iu8t" path="res://scripts/instruments/base_instrument.gd" id="1_2sd51"]
+[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_base.gd" id="2_ivyce"]
+
+[resource]
+script = ExtResource("1_2sd51")
+metadata/_custom_type_script = "uid://dhsw47m46iu8t"
