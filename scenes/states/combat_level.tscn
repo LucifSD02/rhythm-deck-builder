@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://bq8mhpexgf61m" path="res://scripts/ui/canvas_layer.gd" id="6_1o3m1"]
 [ext_resource type="Script" uid="uid://lyas7khdifpb" path="res://scripts/ui/timeline_ui.gd" id="7_tk63j"]
 [ext_resource type="Script" uid="uid://c0tgmvx8nelq4" path="res://scripts/combat/combat_states/execution_state.gd" id="7_wro8u"]
-[ext_resource type="Script" uid="uid://krjmcqh3pfyf" path="res://scripts/combat/crowd.gd" id="8_0if8w"]
+[ext_resource type="Script" uid="uid://krjmcqh3pfyf" path="res://scripts/combat/participants/crowd.gd" id="8_0if8w"]
 [ext_resource type="Script" uid="uid://m4xm6tgyp8k1" path="res://scripts/cards/inventory.gd" id="9_vqwp0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pp4gc"]

@@ -12,7 +12,7 @@ func _ready() -> void:
 	
 
 func generate_grid(slot_count: int) -> void:
-	cards = RunLoader.get_run().card_inventory
+	cards = RunLoader.data.card_inventory
 	for i: int in range(slot_count - max(0, (self.get_children().size() - 1))):
 		var slot_instance: CardSlot = SLOT_SCENE.instantiate() as CardSlot
 		add_child(slot_instance)
