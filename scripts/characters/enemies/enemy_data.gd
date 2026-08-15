@@ -8,3 +8,4 @@ const SMALL_BLOCK = preload("uid://buumhuy5ks5uo")
 @export var instrument: BaseInstrument
 @export var name: String
 @export var flavour_text: String
+@export var max_energy: int

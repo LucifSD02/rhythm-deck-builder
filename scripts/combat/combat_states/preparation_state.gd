@@ -7,6 +7,7 @@ extends State
 @onready var inventory: InventoryUi = $"../../CanvasLayer/Inventory"
 @onready var timeline_ui: TimelineUi = %TimelineUI
 @onready var button_2: Button = $"../../CanvasLayer/Button2"
+@onready var player: Player = %Player
 
 var combat_state_machine: CombatStateMachine
 var context: CombatContext
@@ -14,6 +15,7 @@ var timeline: Timeline
 
 func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -> void:
 	inventory.reload_inventory()
+	player.reset_energy()
 	combat_state_machine = _combat_state_machine
 	context = _context
 	label.text = "Current State: Preparation state"

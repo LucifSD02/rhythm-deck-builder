@@ -12,6 +12,8 @@ const GRID_ROWS: int = 2
 func generate_placement(_enemy_data: EnemyData) -> void:
 	enemy_data = _enemy_data
 	populate_inventory_from(enemy_data.card_inventory)
+	max_energy = enemy_data.max_energy
+	current_energy = max_energy
 	placement_grid.setup(GRID_COLUMNS, GRID_ROWS)
 
 	var remaining_cards: Array[CardBase] = card_inventory.duplicate()

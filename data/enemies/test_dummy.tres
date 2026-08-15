@@ -12,4 +12,5 @@
 script = ExtResource("2_jtumh")
 card_inventory = Array[ExtResource("1_ixpk6")]([ExtResource("4_l36yt"), ExtResource("4_l36yt"), ExtResource("3_l36yt"), ExtResource("3_l36yt"), ExtResource("4_bp5fo"), ExtResource("5_l06ju")])
 instrument = ExtResource("6_qc6n4")
+max_energy = 30
 metadata/_custom_type_script = "uid://gb75pbevuloq"

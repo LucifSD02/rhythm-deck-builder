@@ -20,3 +20,6 @@ func can_afford(card: CardBase) -> bool:
 
 func spend_energy(card: CardBase) -> void:
 	current_energy -= card.energy_cost
+
+func reset_energy() -> void:
+	current_energy = max_energy
