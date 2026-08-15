@@ -10,7 +10,9 @@
 [ext_resource type="Script" uid="uid://lyas7khdifpb" path="res://scripts/ui/timeline_ui.gd" id="7_tk63j"]
 [ext_resource type="Script" uid="uid://c0tgmvx8nelq4" path="res://scripts/combat/combat_states/execution_state.gd" id="7_wro8u"]
 [ext_resource type="Script" uid="uid://krjmcqh3pfyf" path="res://scripts/combat/participants/crowd.gd" id="8_0if8w"]
+[ext_resource type="Script" uid="uid://dieiqd752qmtr" path="res://scripts/combat/participants/player.gd" id="9_6htep"]
 [ext_resource type="Script" uid="uid://m4xm6tgyp8k1" path="res://scripts/cards/inventory.gd" id="9_vqwp0"]
+[ext_resource type="Script" uid="uid://bikvtcbf2eg5t" path="res://scripts/combat/participants/enemy.gd" id="10_vyd4t"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pp4gc"]
 font_size = 44
@@ -50,7 +52,18 @@ unique_name_in_owner = true
 script = ExtResource("7_wro8u")
 
 [node name="Crowd" type="Node" parent="CombatStateMachine" unique_id=332475580]
+unique_name_in_owner = true
 script = ExtResource("8_0if8w")
+
+[node name="Player" type="Node" parent="CombatStateMachine" unique_id=1687021270]
+unique_name_in_owner = true
+script = ExtResource("9_6htep")
+metadata/_custom_type_script = "uid://dieiqd752qmtr"
+
+[node name="Enemy" type="Node" parent="CombatStateMachine" unique_id=1575778365]
+unique_name_in_owner = true
+script = ExtResource("10_vyd4t")
+metadata/_custom_type_script = "uid://bikvtcbf2eg5t"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1707874949]
 script = ExtResource("6_1o3m1")
