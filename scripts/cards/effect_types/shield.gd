@@ -4,9 +4,7 @@ extends BaseEffect
 @export var shield_amount: int = 0
 @export var shield_duration: int = 0
 
-
 func _init() -> void:
-	target = Target.SELF
 	category = EffectResult.Category.SHIELD
 
 func resolve(accuracy: float, _context: CombatContext, cell: TimelineCell, trigger_offsets: Array[Vector2i], _timeline: Timeline) -> EffectResult:

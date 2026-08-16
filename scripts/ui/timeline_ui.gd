@@ -47,11 +47,11 @@ func find_hovered_slot(local_mouse_pos: Vector2) -> CardSlot:
 	return null
 
 
-func check_occupancy(card_stats: CardBase, target_coords: Vector2i, origin_slot: CardSlot) -> bool:
+func is_unoccupied_at(card_stats: CardBase, target_coords: Vector2i, origin_slot: CardSlot) -> bool:
 	var ignore_card: CardBase = null
 	if origin_slot and origin_slot.current_item:
 		ignore_card = origin_slot.current_item.card_base
-	return placement_grid.check_occupancy(card_stats, target_coords, ignore_card)
+	return placement_grid.is_unoccupied_at(card_stats, target_coords, ignore_card)
 
 
 func set_target_slot_card(dragged_item: Card, target_slot: CardSlot) -> void:

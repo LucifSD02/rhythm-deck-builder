@@ -11,6 +11,5 @@ metadata/_custom_type_script = "uid://bd128ch4g83ol"
 
 [resource]
 script = ExtResource("3_lwwvl")
-target = 0
 conditions = Array[ExtResource("1_57viu")]([SubResource("Resource_cauxg")])
 metadata/_custom_type_script = "uid://blx8kbjx0s3b7"

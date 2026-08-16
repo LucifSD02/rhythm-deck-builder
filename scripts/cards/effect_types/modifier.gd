@@ -7,7 +7,8 @@ extends BaseEffect
 @export var scope: EffectResult.Scope = EffectResult.Scope.RELATIVE_CELLS
 @export var cell_offsets: Array[Vector2i] = [Vector2i(1, 0)]
 
-
+func _init() -> void:
+	category = EffectResult.Category.MODIFIER
 
 func resolve(accuracy: float, _context: CombatContext, cell: TimelineCell, trigger_offsets: Array[Vector2i], _timeline: Timeline) -> EffectResult:
 	var active_offsets: Array[Vector2i]

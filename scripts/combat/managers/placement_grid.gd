@@ -19,12 +19,12 @@ func get_occupancy_at(coord: Vector2i) -> OccupancyBlock:
 	return grid_occupancy.get(coord, null)
 
 
-func check_occupancy(card_stats: CardBase, target_coords: Vector2i, ignore_card: CardBase = null) -> bool:
+func is_unoccupied_at(card_stats: CardBase, target_coords: Vector2i, ignore_card: CardBase = null) -> bool:
 	var shape: Array[Vector2i] = card_stats.grid_shape
 	var target_occupancy: OccupancyBlock = get_occupancy_at(target_coords)
 
 	if target_occupancy != null:
-		if target_occupancy.card_reference != ignore_card:
+		if ignore_card != null and target_occupancy.card_reference != ignore_card:
 			var occupying_card_stats: CardBase = target_occupancy.card_reference
 			if occupying_card_stats and occupying_card_stats.grid_shape == shape:
 				return true

@@ -4,10 +4,14 @@ extends Resource
 enum Target { SELF, OPPONENT, CROWD }
 
 @export var accuracy_modifier: float
-@export var target: Target = Target.OPPONENT
-@export var category: EffectResult.Category
+@export var default_target: Target = Target.OPPONENT:
+	set(value):
+		default_target = value
+		target = value
 @export var conditions: Array[Condition] = []
 
+var target: Target
+var category: EffectResult.Category
 
 func conditions_met(context: CombatContext, cell: TimelineCell) -> bool:
 	for condition in conditions:
