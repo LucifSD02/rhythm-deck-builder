@@ -8,7 +8,7 @@ extends Node
 @onready var execution_state: State = %ExecutionState
 
 var current_state: State
-var game_context:  = CombatContext.new()
+var combat_context:  = CombatContext.new()
 signal combat_finished
 
 func _ready() -> void:
@@ -26,4 +26,4 @@ func change_state(next_state: State, calling_state: State) -> void:
 	if current_state:
 		current_state = null
 	current_state = next_state
-	current_state.enter(game_context, self)
+	current_state.enter(combat_context, self)

@@ -13,6 +13,8 @@ extends State
 var combat_state_machine: CombatStateMachine
 var context: CombatContext
 var timeline: Timeline
+var enemy_timeline_manager: TimelineManager
+
 
 func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -> void:
 	inventory.reload_inventory()
@@ -20,6 +22,8 @@ func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -
 	enemy.reset_energy()
 	combat_state_machine = _combat_state_machine
 	context = _context
+	enemy_timeline_manager = enemy.timeline_manager
+	context.enemy_timeline = enemy.timeline
 	label.text = "Current State: Preparation state"
 	button.disabled = false
 	timeline_ui.visible = true
@@ -33,7 +37,11 @@ func exit() -> void:
 	timeline = timeline_manager.construct_timeline()
 	timeline_ui.populate_timeline_from_grid(timeline)
 	timeline_manager.set_all_relative_note_event_timings()
+	enemy.timeline = enemy_timeline_manager.construct_timeline()
+	enemy.populate_timeline_from_grid()
+	enemy_timeline_manager.set_all_relative_note_event_timings()
 	context.timeline = timeline
+	context.enemy_timeline = enemy.timeline
 	combat_state_machine.change_state(combat_state_machine.rhythm_state, self)
 	button.disabled = true
 	timeline_ui.visible = false

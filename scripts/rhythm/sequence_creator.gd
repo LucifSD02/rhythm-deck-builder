@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 		miss_check = 0
 
 
-func convert_to_sequence(_timeline: Timeline) -> void:
+func convert_to_sequence(_timeline: Timeline, is_enemy_sequence: bool) -> void:
 	all_notes = []
 	timeline = _timeline
 	cards = timeline.cards
@@ -43,7 +43,7 @@ func convert_to_sequence(_timeline: Timeline) -> void:
 		var card: CardBase = cards[i]
 		card.timeline_id = i
 		gather_all_notes(card)
-	create_all_notes() 
+	create_all_notes(is_enemy_sequence) 
 
 func gather_all_notes(card: CardBase) -> void:
 	var notes: Array[NoteEvent] = card.melody_notes
@@ -54,7 +54,7 @@ func gather_all_notes(card: CardBase) -> void:
 			notes[j].is_last_note_of_card = true
 		all_notes.append(notes[j])
 
-func create_all_notes() -> void:
+func create_all_notes(is_enemy_sequence: bool) -> void:
 	all_notes.sort_custom(func(a: NoteEvent, b: NoteEvent) -> bool: return a.time < b.time)
 	var next_suitable_starting_beat: float = RhythmClock.get_next_suitable_starting_bar(4) * 4
 	var current_beat: float = RhythmClock.get_current_beat(false)
@@ -62,7 +62,7 @@ func create_all_notes() -> void:
 	for i in range(all_notes.size()):
 		var note_event: NoteEvent = all_notes[i]
 		var is_last: bool = (i == all_notes.size() - 1)
-		var note: Note = create_note(note_event, note_event.related_card_id, is_last)
+		var note: Note = create_note(note_event, note_event.related_card_id, is_last, is_enemy_sequence)
 		@warning_ignore("integer_division")
 		note.position.y = ((note_event.time + notes_offset) * -75) + (1250 * RhythmClock.get_next_suitable_starting_bar(4) / 4)
 
@@ -72,7 +72,7 @@ func adjust_note_events(_note: NoteEvent) -> void:
 	note_event.time += timeline.starting_bar * timeline.beats_per_bar
 
 
-func create_note(note_event: NoteEvent, card_id: int, is_last_note: bool) -> Note:
+func create_note(note_event: NoteEvent, card_id: int, is_last_note: bool, is_enemy_sequence: bool) -> Note:
 	var note_instance: Note = Note.new()
 	var built_note: Note = note_instance.build_note(note_event, card_id, is_last_note)
 	built_note.card_id = card_id
@@ -80,15 +80,16 @@ func create_note(note_event: NoteEvent, card_id: int, is_last_note: bool) -> Not
 	built_note.set_label()
 	if is_last_note == true:
 		print("made last note: ", built_note.note_event.time)
-	connect_signals(built_note)
+	connect_signals(built_note, is_enemy_sequence)
 	add_child(built_note)
 	return built_note
 
 
-func connect_signals(note: Note) -> void:
-	match_key_presses(note)
-	connect("check_missed_notes", note.check_too_late)
-	note.connect("note_hit", rhythm_state.log_note_hits)
+func connect_signals(note: Note, is_enemy_sequence: bool) -> void:
+	if is_enemy_sequence:
+		match_key_presses(note)
+		connect("check_missed_notes", note.check_too_late)
+		note.connect("note_hit", rhythm_state.log_note_hits)
 	note.connect("last_note", rhythm_state.sequence_complete)
 	note.connect("last_note_of_card", rhythm_state.card_complete)
 

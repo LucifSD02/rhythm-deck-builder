@@ -15,7 +15,8 @@ func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -
 	combat_state_machine = _combat_state_machine
 	context = _context
 	timeline = context.timeline
-	sequence_creator.convert_to_sequence(timeline)
+	sequence_creator.convert_to_sequence(timeline, false)
+	sequence_creator.convert_to_sequence(context.enemy_timeline, true)
 	label.text = "Current State: Rhythm state"
 
 func update(_delta: float) -> void:

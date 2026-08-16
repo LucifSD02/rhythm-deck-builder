@@ -22,7 +22,7 @@ func _process(_delta: float) -> void:
 func construct_timeline() -> Timeline:
 	clear_timeline()
 	timeline.starting_bar = RhythmClock.get_next_suitable_starting_bar(4)
-	timeline.beats_per_bar = music_player.time_signature()
+	timeline.beats_per_bar = RhythmClock.music_player.time_signature()
 	timeline.length_in_bars = 8
 	return timeline
 
