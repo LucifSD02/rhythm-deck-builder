@@ -5,6 +5,7 @@ enum Target { SELF, OPPONENT, CROWD }
 
 @export var accuracy_modifier: float
 @export var target: Target = Target.OPPONENT
+@export var category: EffectResult.Category
 @export var conditions: Array[Condition] = []
 
 

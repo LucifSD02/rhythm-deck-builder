@@ -102,4 +102,5 @@ melody_notes = Array[ExtResource("1_mul5o")]([SubResource("Resource_ov3tc"), Sub
 effects = Array[ExtResource("1_0ei0q")]([SubResource("Resource_r0cw4"), SubResource("Resource_cbivu")])
 texture = ExtResource("4_3k58x")
 grid_shape = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 1)])
+energy_cost = 30
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"

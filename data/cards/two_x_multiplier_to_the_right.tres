@@ -43,4 +43,5 @@ bar_amount = 1
 melody_notes = Array[ExtResource("3_wovdg")]([SubResource("Resource_ov3tc"), SubResource("Resource_uqiki"), SubResource("Resource_d5gd2"), SubResource("Resource_7h3vf")])
 effects = Array[ExtResource("1_2dckh")]([SubResource("Resource_bpqd0")])
 texture = ExtResource("5_d41cn")
+energy_cost = 10
 metadata/_custom_type_script = "uid://csvj4sdvioyh4"

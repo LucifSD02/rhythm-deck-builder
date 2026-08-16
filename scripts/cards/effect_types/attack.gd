@@ -7,6 +7,7 @@ extends BaseEffect
 
 func _init() -> void:
 	target = Target.OPPONENT
+	category = EffectResult.Category.DAMAGE
 
 
 func resolve(accuracy: float, _context: CombatContext, cell: TimelineCell, trigger_offsets: Array[Vector2i], _timeline: Timeline) -> EffectResult:
