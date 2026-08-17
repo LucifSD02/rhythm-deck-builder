@@ -112,8 +112,8 @@ func update_cell_flags(card_data: CardData, anchor: Vector2i) -> void:
 			var cell_flag: CellFlag = cell_flags.get(coord)
 			if cell_flag == null:
 				cell_flag = CellFlag.new(self)
-			cell_flag.add_entry(modifier.modifies_category, modifier.modifier_magnitude)
-			print("Added a new CellFlag at ", coord, " -> category: ", modifier.modifier_magnitude, ", magnitude: ", modifier.modifier_magnitude)
+			cell_flag.add_entry(modifier.modifies_category, modifier.magnitude)
+			print("Added a new CellFlag at ", coord, " -> category: ", modifier.magnitude, ", magnitude: ", modifier.magnitude)
 			cell_flags[coord] = cell_flag
 
 
@@ -141,7 +141,7 @@ func get_occupant_match_multiplier(card_data: CardData, coord: Vector2i, eased_d
 		for affected_coord in affected_coords:
 			var match_result: Variant = get_occupant_match(affected_coord, modifier.modifies_category)
 			if match_result == true:
-				multiplier *= 1 + (modifier.modifier_magnitude - 1) * eased_difficulty
+				multiplier *= 1 + (modifier.magnitude - 1) * eased_difficulty
 			elif match_result == false:
 				multiplier *= 1 - (0.7 * eased_difficulty)
 

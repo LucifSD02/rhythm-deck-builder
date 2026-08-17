@@ -3,7 +3,7 @@ extends EffectBase
 
 @export var modifies_category: EffectResult.Category
 @export var operation: EffectResult.Operation = EffectResult.Operation.MULTIPLY
-@export var modifier_magnitude: float = 2.0
+@export var magnitude: float = 2.0
 @export var scope: EffectResult.Scope = EffectResult.Scope.RELATIVE_CELLS
 @export var cell_offsets: Array[Vector2i] = [Vector2i(1, 0)]
 
@@ -36,7 +36,7 @@ func resolve(_accuracy: float, _context: CombatContext, cell: TimelineCell, trig
 func create_effect_result(cell: TimelineCell) -> EffectResult:
 	var result: EffectResult = EffectResult.new()
 	result.category = EffectResult.Category.MODIFIER
-	result.magnitude = modifier_magnitude
+	result.magnitude = magnitude
 	result.target = target
 	result.source_card = cell.card_reference
 	result.cell = cell
