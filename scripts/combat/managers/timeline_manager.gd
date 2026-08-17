@@ -32,9 +32,10 @@ func set_all_relative_note_event_timings() -> void:
 		var cell: TimelineCell = timeline.flattened_cells[i]
 		if not cell.is_anchor:
 			continue
+		var bar_index: int = cell.row * timeline.columns + cell.column
 		var notes: Array[NoteEvent] = cell.card_reference.melody_notes
 		for note in notes:
-			note.time += i * timeline.beats_per_bar
+			note.time += bar_index * timeline.beats_per_bar
 
 
 func clear_timeline() -> void:

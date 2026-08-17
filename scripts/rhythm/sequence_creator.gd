@@ -55,6 +55,7 @@ func gather_all_notes(card: CardBase) -> void:
 		all_notes.append(notes[j])
 
 func create_all_notes(is_enemy_sequence: bool) -> void:
+	print("sequencing: starting_bar was ", timeline.starting_bar, ", clock now says ", RhythmClock.get_next_suitable_starting_bar(4), ", current beat ", RhythmClock.get_current_beat(false))
 	all_notes.sort_custom(func(a: NoteEvent, b: NoteEvent) -> bool: return a.time < b.time)
 	var next_suitable_starting_beat: float = RhythmClock.get_next_suitable_starting_bar(4) * 4
 	var current_beat: float = RhythmClock.get_current_beat(false)
@@ -65,6 +66,9 @@ func create_all_notes(is_enemy_sequence: bool) -> void:
 		var note: Note = create_note(note_event, note_event.related_card_id, is_last, is_enemy_sequence)
 		@warning_ignore("integer_division")
 		note.position.y = ((note_event.time + notes_offset) * -75) + (1250 * RhythmClock.get_next_suitable_starting_bar(4) / 4)
+		if is_enemy_sequence:
+			note.label.text += " - enemy"
+			note.position.x += 200
 
 
 func adjust_note_events(_note: NoteEvent) -> void:
@@ -86,7 +90,7 @@ func create_note(note_event: NoteEvent, card_id: int, is_last_note: bool, is_ene
 
 
 func connect_signals(note: Note, is_enemy_sequence: bool) -> void:
-	if is_enemy_sequence:
+	if not is_enemy_sequence:
 		match_key_presses(note)
 		connect("check_missed_notes", note.check_too_late)
 		note.connect("note_hit", rhythm_state.log_note_hits)

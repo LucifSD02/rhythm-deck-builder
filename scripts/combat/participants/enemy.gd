@@ -2,51 +2,31 @@ class_name Enemy
 extends Combatant
 
 var enemy_data: EnemyData
-var timeline: Timeline
-var timeline_manager: TimelineManager = TimelineManager.new()
-var placement_grid: PlacementGrid = PlacementGrid.new()
 var cell_flags: Dictionary[Vector2i, CellFlag] = { }
 
-const GRID_COLUMNS: int = 4
-const GRID_ROWS: int = 2
-const SILENCE: Resource = preload("uid://d1ykg17wc4e62")
 
 func _ready() -> void:
-	var test_enemy_data: EnemyData = ResourceLoader.load("res://data/enemies/test_dummy.tres")
-	generate_placement(test_enemy_data, test_enemy_data.difficulty)
+	super()
+	enemy_data = ResourceLoader.load("res://data/enemies/test_dummy.tres")
+	populate_inventory_from(enemy_data.card_inventory)
+	instrument = enemy_data.instrument
+	max_energy = enemy_data.max_energy
 
-func populate_timeline_from_grid() -> void:
-	timeline.columns = GRID_COLUMNS
-	var duplicated_cards: Dictionary[CardBase, CardBase] = {}
-	var cards_array: Array[CardBase] = []
-	var cells_array: Array[TimelineCell] = []
 
-	for row: int in range(GRID_ROWS):
-		for column: int in range(GRID_COLUMNS):
-			var coord: Vector2i = Vector2i(column, row)
-			var occupancy_block: OccupancyBlock = placement_grid.get_occupancy_at(coord)
-			var timeline_cell: TimelineCell = TimelineCell.new()
-			timeline_cell.column = column
-			timeline_cell.row = row
+func plan_turn() -> void:
+	cell_flags.clear()
+	var remaining_cards: Array[CardBase] = card_inventory.duplicate()
 
-			if occupancy_block != null and occupancy_block.card_reference != null:
-				var card_base: CardBase = occupancy_block.card_reference
-				if not duplicated_cards.has(card_base):
-					duplicated_cards[card_base] = card_base.duplicate(true) as CardBase
-				timeline_cell.card_reference = duplicated_cards[card_base]
-				timeline_cell.is_anchor = occupancy_block.is_anchor
-				timeline_cell.local_offset = occupancy_block.local_offset
-			else:
-				timeline_cell.card_reference = SILENCE.duplicate(true) as CardBase
-				timeline_cell.is_anchor = true
-				timeline_cell.local_offset = Vector2i.ZERO
-
-			cells_array.append(timeline_cell)
-			if timeline_cell.is_anchor and timeline_cell.card_reference.name != "Silence":
-				cards_array.append(timeline_cell.card_reference)
-
-	timeline.cards = cards_array
-	timeline.flattened_cells = cells_array
+	while not remaining_cards.is_empty():
+		var placement: Variant = find_weighted_placement(remaining_cards, enemy_data.difficulty)
+		if placement == null:
+			print("No valid placements remaining")
+			return
+		placement_grid.place_card(placement.coord, placement.card)
+		update_cell_flags(placement.card, placement.coord)
+		spend_energy(placement.card)
+		remaining_cards.erase(placement.card)
+		print("Placed: ", placement.card.name, " at ", placement.coord)
 
 func generate_placement(_enemy_data: EnemyData, difficulty: float) -> void:
 	enemy_data = _enemy_data
