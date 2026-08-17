@@ -28,12 +28,12 @@ func populate_inventory_from(source: Array[CardData]) -> void:
 	card_inventory = source.duplicate()
 
 
-func can_afford(card: CardData) -> bool:
-	return current_energy >= card.energy_cost
+func can_afford(card_data: CardData) -> bool:
+	return current_energy >= card_data.energy_cost
 
 
-func spend_energy(card: CardData) -> void:
-	current_energy -= card.energy_cost
+func spend_energy(card_data: CardData) -> void:
+	current_energy -= card_data.energy_cost
 
 
 func reset_energy() -> void:

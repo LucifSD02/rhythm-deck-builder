@@ -21,8 +21,8 @@ func conditions_met(context: CombatContext, cell: TimelineCell) -> bool:
 	return true
 
 
-func get_cell_allocation(card: CardData, trigger_offsets: Array[Vector2i]) -> Dictionary[Vector2i, float]:
-	var offsets: Array[Vector2i] = trigger_offsets if not trigger_offsets.is_empty() else card.grid_shape
+func get_cell_allocation(card_data: CardData, trigger_offsets: Array[Vector2i]) -> Dictionary[Vector2i, float]:
+	var offsets: Array[Vector2i] = trigger_offsets if not trigger_offsets.is_empty() else card_data.grid_shape
 	var allocation: Dictionary[Vector2i, float] = { }
 	for offset in offsets:
 		allocation[offset] = 1.0 / offsets.size()

@@ -35,13 +35,13 @@ func instantiate_slot(i: int) -> CardSlot:
 func is_unoccupied_at(card_stats: CardData, target_coords: Vector2i, origin_slot: CardSlot) -> bool:
 	var ignore_card: CardData = null
 	if origin_slot and origin_slot.current_item:
-		ignore_card = origin_slot.current_item.card_base
+		ignore_card = origin_slot.current_item.card_data
 	return player.placement_grid.is_unoccupied_at(card_stats, target_coords, ignore_card)
 
 
 func place_card_in_grid(anchor_coord: Vector2i, card: Card) -> void:
-	player.placement_grid.place_card(anchor_coord, card.card_base)
-	for cell: Vector2i in card.card_base.grid_shape:
+	player.placement_grid.place_card(anchor_coord, card.card_data)
+	for cell: Vector2i in card.card_data.grid_shape:
 		var global_cell: Vector2i = anchor_coord + cell
 		var physical_slot: CardSlot = get_slot_at_coord(global_cell)
 		if physical_slot:
@@ -53,8 +53,8 @@ func place_card_in_grid(anchor_coord: Vector2i, card: Card) -> void:
 
 
 func clear_card_from_grid(anchor_coord: Vector2i, card: Card) -> void:
-	player.placement_grid.clear_card(anchor_coord, card.card_base)
-	for offset: Vector2i in card.card_base.grid_shape:
+	player.placement_grid.clear_card(anchor_coord, card.card_data)
+	for offset: Vector2i in card.card_data.grid_shape:
 		var physical_slot: CardSlot = get_slot_at_coord(anchor_coord + offset)
 		if physical_slot:
 			physical_slot.clear_visual_state()

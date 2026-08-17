@@ -1,7 +1,7 @@
 class_name Card
 extends Control
 
-@export var card_base: CardData
+@export var card_data: CardData
 
 @onready var label: Label
 @onready var texture_rect: TextureRect = get_node("TextureRect")

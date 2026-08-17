@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Shield" format=3 uid="uid://bdj4ebpjg1kbr"]
 
-[ext_resource type="Script" uid="uid://qcgobeju2s7t" path="res://scripts/cards/condition_types/condition.gd" id="1_bpqd0"]
-[ext_resource type="Script" uid="uid://cami0vqau5iw4" path="res://scripts/cards/effect_types/shield.gd" id="1_kiihm"]
-[ext_resource type="Script" uid="uid://bd128ch4g83ol" path="res://scripts/cards/condition_types/accuracy_condition.gd" id="2_nk1p8"]
+[ext_resource type="Script" uid="uid://qcgobeju2s7t" path="res://scripts/cards/conditions/condition.gd" id="1_bpqd0"]
+[ext_resource type="Script" uid="uid://cami0vqau5iw4" path="res://scripts/cards/effects/shield.gd" id="1_kiihm"]
+[ext_resource type="Script" uid="uid://bd128ch4g83ol" path="res://scripts/cards/conditions/accuracy_condition.gd" id="2_nk1p8"]
 
 [sub_resource type="Resource" id="Resource_64rff"]
 script = ExtResource("2_nk1p8")

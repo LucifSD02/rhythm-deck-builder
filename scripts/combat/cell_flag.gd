@@ -14,9 +14,9 @@ func add_entry(category: EffectResult.Category, magnitude: float) -> void:
 	category_weights.append(weight)
 
 
-func get_magnitude_for(card: CardData) -> float:
+func get_magnitude_for(card_data: CardData) -> float:
 	var magnitude: float = 1
-	var effects: Array[EffectBase] = card.get_effects()
+	var effects: Array[EffectBase] = card_data.get_effects()
 	for effect in effects:
 		for weight in category_weights:
 			if effect.category == weight.category:
@@ -24,10 +24,10 @@ func get_magnitude_for(card: CardData) -> float:
 	return magnitude
 
 
-func matches_none(card: CardData) -> bool:
+func matches_none(card_data: CardData) -> bool:
 	var verdict: bool = true
 	for weight in category_weights:
-		if enemy.card_has_category(card, weight.category):
+		if enemy.card_has_category(card_data, weight.category):
 			verdict = false
 	return verdict
 

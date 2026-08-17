@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AccuracyCondition" format=3 uid="uid://o7ly8nrofmd1"]
 
-[ext_resource type="Script" uid="uid://bd128ch4g83ol" path="res://scripts/cards/condition_types/accuracy_condition.gd" id="1_igsgx"]
+[ext_resource type="Script" uid="uid://bd128ch4g83ol" path="res://scripts/cards/conditions/accuracy_condition.gd" id="1_igsgx"]
 
 [resource]
 script = ExtResource("1_igsgx")

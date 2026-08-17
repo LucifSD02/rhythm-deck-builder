@@ -35,7 +35,7 @@ func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 		var target_coord: Vector2i = Vector2i(column, row)
 		if drag_data.origin_slot == self:
 			return true
-		return timeline_ui.is_unoccupied_at(drag_data.item_node.card_base, target_coord, drag_data.origin_slot)
+		return timeline_ui.is_unoccupied_at(drag_data.item_node.card_data, target_coord, drag_data.origin_slot)
 
 	return current_item == null
 
@@ -60,7 +60,7 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 
 	if is_target_timeline:
 		var target_timeline: TimelineUi = target_parent as TimelineUi
-		if not target_timeline.is_unoccupied_at(dragged_item.card_base, target_coord, origin_slot):
+		if not target_timeline.is_unoccupied_at(dragged_item.card_data, target_coord, origin_slot):
 			print("Drop rejected: Matrix collision or boundary break.")
 			return
 
@@ -103,7 +103,7 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 		return null
 
 	var drag_data: DragData = DragData.new(self, current_item)
-	print("dragged item: ", self.current_item.card_base.name)
+	print("dragged item: ", self.current_item.card_data.name)
 
 	var preview: Card = current_item.duplicate() as Card
 	set_preview(preview, _at_position)

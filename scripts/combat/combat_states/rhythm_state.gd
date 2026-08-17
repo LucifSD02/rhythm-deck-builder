@@ -42,9 +42,9 @@ func sequence_complete() -> void:
 	var timeline_accuracy: float = get_accuracy_for_timeline(note_hits)
 	context.judgement_whole_timeline = timeline_accuracy
 	print("Accuracy of timeline: ", timeline_accuracy)
-	for card in range(timeline.cards.size()):
-		var card_accuracy: float = get_accuracy_for_card(note_hits, card)
-		print("Accuracy of card ", card, ": ", card_accuracy)
+	for card_data in range(timeline.cards.size()):
+		var card_accuracy: float = get_accuracy_for_card(note_hits, card_data)
+		print("Accuracy of card_data ", card_data, ": ", card_accuracy)
 	exit()
 
 

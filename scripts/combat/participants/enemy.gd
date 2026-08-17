@@ -22,26 +22,26 @@ func plan_turn() -> void:
 		if placement == null:
 			print("No valid placements remaining")
 			return
-		placement_grid.place_card(placement.coord, placement.card)
-		update_cell_flags(placement.card, placement.coord)
-		spend_energy(placement.card)
-		remaining_cards.erase(placement.card)
-		print("Placed: ", placement.card.name, " at ", placement.coord)
+		placement_grid.place_card(placement.coord, placement.card_data)
+		update_cell_flags(placement.card_data, placement.coord)
+		spend_energy(placement.card_data)
+		remaining_cards.erase(placement.card_data)
+		print("Placed: ", placement.card_data.name, " at ", placement.coord)
 
 
 func find_weighted_placement(remaining_cards: Array[CardData], difficulty: float) -> Variant:
 	var candidates: Array[WeightedPlacement] = []
 
-	for card in remaining_cards:
-		if card.energy_cost > current_energy:
+	for card_data in remaining_cards:
+		if card_data.energy_cost > current_energy:
 			continue
 		for row in range(GRID_ROWS):
 			for column in range(GRID_COLUMNS):
 				var coord: Vector2i = Vector2i(column, row)
-				if placement_grid.is_unoccupied_at(card, coord):
-					var weight: float = get_placement_weight(card, coord, difficulty)
-					print("Candidate added, card ", card.name, ", coord ", coord, ", weight ", weight)
-					candidates.append(WeightedPlacement.new(card, coord, weight))
+				if placement_grid.is_unoccupied_at(card_data, coord):
+					var weight: float = get_placement_weight(card_data, coord, difficulty)
+					print("Candidate added, card_data ", card_data.name, ", coord ", coord, ", weight ", weight)
+					candidates.append(WeightedPlacement.new(card_data, coord, weight))
 
 	print("All candidates added, ", candidates.size(), " total options")
 
@@ -57,15 +57,15 @@ func find_weighted_placement(remaining_cards: Array[CardData], difficulty: float
 	var progress: float = 0.0
 	for candidate in candidates:
 		progress += candidate.weight
-		print("Progress is ", progress, ", target is ", roll, ", skipping ", candidate.card.name)
+		print("Progress is ", progress, ", target is ", roll, ", skipping ", candidate.card_data.name)
 		if progress > roll:
 			print("Found match")
 			return candidate
 	return candidates[-1]
 
 
-func get_modifiers(card: CardData) -> Array[Modifier]:
-	var effects: Array[EffectBase] = card.get_effects()
+func get_modifiers(card_data: CardData) -> Array[Modifier]:
+	var effects: Array[EffectBase] = card_data.get_effects()
 	var modifiers: Array[Modifier]
 	for effect in effects:
 		if effect.category == EffectResult.Category.MODIFIER:
@@ -73,40 +73,40 @@ func get_modifiers(card: CardData) -> Array[Modifier]:
 	return modifiers
 
 
-func is_modifier_card(card: CardData) -> bool:
-	return not get_modifiers(card).is_empty()
+func is_modifier_card(card_data: CardData) -> bool:
+	return not get_modifiers(card_data).is_empty()
 
 
-func is_multi_cell_card(card: CardData) -> bool:
-	return card.grid_shape.size() > 1
+func is_multi_cell_card(card_data: CardData) -> bool:
+	return card_data.grid_shape.size() > 1
 
 
-func card_has_category(card: CardData, category: EffectResult.Category) -> bool:
-	var effects: Array[EffectBase] = card.get_effects()
+func card_has_category(card_data: CardData, category: EffectResult.Category) -> bool:
+	var effects: Array[EffectBase] = card_data.get_effects()
 	for effect in effects:
 		if effect.category == category:
 			return true
 	return false
 
 
-func get_affected_coords(card: CardData, anchor: Vector2i) -> Array[Vector2i]:
+func get_affected_coords(card_data: CardData, anchor: Vector2i) -> Array[Vector2i]:
 	var affected_coords: Array[Vector2i] = []
-	for modifier in get_modifiers(card):
+	for modifier in get_modifiers(card_data):
 		for offset in modifier.cell_offsets:
 			affected_coords.append(anchor + offset)
 	return affected_coords
 
 
-func has_out_of_bounds_target(card: CardData, coord: Vector2i) -> bool:
-	var affected_coords: Array[Vector2i] = get_affected_coords(card, coord)
+func has_out_of_bounds_target(card_data: CardData, coord: Vector2i) -> bool:
+	var affected_coords: Array[Vector2i] = get_affected_coords(card_data, coord)
 	for affected_coord in affected_coords:
 		if affected_coord.x < 0 or affected_coord.x >= GRID_COLUMNS or affected_coord.y < 0 or affected_coord.y >= GRID_ROWS:
 			return true
 	return false
 
 
-func update_cell_flags(card: CardData, anchor: Vector2i) -> void:
-	for modifier in get_modifiers(card):
+func update_cell_flags(card_data: CardData, anchor: Vector2i) -> void:
+	for modifier in get_modifiers(card_data):
 		for offset in modifier.cell_offsets:
 			var coord: Vector2i = anchor + offset
 			var cell_flag: CellFlag = cell_flags.get(coord)
@@ -130,14 +130,14 @@ func get_occupant_match(coord: Vector2i, category: EffectResult.Category) -> Var
 	return false
 
 
-func get_occupant_match_multiplier(card: CardData, coord: Vector2i, eased_difficulty: float) -> float:
-	if not is_modifier_card(card):
+func get_occupant_match_multiplier(card_data: CardData, coord: Vector2i, eased_difficulty: float) -> float:
+	if not is_modifier_card(card_data):
 		return 1.0
 
 	var multiplier: float = 1.0
-	var affected_coords: Array[Vector2i] = get_affected_coords(card, coord)
+	var affected_coords: Array[Vector2i] = get_affected_coords(card_data, coord)
 
-	for modifier in get_modifiers(card):
+	for modifier in get_modifiers(card_data):
 		for affected_coord in affected_coords:
 			var match_result: Variant = get_occupant_match(affected_coord, modifier.modifies_category)
 			if match_result == true:
@@ -148,37 +148,37 @@ func get_occupant_match_multiplier(card: CardData, coord: Vector2i, eased_diffic
 	return multiplier
 
 
-func get_placement_weight(card: CardData, coord: Vector2i, difficulty: float) -> float:
+func get_placement_weight(card_data: CardData, coord: Vector2i, difficulty: float) -> float:
 	var eased_difficulty: float = get_eased_difficulty(difficulty)
 	var weight: float = 1.0
 
-	if is_multi_cell_card(card):
-		weight *= 1.0 + (0.15 * card.grid_shape.size())
+	if is_multi_cell_card(card_data):
+		weight *= 1.0 + (0.15 * card_data.grid_shape.size())
 
 	var flag: CellFlag = cell_flags.get(coord)
 	if flag != null:
-		weight *= 1 + (flag.get_magnitude_for(card) - 1) * eased_difficulty
-		if flag.matches_none(card):
+		weight *= 1 + (flag.get_magnitude_for(card_data) - 1) * eased_difficulty
+		if flag.matches_none(card_data):
 			weight *= 1 - (0.7 * eased_difficulty)
 
-	if is_modifier_card(card) and has_out_of_bounds_target(card, coord):
+	if is_modifier_card(card_data) and has_out_of_bounds_target(card_data, coord):
 		weight *= 1 - (0.9 * eased_difficulty)
 
-	if is_modifier_card(card):
+	if is_modifier_card(card_data):
 		weight *= 1 + (0.8 * eased_difficulty)
 
-	weight *= get_occupant_match_multiplier(card, coord, eased_difficulty)
+	weight *= get_occupant_match_multiplier(card_data, coord, eased_difficulty)
 
 	return weight
 
 
 class WeightedPlacement:
-	var card: CardData
+	var card_data: CardData
 	var coord: Vector2i
 	var weight: float
 
 
 	func _init(_card: CardData, _coord: Vector2i, _weight: float) -> void:
-		card = _card
+		card_data = _card
 		coord = _coord
 		weight = _weight

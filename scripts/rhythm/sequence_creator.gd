@@ -51,17 +51,17 @@ func convert_to_sequence(_timeline: Timeline, is_enemy_sequence: bool) -> void:
 	timeline = _timeline
 	cards = timeline.cards
 	for i in range(cards.size()):
-		var card: CardData = cards[i]
-		card.timeline_id = i
-		gather_all_notes(card)
+		var card_data: CardData = cards[i]
+		card_data.timeline_id = i
+		gather_all_notes(card_data)
 	create_all_notes(is_enemy_sequence)
 
 
-func gather_all_notes(card: CardData) -> void:
-	var notes: Array[NoteEvent] = card.melody_notes
+func gather_all_notes(card_data: CardData) -> void:
+	var notes: Array[NoteEvent] = card_data.melody_notes
 	for j in range(notes.size()):
 		adjust_note_events(notes[j])
-		notes[j].related_card_id = card.timeline_id
+		notes[j].related_card_id = card_data.timeline_id
 		if j == notes.size() - 1:
 			notes[j].is_last_note_of_card = true
 		all_notes.append(notes[j])

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Shield" format=3 uid="uid://dssx1ung3yxib"]
 
-[ext_resource type="Script" uid="uid://cami0vqau5iw4" path="res://scripts/cards/effect_types/shield.gd" id="1_23jp8"]
-[ext_resource type="Script" uid="uid://qcgobeju2s7t" path="res://scripts/cards/condition_types/condition.gd" id="1_j77kg"]
+[ext_resource type="Script" uid="uid://cami0vqau5iw4" path="res://scripts/cards/effects/shield.gd" id="1_23jp8"]
+[ext_resource type="Script" uid="uid://qcgobeju2s7t" path="res://scripts/cards/conditions/condition.gd" id="1_j77kg"]
 [ext_resource type="Resource" uid="uid://o7ly8nrofmd1" path="res://data/conditions/accuracy/50_or_higher_timeline.tres" id="2_ind5c"]
 
 [resource]

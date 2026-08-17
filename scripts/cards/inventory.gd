@@ -25,7 +25,7 @@ func generate_grid(slot_count: int) -> void:
 
 func add_card_to_grid(slot_instance: CardSlot, i: int) -> void:
 	var card_instance: Card = CARD_SCENE.instantiate() as Card
-	card_instance.card_base = cards[i]
+	card_instance.card_data = cards[i]
 	slot_instance.add_child(card_instance)
 	set_card_data(card_instance, i)
 
