@@ -28,42 +28,6 @@ func plan_turn() -> void:
 		remaining_cards.erase(placement.card)
 		print("Placed: ", placement.card.name, " at ", placement.coord)
 
-func generate_placement(_enemy_data: EnemyData, difficulty: float) -> void:
-	enemy_data = _enemy_data
-	populate_inventory_from(enemy_data.card_inventory)
-	instrument = enemy_data.instrument
-	max_energy = enemy_data.max_energy
-	current_energy = max_energy
-	cell_flags.clear()
-	placement_grid.setup(GRID_COLUMNS, GRID_ROWS)
-
-	var remaining_cards: Array[CardBase] = card_inventory.duplicate()
-
-	while not remaining_cards.is_empty():
-		var placement: Variant = find_weighted_placement(remaining_cards, difficulty)
-
-		if placement == null:
-			print("No valid placements remaining")
-			return
-		
-		placement_grid.place_card(placement.coord, placement.card)
-		update_cell_flags(placement.card, placement.coord)
-		spend_energy(placement.card)
-		print("Spent ", placement.card.energy_cost, " energy, ", current_energy, " remaining")
-		remaining_cards.erase(placement.card)
-		print("Placed: ", placement.card.name, " at ", placement.coord)
-
-
-func find_random_valid_coord(card: CardBase) -> Variant:
-	var candidates: Array[Vector2i] = []
-	for row in range(GRID_ROWS):
-		for column in range(GRID_COLUMNS):
-			var coord: Vector2i = Vector2i(column, row)
-			if placement_grid.is_unoccupied_at(card, coord):
-				candidates.append(coord)
-	if candidates.is_empty():
-		return null
-	return candidates.pick_random()
 
 func find_weighted_placement(remaining_cards: Array[CardBase], difficulty: float) -> Variant:
 	var candidates: Array[WeightedPlacement] = []
@@ -98,14 +62,6 @@ func find_weighted_placement(remaining_cards: Array[CardBase], difficulty: float
 			print("Found match")
 			return candidate
 	return candidates[-1]
-
-func find_lowest_card_energy_cost(remaining_cards: Array[CardBase], _card: CardBase) -> int:
-	var costs: Array[int]
-	var all_cards: Array[CardBase] = remaining_cards.duplicate()
-	all_cards.append(_card)
-	for card in all_cards:
-		costs.append(card.energy_cost)
-	return costs.min()
 
 
 func get_modifiers(card: CardBase) -> Array[Modifier]:
