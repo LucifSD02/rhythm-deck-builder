@@ -4,14 +4,14 @@ extends GridContainer
 const SLOT_SCENE: PackedScene = preload("res://scenes/cards/card_slot.tscn")
 const CARD_SCENE: PackedScene = preload("res://scenes/cards/card.tscn")
 
-@onready var player: Player = %Player
-
 var coordinate_to_slot_map: Dictionary[Vector2i, CardSlot] = { }
+
+@onready var player: Player = %Player
 
 
 func _ready() -> void:
-	columns = Combatant.GRID_COLUMNS
-	generate_grid(Combatant.GRID_COLUMNS * Combatant.GRID_ROWS)
+	columns = CombatantBase.GRID_COLUMNS
+	generate_grid(CombatantBase.GRID_COLUMNS * CombatantBase.GRID_ROWS)
 
 
 func generate_grid(slot_count: int) -> void:
@@ -24,16 +24,16 @@ func instantiate_slot(i: int) -> CardSlot:
 	var slot_instance: CardSlot = SLOT_SCENE.instantiate() as CardSlot
 	slot_instance.accessibility_name = "slot " + str(i)
 	slot_instance.timeline_id = i
-	slot_instance.column = i % Combatant.GRID_COLUMNS
+	slot_instance.column = i % CombatantBase.GRID_COLUMNS
 	@warning_ignore("integer_division")
-	slot_instance.row = i / Combatant.GRID_COLUMNS
+	slot_instance.row = i / CombatantBase.GRID_COLUMNS
 
 	coordinate_to_slot_map[Vector2i(slot_instance.column, slot_instance.row)] = slot_instance
 	return slot_instance
 
 
-func is_unoccupied_at(card_stats: CardBase, target_coords: Vector2i, origin_slot: CardSlot) -> bool:
-	var ignore_card: CardBase = null
+func is_unoccupied_at(card_stats: CardData, target_coords: Vector2i, origin_slot: CardSlot) -> bool:
+	var ignore_card: CardData = null
 	if origin_slot and origin_slot.current_item:
 		ignore_card = origin_slot.current_item.card_base
 	return player.placement_grid.is_unoccupied_at(card_stats, target_coords, ignore_card)
@@ -63,7 +63,8 @@ func clear_card_from_grid(anchor_coord: Vector2i, card: Card) -> void:
 func clear_timeline() -> void:
 	for i in range(get_child_count() - 1, -1, -1):
 		get_child(i).free()
-	generate_grid(Combatant.GRID_COLUMNS * Combatant.GRID_ROWS)
+	generate_grid(CombatantBase.GRID_COLUMNS * CombatantBase.GRID_ROWS)
+
 
 func get_slot_at_coord(coordinate: Vector2i) -> CardSlot:
 	if coordinate_to_slot_map.has(coordinate):

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BaseInstrument" format=3 uid="uid://busjw06uspoh5"]
 
-[ext_resource type="Script" uid="uid://dhsw47m46iu8t" path="res://scripts/instruments/base_instrument.gd" id="1_2sd51"]
-[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_base.gd" id="2_ivyce"]
+[ext_resource type="Script" uid="uid://dhsw47m46iu8t" path="res://scripts/instruments/instrument_base.gd" id="1_2sd51"]
+[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_data.gd" id="2_ivyce"]
 [ext_resource type="Resource" uid="uid://b8mjgxq4drvvy" path="res://data/cards/test_strike.tres" id="3_s3ysv"]
 [ext_resource type="Resource" uid="uid://buumhuy5ks5uo" path="res://data/cards/test_block.tres" id="4_6mt3h"]
 [ext_resource type="Resource" uid="uid://d1afw8kxtpl12" path="res://data/cards/test_block_big.tres" id="5_i4lmp"]

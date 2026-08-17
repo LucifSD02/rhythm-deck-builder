@@ -1,16 +1,16 @@
 @icon("res://addons/at-icons/node/brain.svg")
-extends State
-
-@onready var label: Label = $"../../CanvasLayer/Label"
-@onready var button: Button = $"../../CanvasLayer/Button"
-@onready var inventory: InventoryUi = $"../../CanvasLayer/Inventory"
-@onready var timeline_ui: TimelineUi = %TimelineUI
-@onready var button_2: Button = $"../../CanvasLayer/Button2"
-@onready var player: Player = %Player
-@onready var enemy: Enemy = %Enemy
+extends StateBase
 
 var combat_state_machine: CombatStateMachine
 var context: CombatContext
+
+@onready var state_label: Label = %StateLabel
+@onready var confirm_timeline_button: Button = %ConfirmTimelineButton
+@onready var inventory: InventoryUi = %InventoryUI
+@onready var timeline_ui: TimelineUi = %TimelineUI
+@onready var return_to_preparation_button: Button = %BackToPreparationButton
+@onready var player: Player = %Player
+@onready var enemy: Enemy = %Enemy
 
 
 func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -> void:
@@ -24,11 +24,11 @@ func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -
 	enemy.reset_grid()
 	enemy.plan_turn()
 
-	label.text = "Current State: Preparation state"
-	button.disabled = false
+	state_label.text = "Current StateBase: Preparation state"
+	confirm_timeline_button.disabled = false
 	timeline_ui.visible = true
 	inventory.visible = true
-	button_2.disabled = true
+	return_to_preparation_button.disabled = true
 
 
 func update(_delta: float) -> void:
@@ -41,7 +41,7 @@ func exit() -> void:
 	context.enemy_timeline = enemy.build_timeline(starting_bar)
 
 	combat_state_machine.change_state(combat_state_machine.rhythm_state, self)
-	button.disabled = true
+	confirm_timeline_button.disabled = true
 	timeline_ui.visible = false
 	inventory.visible = false
 

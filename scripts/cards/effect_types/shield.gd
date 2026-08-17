@@ -1,11 +1,13 @@
 class_name Shield
-extends BaseEffect
+extends EffectBase
 
 @export var shield_amount: int = 0
 @export var shield_duration: int = 0
 
+
 func _init() -> void:
 	category = EffectResult.Category.SHIELD
+
 
 func resolve(accuracy: float, _context: CombatContext, cell: TimelineCell, trigger_offsets: Array[Vector2i], _timeline: Timeline) -> EffectResult:
 	var portion: float = get_cell_allocation(cell.card_reference, trigger_offsets).get(cell.local_offset, 0.0)

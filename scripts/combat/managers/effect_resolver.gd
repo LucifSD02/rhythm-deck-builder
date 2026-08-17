@@ -11,10 +11,10 @@ static func gather_results(timeline: Timeline, context: CombatContext) -> Array[
 	var results: Array[EffectResult] = []
 
 	for cell in timeline.flattened_cells:
-		var card: CardBase = cell.card_reference
+		var card: CardData = cell.card_reference
 
 		for placement: EffectPlacement in card.effects:
-			var effect: BaseEffect = placement.effect
+			var effect: EffectBase = placement.effect
 			if effect == null:
 				continue
 			if not effect.conditions_met(context, cell):

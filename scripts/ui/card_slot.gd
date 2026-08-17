@@ -14,28 +14,13 @@ func _ready() -> void:
 		timeline_ui = get_parent() as TimelineUi
 
 
-func is_occupied() -> OccupancyBlock:
-	return occupancy
-
-
-func _get_drag_data(_at_position: Vector2) -> Variant:
-	print("drag started")
-
-	if current_item == null:
-		print("no item here")
-		return null
-
-	var drag_data: DragData = DragData.new(self, current_item)
-	print("dragged item: ", self.current_item.card_base.name)
-
-	var preview: Card = current_item.duplicate() as Card
-	set_preview(preview, _at_position)
-	
-	# FIXED: Do NOT scrub variables or grids here! Just hide the item visually
-	# so it stays safely anchored if the player aborts the drag move.
-	current_item.visible = false
-	
-	return drag_data
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_DRAG_END:
+		if current_item and not current_item.visible:
+			current_item.visible = true
+			if get_parent() is TimelineUi and timeline_ui:
+				var current_coord: Vector2i = Vector2i(column, row)
+				timeline_ui.place_card_in_grid(current_coord, current_item)
 
 
 func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
@@ -51,7 +36,7 @@ func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 		if drag_data.origin_slot == self:
 			return true
 		return timeline_ui.is_unoccupied_at(drag_data.item_node.card_base, target_coord, drag_data.origin_slot)
-		
+
 	return current_item == null
 
 
@@ -110,6 +95,30 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 		target_timeline.place_card_in_grid(target_coord, dragged_item)
 
 
+func _get_drag_data(_at_position: Vector2) -> Variant:
+	print("drag started")
+
+	if current_item == null:
+		print("no item here")
+		return null
+
+	var drag_data: DragData = DragData.new(self, current_item)
+	print("dragged item: ", self.current_item.card_base.name)
+
+	var preview: Card = current_item.duplicate() as Card
+	set_preview(preview, _at_position)
+
+	# FIXED: Do NOT scrub variables or grids here! Just hide the item visually
+	# so it stays safely anchored if the player aborts the drag move.
+	current_item.visible = false
+
+	return drag_data
+
+
+func is_occupied() -> OccupancyBlock:
+	return occupancy
+
+
 func clear_visual_state() -> void:
 	occupancy = null
 	self.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -151,14 +160,6 @@ func convert_to_ghost_slot() -> void:
 	self.self_modulate = Color(0.353, 0.353, 0.353, 0.596)
 	self.modulate = Color(0.2, 0.5, 1.0, 0.3)
 	self.mouse_filter = Control.MOUSE_FILTER_PASS
-
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_DRAG_END:
-		if current_item and not current_item.visible:
-			current_item.visible = true
-			if get_parent() is TimelineUi and timeline_ui:
-				var current_coord: Vector2i = Vector2i(column, row)
-				timeline_ui.place_card_in_grid(current_coord, current_item)
 
 
 func _on_child_entered_tree(node: Node) -> void:

@@ -1,5 +1,5 @@
 class_name AccuracyCondition
-extends Condition
+extends ConditionBase
 
 enum Scope { CARD, TIMELINE }
 enum Comparison { GREATER_EQUAL, GREATER, LESS_EQUAL, LESS, EQUAL }
@@ -13,7 +13,7 @@ func is_met(context: CombatContext, cell: TimelineCell) -> bool:
 	var accuracy: float = get_accuracy(context, cell)
 	var comparison_result: bool = compare(accuracy, threshold)
 	if comparison_result == false:
-			print("Condition failed - target was ", Comparison.find_key(comparison), " than ", threshold, ", but was ", accuracy, " instead")
+		print("Condition failed - target was ", Comparison.find_key(comparison), " than ", threshold, ", but was ", accuracy, " instead")
 	return comparison_result
 
 

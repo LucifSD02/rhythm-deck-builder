@@ -1,5 +1,5 @@
 class_name Enemy
-extends Combatant
+extends CombatantBase
 
 var enemy_data: EnemyData
 var cell_flags: Dictionary[Vector2i, CellFlag] = { }
@@ -15,7 +15,7 @@ func _ready() -> void:
 
 func plan_turn() -> void:
 	cell_flags.clear()
-	var remaining_cards: Array[CardBase] = card_inventory.duplicate()
+	var remaining_cards: Array[CardData] = card_inventory.duplicate()
 
 	while not remaining_cards.is_empty():
 		var placement: Variant = find_weighted_placement(remaining_cards, enemy_data.difficulty)
@@ -29,7 +29,7 @@ func plan_turn() -> void:
 		print("Placed: ", placement.card.name, " at ", placement.coord)
 
 
-func find_weighted_placement(remaining_cards: Array[CardBase], difficulty: float) -> Variant:
+func find_weighted_placement(remaining_cards: Array[CardData], difficulty: float) -> Variant:
 	var candidates: Array[WeightedPlacement] = []
 
 	for card in remaining_cards:
@@ -64,8 +64,8 @@ func find_weighted_placement(remaining_cards: Array[CardBase], difficulty: float
 	return candidates[-1]
 
 
-func get_modifiers(card: CardBase) -> Array[Modifier]:
-	var effects: Array[BaseEffect] = card.get_effects()
+func get_modifiers(card: CardData) -> Array[Modifier]:
+	var effects: Array[EffectBase] = card.get_effects()
 	var modifiers: Array[Modifier]
 	for effect in effects:
 		if effect.category == EffectResult.Category.MODIFIER:
@@ -73,23 +73,23 @@ func get_modifiers(card: CardBase) -> Array[Modifier]:
 	return modifiers
 
 
-func is_modifier_card(card: CardBase) -> bool:
+func is_modifier_card(card: CardData) -> bool:
 	return not get_modifiers(card).is_empty()
 
 
-func is_multi_cell_card(card: CardBase) -> bool:
+func is_multi_cell_card(card: CardData) -> bool:
 	return card.grid_shape.size() > 1
 
 
-func card_has_category(card: CardBase, category: EffectResult.Category) -> bool:
-	var effects: Array[BaseEffect] = card.get_effects()
+func card_has_category(card: CardData, category: EffectResult.Category) -> bool:
+	var effects: Array[EffectBase] = card.get_effects()
 	for effect in effects:
 		if effect.category == category:
 			return true
 	return false
 
 
-func get_affected_coords(card: CardBase, anchor: Vector2i) -> Array[Vector2i]:
+func get_affected_coords(card: CardData, anchor: Vector2i) -> Array[Vector2i]:
 	var affected_coords: Array[Vector2i] = []
 	for modifier in get_modifiers(card):
 		for offset in modifier.cell_offsets:
@@ -97,7 +97,7 @@ func get_affected_coords(card: CardBase, anchor: Vector2i) -> Array[Vector2i]:
 	return affected_coords
 
 
-func has_out_of_bounds_target(card: CardBase, coord: Vector2i) -> bool:
+func has_out_of_bounds_target(card: CardData, coord: Vector2i) -> bool:
 	var affected_coords: Array[Vector2i] = get_affected_coords(card, coord)
 	for affected_coord in affected_coords:
 		if affected_coord.x < 0 or affected_coord.x >= GRID_COLUMNS or affected_coord.y < 0 or affected_coord.y >= GRID_ROWS:
@@ -105,7 +105,7 @@ func has_out_of_bounds_target(card: CardBase, coord: Vector2i) -> bool:
 	return false
 
 
-func update_cell_flags(card: CardBase, anchor: Vector2i) -> void:
+func update_cell_flags(card: CardData, anchor: Vector2i) -> void:
 	for modifier in get_modifiers(card):
 		for offset in modifier.cell_offsets:
 			var coord: Vector2i = anchor + offset
@@ -130,7 +130,7 @@ func get_occupant_match(coord: Vector2i, category: EffectResult.Category) -> Var
 	return false
 
 
-func get_occupant_match_multiplier(card: CardBase, coord: Vector2i, eased_difficulty: float) -> float:
+func get_occupant_match_multiplier(card: CardData, coord: Vector2i, eased_difficulty: float) -> float:
 	if not is_modifier_card(card):
 		return 1.0
 
@@ -148,7 +148,7 @@ func get_occupant_match_multiplier(card: CardBase, coord: Vector2i, eased_diffic
 	return multiplier
 
 
-func get_placement_weight(card: CardBase, coord: Vector2i, difficulty: float) -> float:
+func get_placement_weight(card: CardData, coord: Vector2i, difficulty: float) -> float:
 	var eased_difficulty: float = get_eased_difficulty(difficulty)
 	var weight: float = 1.0
 
@@ -171,12 +171,14 @@ func get_placement_weight(card: CardBase, coord: Vector2i, difficulty: float) ->
 
 	return weight
 
+
 class WeightedPlacement:
-	var card: CardBase
+	var card: CardData
 	var coord: Vector2i
 	var weight: float
 
-	func _init(_card: CardBase, _coord: Vector2i, _weight: float) -> void:
+
+	func _init(_card: CardData, _coord: Vector2i, _weight: float) -> void:
 		card = _card
 		coord = _coord
 		weight = _weight

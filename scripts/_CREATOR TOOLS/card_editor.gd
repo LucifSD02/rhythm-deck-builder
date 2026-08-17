@@ -1,11 +1,13 @@
-@icon("res://addons/at-icons/control/pencil.svg")
 @tool
+@icon("res://addons/at-icons/control/pencil.svg")
 extends Control
+
+const cards_path: String = "res://data/cards/"
 
 var card_resource_files: Array[Resource]
 var card_index: int
-var card_template: CardBase
-const cards_path: String = "res://data/cards/"
+var card_template: CardData
+
 @onready var name_box: LineEdit = $CardNameBox
 @onready var keys_spin_box: SpinBox = $KeysSpinBox
 @onready var bars_spin_box: SpinBox = $BarsSpinBox
@@ -15,11 +17,11 @@ const cards_path: String = "res://data/cards/"
 @onready var add_note_event_button: Button = %AddNoteEventButton
 @onready var save_card_button: Button = $SaveCardButton
 @onready var create_card_button: Button = %CreateCardButton
-@onready var loaded_cards: Array[CardBase] = load_all_cards()
+@onready var loaded_cards: Array[CardData] = load_all_cards()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
 	save_card_button.disabled = true
 	existing_card_dropdown.select(-1)
 	existing_card_dropdown.text = "Select a card"
@@ -30,22 +32,12 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func _on_existing_card_dropdown_item_selected(index: int) -> void:
-	card_template = loaded_cards[index]
-	print(card_template.name)
-	apply_all_inputs()
-	
-	card_index = index
-	populate_rich_text_label()
-	save_card_button.disabled = false
-
-
-func load_all_cards() -> Array[CardBase]:
+func load_all_cards() -> Array[CardData]:
 	existing_card_dropdown.clear()
 	card_resource_files = Utilities.load_resources_in_folder("res://data/cards/")
-	var all_cards: Array[CardBase] = []
+	var all_cards: Array[CardData] = []
 	for file in range(card_resource_files.size()):
-		var loaded_card: CardBase = card_resource_files[file]
+		var loaded_card: CardData = card_resource_files[file]
 		existing_card_dropdown.add_item(loaded_card.name)
 		all_cards.append(loaded_card)
 	return all_cards
@@ -54,7 +46,7 @@ func load_all_cards() -> Array[CardBase]:
 func populate_rich_text_label() -> void:
 	$NoteEventList.clear()
 	var current_beat: float = 0
-	var loaded_card: CardBase = loaded_cards[card_index]
+	var loaded_card: CardData = loaded_cards[card_index]
 	var melody_notes: Array[NoteEvent] = loaded_card.melody_notes
 	melody_notes.sort_custom(func(a: NoteEvent, b: NoteEvent) -> bool: return a.time < b.time)
 	loaded_card.melody_notes = melody_notes
@@ -67,8 +59,24 @@ func populate_rich_text_label() -> void:
 		$NoteEventList.append_text(new_line)
 
 
+func apply_all_inputs() -> void:
+	name_box.apply_ime()
+	bars_spin_box.apply()
+	keys_spin_box.apply()
+
+
+func _on_existing_card_dropdown_item_selected(index: int) -> void:
+	card_template = loaded_cards[index]
+	print(card_template.name)
+	apply_all_inputs()
+
+	card_index = index
+	populate_rich_text_label()
+	save_card_button.disabled = false
+
+
 func _on_add_note_event_button_button_down() -> void:
-	var loaded_card: CardBase = loaded_cards[card_index]
+	var loaded_card: CardData = loaded_cards[card_index]
 	var note_event_key: String = keys_dropdown.text
 	beat_spin_box.apply()
 	var note_event_beat: int = beat_spin_box.value
@@ -83,7 +91,7 @@ func _on_add_note_event_button_button_down() -> void:
 
 
 func _on_save_card_button_button_down() -> void:
-	var card_to_save: CardBase = loaded_cards[card_index]
+	var card_to_save: CardData = loaded_cards[card_index]
 	apply_all_inputs()
 	card_to_save.name = name_box.text
 	card_to_save.bar_amount = bars_spin_box.value
@@ -93,7 +101,7 @@ func _on_save_card_button_button_down() -> void:
 
 
 func _on_create_card_button_button_down() -> void:
-	var new_card_resource: CardBase = CardBase.new()
+	var new_card_resource: CardData = CardData.new()
 	apply_all_inputs()
 	new_card_resource.name = name_box.text
 	new_card_resource.bar_amount = bars_spin_box.value
@@ -105,8 +113,3 @@ func _on_create_card_button_button_down() -> void:
 	if error:
 		print("error code: ", error)
 	Utilities.force_editor_file_refresh(cards_path)
-
-func apply_all_inputs() -> void:
-	name_box.apply_ime()
-	bars_spin_box.apply()
-	keys_spin_box.apply()

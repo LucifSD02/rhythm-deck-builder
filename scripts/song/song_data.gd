@@ -1,4 +1,4 @@
-class_name SongResource
+class_name SongData
 extends Resource
 
 @export var audio: AudioStream

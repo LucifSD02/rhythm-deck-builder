@@ -1,5 +1,5 @@
 class_name Attack
-extends BaseEffect
+extends EffectBase
 
 @export var attack_damage: int = 0
 @export var debuff_duration: int = 0

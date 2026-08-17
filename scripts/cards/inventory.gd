@@ -1,16 +1,17 @@
 class_name InventoryUi
 extends GridContainer
 
-@onready var player: Player = %Player
-@onready var timeline_manager: TimelineManager = $"../../CombatStateMachine/TimelineManager"
-@onready var cards: Array[CardBase]
 const SLOT_SCENE: PackedScene = preload("res://scenes/cards/card_slot.tscn")
 const CARD_SCENE: PackedScene = preload("res://scenes/cards/card.tscn")
+
+@onready var player: Player = %Player
+@onready var cards: Array[CardData]
+
 
 func _ready() -> void:
 	columns = 4
 	generate_grid(12)
-	
+
 
 func generate_grid(slot_count: int) -> void:
 	cards = player.card_inventory
@@ -28,6 +29,7 @@ func add_card_to_grid(slot_instance: CardSlot, i: int) -> void:
 	slot_instance.add_child(card_instance)
 	set_card_data(card_instance, i)
 
+
 func set_card_data(card_instance: Card, i: int) -> void:
 	var texture_rect: TextureRect = card_instance.get_node("TextureRect")
 	texture_rect.texture = cards[i].texture
@@ -39,6 +41,7 @@ func set_card_data(card_instance: Card, i: int) -> void:
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card_instance.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
 
 func reload_inventory() -> void:
 	for i in range(self.get_children().size() - 1):

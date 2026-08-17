@@ -1,5 +1,5 @@
 class_name Modifier
-extends BaseEffect
+extends EffectBase
 
 @export var modifies_category: EffectResult.Category
 @export var operation: EffectResult.Operation = EffectResult.Operation.MULTIPLY
@@ -7,10 +7,12 @@ extends BaseEffect
 @export var scope: EffectResult.Scope = EffectResult.Scope.RELATIVE_CELLS
 @export var cell_offsets: Array[Vector2i] = [Vector2i(1, 0)]
 
+
 func _init() -> void:
 	category = EffectResult.Category.MODIFIER
 
-func resolve(accuracy: float, _context: CombatContext, cell: TimelineCell, trigger_offsets: Array[Vector2i], _timeline: Timeline) -> EffectResult:
+
+func resolve(_accuracy: float, _context: CombatContext, cell: TimelineCell, trigger_offsets: Array[Vector2i], _timeline: Timeline) -> EffectResult:
 	var active_offsets: Array[Vector2i]
 	if trigger_offsets.size() != 0:
 		active_offsets = trigger_offsets
@@ -29,6 +31,7 @@ func resolve(accuracy: float, _context: CombatContext, cell: TimelineCell, trigg
 				result.target_cells.append(target_cell)
 
 	return result
+
 
 func create_effect_result(cell: TimelineCell) -> EffectResult:
 	var result: EffectResult = EffectResult.new()

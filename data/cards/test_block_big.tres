@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="CardBase" format=3 uid="uid://d1afw8kxtpl12"]
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://d1afw8kxtpl12"]
 
 [ext_resource type="Script" uid="uid://utn2y5kl2a4g" path="res://scripts/cards/effect_placement.gd" id="1_0ei0q"]
 [ext_resource type="Resource" uid="uid://bdj4ebpjg1kbr" path="res://data/effects/shields/gigantic_huge_fucking_shield_holy_shit.tres" id="1_3eeen"]
 [ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://scripts/rhythm/note_event.gd" id="1_mul5o"]
-[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_base.gd" id="2_3eeen"]
+[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_data.gd" id="2_3eeen"]
 [ext_resource type="Resource" uid="uid://dssx1ung3yxib" path="res://data/effects/shields/small shield.tres" id="3_nnxgg"]
 [ext_resource type="Texture2D" uid="uid://wwdi0vbkodat" path="res://assets/textures/cards/images.jpg" id="4_3k58x"]
 

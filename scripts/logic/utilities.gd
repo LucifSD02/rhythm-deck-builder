@@ -1,5 +1,6 @@
 extends Node
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -27,6 +28,7 @@ func load_resources_in_folder(folder: String) -> Array[Resource]:
 
 	return resources
 
+
 func load_images_in_folder(folder: String) -> Array[Image]:
 	var images: Array[Image]
 	var directory: DirAccess = DirAccess.open(folder)
@@ -44,12 +46,15 @@ func load_images_in_folder(folder: String) -> Array[Image]:
 
 	return images
 
+
 func format_string(input_text: String) -> String:
 	return input_text.to_lower().replace(" ", "_")
 
+
 func force_editor_file_refresh(absolute_path: String) -> void:
-	var global_path : String = ProjectSettings.globalize_path(absolute_path)
+	var global_path: String = ProjectSettings.globalize_path(absolute_path)
 	OS.execute("powershell", ["-Command", "(Get-Item '" + global_path + "').LastWriteTime = [DateTime]::Now"])
+
 
 func find_next_multiple_of_x(value: int, x: int) -> int:
 	var starting_value: int = value + 1

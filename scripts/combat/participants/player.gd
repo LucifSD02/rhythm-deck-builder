@@ -1,5 +1,5 @@
 class_name Player
-extends Combatant
+extends CombatantBase
 
 
 func _ready() -> void:

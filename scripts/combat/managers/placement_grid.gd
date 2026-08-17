@@ -3,7 +3,7 @@ extends RefCounted
 
 var columns: int
 var rows: int
-var grid_occupancy: Dictionary[Vector2i, OccupancyBlock] = {}
+var grid_occupancy: Dictionary[Vector2i, OccupancyBlock] = { }
 
 
 func setup(_columns: int, _rows: int) -> void:
@@ -19,13 +19,13 @@ func get_occupancy_at(coord: Vector2i) -> OccupancyBlock:
 	return grid_occupancy.get(coord, null)
 
 
-func is_unoccupied_at(card_stats: CardBase, target_coords: Vector2i, ignore_card: CardBase = null) -> bool:
+func is_unoccupied_at(card_stats: CardData, target_coords: Vector2i, ignore_card: CardData = null) -> bool:
 	var shape: Array[Vector2i] = card_stats.grid_shape
 	var target_occupancy: OccupancyBlock = get_occupancy_at(target_coords)
 
 	if target_occupancy != null:
 		if ignore_card != null and target_occupancy.card_reference != ignore_card:
-			var occupying_card_stats: CardBase = target_occupancy.card_reference
+			var occupying_card_stats: CardData = target_occupancy.card_reference
 			if occupying_card_stats and occupying_card_stats.grid_shape == shape:
 				return true
 
@@ -47,7 +47,7 @@ func is_unoccupied_at(card_stats: CardBase, target_coords: Vector2i, ignore_card
 	return true
 
 
-func place_card(anchor_coord: Vector2i, card_stats: CardBase) -> void:
+func place_card(anchor_coord: Vector2i, card_stats: CardData) -> void:
 	for cell: Vector2i in card_stats.grid_shape:
 		var global_cell: Vector2i = anchor_coord + cell
 		if global_cell.x < 0 or global_cell.x >= columns or global_cell.y < 0 or global_cell.y >= rows:
@@ -60,7 +60,7 @@ func place_card(anchor_coord: Vector2i, card_stats: CardBase) -> void:
 		grid_occupancy[global_cell] = block
 
 
-func clear_card(anchor_coord: Vector2i, card_stats: CardBase) -> void:
+func clear_card(anchor_coord: Vector2i, card_stats: CardData) -> void:
 	for offset: Vector2i in card_stats.grid_shape:
 		var global_cell: Vector2i = anchor_coord + offset
 		if grid_occupancy.has(global_cell):

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RunData" format=3 uid="uid://bd6kdl3txpog2"]
 
-[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_base.gd" id="1_yksxm"]
+[ext_resource type="Script" uid="uid://csvj4sdvioyh4" path="res://scripts/cards/card_data.gd" id="1_yksxm"]
 [ext_resource type="Script" uid="uid://drxtas7cahju7" path="res://scripts/run/run_data.gd" id="2_36cck"]
 [ext_resource type="Resource" uid="uid://cllxfelt64gju" path="res://data/cards/two_x_multiplier_to_the_right.tres" id="2_b50k3"]
 [ext_resource type="Resource" uid="uid://b8mjgxq4drvvy" path="res://data/cards/test_strike.tres" id="3_t54fn"]

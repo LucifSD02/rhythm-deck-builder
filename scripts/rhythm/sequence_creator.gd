@@ -2,16 +2,7 @@
 class_name SequenceCreator
 extends Node
 
-@onready var rhythm_state: State = %RhythmState
-@onready var music_player: MusicPlayer = RhythmClock.music_player
-@onready var timeline: Timeline
-@onready var cards: Array[CardBase]
-@onready var timeline_manager: TimelineManager = get_node("../TimelineManager")
-
-var miss_check: float = 0
-var all_notes: Array[NoteEvent] = []
-
-signal check_missed_notes
+signal miss_window_elapsed
 signal key1_pressed
 signal key2_pressed
 signal key3_pressed
@@ -22,6 +13,14 @@ signal key7_pressed
 signal key8_pressed
 signal rhythm_special_pressed
 
+var miss_check: float = 0
+var all_notes: Array[NoteEvent] = []
+
+@onready var rhythm_state: StateBase = %RhythmState
+@onready var music_player: MusicPlayer = RhythmClock.music_player
+@onready var timeline: Timeline
+@onready var cards: Array[CardData]
+
 
 func _ready() -> void:
 	pass
@@ -31,8 +30,20 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	miss_check += delta
 	if miss_check > 0.5:
-		emit_signal("check_missed_notes")
+		emit_signal("miss_window_elapsed")
 		miss_check = 0
+
+
+func _input(event: InputEvent) -> void:
+	if not event is InputEventKey:
+		return
+	for i in range(1, 9):
+		var action_name: String = "key" + str(i)
+		if event.is_action_pressed(action_name, false):
+			var signal_name: String = action_name + "_pressed"
+			emit_signal(signal_name, RhythmClock.get_current_beat(true))
+		if event.is_action_pressed("rhythm_special", false):
+			emit_signal("rhythm_special_pressed", RhythmClock.get_current_beat(true))
 
 
 func convert_to_sequence(_timeline: Timeline, is_enemy_sequence: bool) -> void:
@@ -40,12 +51,13 @@ func convert_to_sequence(_timeline: Timeline, is_enemy_sequence: bool) -> void:
 	timeline = _timeline
 	cards = timeline.cards
 	for i in range(cards.size()):
-		var card: CardBase = cards[i]
+		var card: CardData = cards[i]
 		card.timeline_id = i
 		gather_all_notes(card)
-	create_all_notes(is_enemy_sequence) 
+	create_all_notes(is_enemy_sequence)
 
-func gather_all_notes(card: CardBase) -> void:
+
+func gather_all_notes(card: CardData) -> void:
 	var notes: Array[NoteEvent] = card.melody_notes
 	for j in range(notes.size()):
 		adjust_note_events(notes[j])
@@ -53,6 +65,7 @@ func gather_all_notes(card: CardBase) -> void:
 		if j == notes.size() - 1:
 			notes[j].is_last_note_of_card = true
 		all_notes.append(notes[j])
+
 
 func create_all_notes(is_enemy_sequence: bool) -> void:
 	print("sequencing: starting_bar was ", timeline.starting_bar, ", clock now says ", RhythmClock.get_next_suitable_starting_bar(4), ", current beat ", RhythmClock.get_current_beat(false))
@@ -92,24 +105,12 @@ func create_note(note_event: NoteEvent, card_id: int, is_last_note: bool, is_ene
 func connect_signals(note: Note, is_enemy_sequence: bool) -> void:
 	if not is_enemy_sequence:
 		match_key_presses(note)
-		connect("check_missed_notes", note.check_too_late)
+		connect("miss_window_elapsed", note.check_too_late)
 		note.connect("note_hit", rhythm_state.log_note_hits)
-	note.connect("last_note", rhythm_state.sequence_complete)
-	note.connect("last_note_of_card", rhythm_state.card_complete)
+	note.connect("last_note_reached", rhythm_state.sequence_complete)
+	note.connect("card_last_note_reached", rhythm_state.card_complete)
 
 
 func match_key_presses(new_note: Note) -> void:
 	var signal_name: String = new_note.note_event.action_to_hit + "_pressed"
 	self.connect(signal_name, new_note.activate)
-
-
-func _input(event: InputEvent) -> void:
-	if not event is InputEventKey:
-		return
-	for i in range(1, 9):
-		var action_name: String = "key" + str(i)
-		if event.is_action_pressed(action_name, false):
-			var signal_name: String = action_name + "_pressed"
-			emit_signal(signal_name, RhythmClock.get_current_beat(true))
-		if event.is_action_pressed("rhythm_special", false):
-			emit_signal("rhythm_special_pressed", RhythmClock.get_current_beat(true))

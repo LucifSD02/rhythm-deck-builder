@@ -2,33 +2,34 @@
 class_name Note
 extends Control
 
-@onready var card_id: int
+signal note_hit
+signal last_note_reached
+signal card_last_note_reached
+
 @export var is_last_note: bool
 @export var is_last_note_of_card: bool
 @export var note_blueprint: PackedScene = preload("res://scenes/rhythm/note.tscn")
 @export var note_event: NoteEvent
+
+@onready var card_id: int
 @onready var label: Label
 
-signal note_hit
-signal last_note
-signal last_note_of_card
 
-func _ready() -> void:
-	pass
-
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	position.y += 0.54
+
 
 func check_too_late() -> void:
 	var current_beat: float = RhythmClock.get_current_beat(false)
 	if note_event.time - current_beat < -0.5:
 		emit_signal("note_hit", card_id, 0)
 		if is_last_note_of_card:
-			emit_signal("last_note_of_card", card_id)
+			emit_signal("card_last_note_reached", card_id)
 		if is_last_note:
 			print("last note!")
-			emit_signal("last_note")
+			emit_signal("last_note_reached")
 		queue_free()
+
 
 func activate(hit_beat: float) -> void:
 	var hit_deviation: float = hit_beat - note_event.time
@@ -38,11 +39,12 @@ func activate(hit_beat: float) -> void:
 		print("Hit: ", name, " | Target Beat: ", note_event.time, " | Deviation: ", hit_deviation)
 		emit_signal("note_hit", card_id, get_hit_judgement(hit_deviation))
 		if is_last_note_of_card:
-			emit_signal("last_note_of_card", card_id)
+			emit_signal("card_last_note_reached", card_id)
 		if is_last_note:
 			print("last note!")
-			emit_signal("last_note")
+			emit_signal("last_note_reached")
 		queue_free()
+
 
 func build_note(event: NoteEvent, _card_id: int, _is_last_note: bool) -> Note:
 	var new_note: Note = note_blueprint.instantiate()
@@ -50,6 +52,7 @@ func build_note(event: NoteEvent, _card_id: int, _is_last_note: bool) -> Note:
 	new_note.card_id = _card_id
 	new_note.is_last_note = _is_last_note
 	return new_note
+
 
 func get_hit_judgement(hit_deviation: float) -> float:
 	hit_deviation = abs(hit_deviation)
@@ -64,7 +67,8 @@ func get_hit_judgement(hit_deviation: float) -> float:
 	else:
 		return 0
 
+
 func set_label() -> void:
 	label = $ColorRect/Label
-	label.text = str(note_event.time) + ", " + str(note_event.action_to_hit) 
+	label.text = str(note_event.time) + ", " + str(note_event.action_to_hit)
 	print("Spawned note: ", label.text)

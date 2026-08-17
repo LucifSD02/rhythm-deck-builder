@@ -1,4 +1,4 @@
-class_name Combatant
+class_name CombatantBase
 extends Node
 
 const GRID_COLUMNS: int = 4
@@ -6,11 +6,11 @@ const GRID_ROWS: int = 2
 const TIMELINE_LENGTH_IN_BARS: int = 8
 const SILENCE: Resource = preload("uid://d1ykg17wc4e62")
 
-var instrument: BaseInstrument
-var card_inventory: Array[CardBase] = []
+var instrument: InstrumentBase
+var card_inventory: Array[CardData] = []
 var armour: int
 var stagger_threshold: int
-var status_effects: Array = []  # TODO: needs its own design pass
+var status_effects: Array = [] # TODO: needs its own design pass
 var max_energy: int
 var current_energy: int
 var placement_grid: PlacementGrid = PlacementGrid.new()
@@ -24,15 +24,15 @@ func reset_grid() -> void:
 	placement_grid.setup(GRID_COLUMNS, GRID_ROWS)
 
 
-func populate_inventory_from(source: Array[CardBase]) -> void:
+func populate_inventory_from(source: Array[CardData]) -> void:
 	card_inventory = source.duplicate()
 
 
-func can_afford(card: CardBase) -> bool:
+func can_afford(card: CardData) -> bool:
 	return current_energy >= card.energy_cost
 
 
-func spend_energy(card: CardBase) -> void:
+func spend_energy(card: CardData) -> void:
 	current_energy -= card.energy_cost
 
 
@@ -41,7 +41,6 @@ func reset_energy() -> void:
 
 
 func build_timeline(starting_bar: int) -> Timeline:
-
 	var timeline: Timeline = Timeline.new()
 	timeline.columns = GRID_COLUMNS
 	timeline.length_in_bars = TIMELINE_LENGTH_IN_BARS
@@ -53,8 +52,8 @@ func build_timeline(starting_bar: int) -> Timeline:
 
 
 func populate_cells(timeline: Timeline) -> void:
-	var placement_cards: Dictionary[Vector2i, CardBase] = {}
-	var cards_array: Array[CardBase] = []
+	var placement_cards: Dictionary[Vector2i, CardData] = { }
+	var cards_array: Array[CardData] = []
 	var cells_array: Array[TimelineCell] = []
 
 	for row: int in range(GRID_ROWS):
@@ -68,12 +67,12 @@ func populate_cells(timeline: Timeline) -> void:
 			if occupancy_block != null and occupancy_block.card_reference != null:
 				var anchor_coord: Vector2i = coord - occupancy_block.local_offset
 				if not placement_cards.has(anchor_coord):
-					placement_cards[anchor_coord] = occupancy_block.card_reference.duplicate(true) as CardBase
+					placement_cards[anchor_coord] = occupancy_block.card_reference.duplicate(true) as CardData
 				timeline_cell.card_reference = placement_cards[anchor_coord]
 				timeline_cell.is_anchor = occupancy_block.is_anchor
 				timeline_cell.local_offset = occupancy_block.local_offset
 			else:
-				timeline_cell.card_reference = SILENCE.duplicate(true) as CardBase
+				timeline_cell.card_reference = SILENCE.duplicate(true) as CardData
 				timeline_cell.is_anchor = true
 				timeline_cell.local_offset = Vector2i.ZERO
 
