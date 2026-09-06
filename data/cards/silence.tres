@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardBase" format=3 uid="uid://d1ykg17wc4e62"]
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://d1ykg17wc4e62"]
 
 [ext_resource type="Script" uid="uid://dy3nen47p6kce" path="res://scripts/rhythm/note_event.gd" id="1_gqsbv"]
 [ext_resource type="Script" uid="uid://utn2y5kl2a4g" path="res://scripts/cards/effect_placement.gd" id="1_h4wux"]

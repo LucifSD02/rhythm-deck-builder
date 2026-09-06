@@ -24,7 +24,7 @@ func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -
 	enemy.reset_grid()
 	enemy.plan_turn()
 
-	state_label.text = "Current StateBase: Preparation state"
+	state_label.text = "Current State: Preparation state"
 	confirm_timeline_button.disabled = false
 	timeline_ui.visible = true
 	inventory.visible = true

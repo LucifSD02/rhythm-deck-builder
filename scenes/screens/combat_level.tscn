@@ -117,6 +117,5 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "BACK TO PREPARATION"
 
-[connection signal="button_up" from="CombatHUD/ConfirmTimelineButton" to="CombatLogic/RhythmState" method="_on_button_button_up"]
 [connection signal="button_up" from="CombatHUD/ConfirmTimelineButton" to="CombatLogic/PreparationState" method="_on_button_button_up"]
 [connection signal="button_up" from="CombatHUD/BackToPreparationButton" to="CombatLogic/ExecutionState" method="_on_button_2_button_up"]

@@ -3,7 +3,9 @@ extends CombatantBase
 
 var enemy_data: EnemyData
 var cell_flags: Dictionary[Vector2i, CellFlag] = { }
-
+var preview_counter: int = 0
+var row_1_result: Array[String] = ["X", "X", "X", "X"]
+var row_2_result: Array[String] = ["X", "X", "X", "X"]
 
 func _ready() -> void:
 	super()
@@ -23,10 +25,12 @@ func plan_turn() -> void:
 			print("No valid placements remaining")
 			return
 		placement_grid.place_card(placement.coord, placement.card_data)
+		print("Placed: ", placement.card_data.name, " at ", placement.coord)
 		update_cell_flags(placement.card_data, placement.coord)
 		spend_energy(placement.card_data)
+		print_preview()
 		remaining_cards.erase(placement.card_data)
-		print("Placed: ", placement.card_data.name, " at ", placement.coord)
+
 
 
 func find_weighted_placement(remaining_cards: Array[CardData], difficulty: float) -> Variant:
@@ -40,7 +44,7 @@ func find_weighted_placement(remaining_cards: Array[CardData], difficulty: float
 				var coord: Vector2i = Vector2i(column, row)
 				if placement_grid.is_unoccupied_at(card_data, coord):
 					var weight: float = get_placement_weight(card_data, coord, difficulty)
-					print("Candidate added, card_data ", card_data.name, ", coord ", coord, ", weight ", weight)
+					print("Candidate added: ", card_data.name, ", coord ", coord, ", weight ", weight)
 					candidates.append(WeightedPlacement.new(card_data, coord, weight))
 
 	print("All candidates added, ", candidates.size(), " total options")
@@ -57,10 +61,11 @@ func find_weighted_placement(remaining_cards: Array[CardData], difficulty: float
 	var progress: float = 0.0
 	for candidate in candidates:
 		progress += candidate.weight
-		print("Progress is ", progress, ", target is ", roll, ", skipping ", candidate.card_data.name)
+		print("Trying ", candidate.card_data.name, " with a weight of ", candidate.weight)
 		if progress > roll:
-			print("Found match")
+			print("Found match, target exceeded by ", progress - roll)
 			return candidate
+		print("No match, progress is ", progress, ", target is ", roll)
 	return candidates[-1]
 
 
@@ -113,7 +118,7 @@ func update_cell_flags(card_data: CardData, anchor: Vector2i) -> void:
 			if cell_flag == null:
 				cell_flag = CellFlag.new(self)
 			cell_flag.add_entry(modifier.modifies_category, modifier.magnitude)
-			print("Added a new CellFlag at ", coord, " -> category: ", modifier.magnitude, ", magnitude: ", modifier.magnitude)
+			print("Added a new CellFlag at ", coord, " -> category: ", EffectResult.Category.find_key(modifier.modifies_category), ", magnitude: ", modifier.magnitude)
 			cell_flags[coord] = cell_flag
 
 
@@ -147,6 +152,29 @@ func get_occupant_match_multiplier(card_data: CardData, coord: Vector2i, eased_d
 
 	return multiplier
 
+func print_preview() -> void:
+	var grid: PlacementGrid = placement_grid
+	for i in range(8):
+		var cell_x: int = i%4
+		@warning_ignore("integer_division")
+		var cell_y: int = i/4
+		var cell_coord: Vector2i = Vector2i(cell_x, cell_y)
+		var occupancy: OccupancyBlock = grid.grid_occupancy[cell_coord]
+		if occupancy != null:
+			if cell_y == 0 and row_1_result[cell_x] == "X":
+				row_1_result[cell_x] = str(preview_counter)
+			elif cell_y == 1 and row_2_result[cell_x] == "X":
+				row_2_result[cell_x] = str(preview_counter)
+
+	var row: String = ""
+	for string in row_1_result:
+		row += string
+	print(row)
+	row = ""
+	for string in row_2_result:
+		row += string
+	print(row)
+	preview_counter += 1
 
 func get_placement_weight(card_data: CardData, coord: Vector2i, difficulty: float) -> float:
 	var eased_difficulty: float = get_eased_difficulty(difficulty)

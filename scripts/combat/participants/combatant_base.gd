@@ -34,6 +34,7 @@ func can_afford(card_data: CardData) -> bool:
 
 func spend_energy(card_data: CardData) -> void:
 	current_energy -= card_data.energy_cost
+	print(card_data.energy_cost, " energy spent, ", current_energy, " left")
 
 
 func reset_energy() -> void:

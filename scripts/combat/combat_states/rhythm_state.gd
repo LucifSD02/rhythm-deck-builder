@@ -17,7 +17,7 @@ func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -
 	timeline = context.timeline
 	sequence_creator.convert_to_sequence(timeline, false)
 	sequence_creator.convert_to_sequence(context.enemy_timeline, true)
-	state_label.text = "Current StateBase: Rhythm state"
+	state_label.text = "Current State: Rhythm state"
 
 
 func update(_delta: float) -> void:
@@ -42,16 +42,16 @@ func sequence_complete() -> void:
 	var timeline_accuracy: float = get_accuracy_for_timeline(note_hits)
 	context.judgement_whole_timeline = timeline_accuracy
 	print("Accuracy of timeline: ", timeline_accuracy)
-	for card_data in range(timeline.cards.size()):
-		var card_accuracy: float = get_accuracy_for_card(note_hits, card_data)
-		print("Accuracy of card_data ", card_data, ": ", card_accuracy)
+	for card_id in range(timeline.cards.size()):
+		var card_accuracy: float = get_accuracy_for_card(note_hits, card_id)
+		print("Accuracy of card ", card_id, ": ", card_accuracy)
 	exit()
 
 
 func card_complete(card_id: int) -> void:
 	var accuracy: float = get_accuracy_for_card(note_hits, card_id)
 	context.judgements_individual_cards.set(card_id, accuracy)
-	print("Card ", card_id, " Complete, accuracy: ", accuracy)
+	print("Card ", card_id, " complete, accuracy: ", accuracy)
 
 
 func get_accuracy_for_timeline(_note_hits: Array[NoteHit]) -> float:

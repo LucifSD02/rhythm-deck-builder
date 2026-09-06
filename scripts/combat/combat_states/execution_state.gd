@@ -20,7 +20,7 @@ func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -
 	combat_state_machine = _combat_state_machine
 	context = _context
 	timeline = context.timeline
-	state_label.text = "Current StateBase: Execution StateBase"
+	state_label.text = "Current State: Execution State"
 	return_to_preparation_button.disabled = false
 	var results: Array[EffectResult] = EffectResolver.resolve_timeline(timeline, context)
 	for result in results:
