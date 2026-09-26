@@ -1,4 +1,4 @@
-class_name InventoryUi
+class_name InventoryUI
 extends GridContainer
 
 const SLOT_SCENE: PackedScene = preload("res://scenes/cards/card_slot.tscn")
@@ -10,10 +10,10 @@ const CARD_SCENE: PackedScene = preload("res://scenes/cards/card.tscn")
 
 func _ready() -> void:
 	columns = 4
-	generate_grid(12)
+	populate_grid(12)
 
 
-func generate_grid(slot_count: int) -> void:
+func populate_grid(slot_count: int) -> void:
 	cards = player.card_inventory
 	for i: int in range(slot_count - max(0, (self.get_children().size() - 1))):
 		var slot_instance: CardSlot = SLOT_SCENE.instantiate() as CardSlot

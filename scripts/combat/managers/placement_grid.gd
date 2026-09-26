@@ -6,9 +6,9 @@ var rows: int
 var grid_occupancy: Dictionary[Vector2i, OccupancyBlock] = { }
 
 
-func setup(_columns: int, _rows: int) -> void:
-	columns = _columns
-	rows = _rows
+func setup(p_columns: int, p_rows: int) -> void:
+	columns = p_columns
+	rows = p_rows
 	grid_occupancy.clear()
 	for row in range(rows):
 		for column in range(columns):
@@ -19,26 +19,30 @@ func get_occupancy_at(coord: Vector2i) -> OccupancyBlock:
 	return grid_occupancy.get(coord, null)
 
 
-func is_unoccupied_at(card_stats: CardData, target_coords: Vector2i, ignore_card: CardData = null) -> bool:
-	var shape: Array[Vector2i] = card_stats.grid_shape
-	var target_occupancy: OccupancyBlock = get_occupancy_at(target_coords)
+func is_in_bounds(coord: Vector2i) -> bool:
+	return coord.x >= 0 and coord.x < columns and coord.y >= 0 and coord.y < rows
 
-	if target_occupancy != null:
-		if ignore_card != null and target_occupancy.card_reference != ignore_card:
-			var occupying_card_stats: CardData = target_occupancy.card_reference
-			if occupying_card_stats and occupying_card_stats.grid_shape == shape:
+
+func can_place_card_at(card_data: CardData, anchor_coord: Vector2i, ignore_card: CardData = null) -> bool:
+	var shape: Array[Vector2i] = card_data.grid_shape
+	var anchor_occupancy: OccupancyBlock = get_occupancy_at(anchor_coord)
+
+	if anchor_occupancy != null:
+		if ignore_card != null and anchor_occupancy.card_reference != ignore_card:
+			var occupying_card: CardData = anchor_occupancy.card_reference
+			if occupying_card and occupying_card.grid_shape == shape:
 				return true
 
-	for coords: Vector2i in shape:
-		var check_pos: Vector2i = target_coords + coords
+	for offset: Vector2i in shape:
+		var global_cell: Vector2i = anchor_coord + offset
 
-		if check_pos.x < 0 or check_pos.x >= columns or check_pos.y < 0 or check_pos.y >= rows:
+		if not is_in_bounds(global_cell):
 			return false
 
-		if not grid_occupancy.has(check_pos):
+		if not grid_occupancy.has(global_cell):
 			return false
 
-		var occupancy: OccupancyBlock = grid_occupancy[check_pos]
+		var occupancy: OccupancyBlock = grid_occupancy[global_cell]
 		if occupancy != null:
 			if occupancy.card_reference == ignore_card:
 				continue
@@ -47,21 +51,21 @@ func is_unoccupied_at(card_stats: CardData, target_coords: Vector2i, ignore_card
 	return true
 
 
-func place_card(anchor_coord: Vector2i, card_stats: CardData) -> void:
-	for cell: Vector2i in card_stats.grid_shape:
-		var global_cell: Vector2i = anchor_coord + cell
-		if global_cell.x < 0 or global_cell.x >= columns or global_cell.y < 0 or global_cell.y >= rows:
+func place_card(anchor_coord: Vector2i, card_data: CardData) -> void:
+	for offset: Vector2i in card_data.grid_shape:
+		var global_cell: Vector2i = anchor_coord + offset
+		if not is_in_bounds(global_cell):
 			continue
 
 		var block: OccupancyBlock = OccupancyBlock.new()
-		block.card_reference = card_stats
-		block.local_offset = cell
-		block.is_anchor = (cell == Vector2i(0, 0))
+		block.card_reference = card_data
+		block.local_offset = offset
+		block.is_anchor = (offset == Vector2i.ZERO)
 		grid_occupancy[global_cell] = block
 
 
-func clear_card(anchor_coord: Vector2i, card_stats: CardData) -> void:
-	for offset: Vector2i in card_stats.grid_shape:
+func clear_card(anchor_coord: Vector2i, card_data: CardData) -> void:
+	for offset: Vector2i in card_data.grid_shape:
 		var global_cell: Vector2i = anchor_coord + offset
 		if grid_occupancy.has(global_cell):
 			grid_occupancy[global_cell] = null

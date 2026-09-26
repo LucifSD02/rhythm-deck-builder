@@ -5,9 +5,9 @@ extends EffectBase
 @export_enum("No transformation", "Wolf", "Dragon") var transform_type: String
 
 
-func curse() -> void:
+func apply_curse() -> void:
 	pass
 
 
-func tranform() -> void:
+func apply_transformation() -> void:
 	pass

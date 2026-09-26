@@ -3,6 +3,6 @@ extends CanvasLayer
 @onready var state_label: Label = %StateLabel
 
 
-func combat_check() -> void:
+func on_combat_finished() -> void:
 	print("combat finished")
 	state_label.text = "combat finished"

@@ -20,7 +20,7 @@ func plan_turn() -> void:
 	var remaining_cards: Array[CardData] = card_inventory.duplicate()
 
 	while not remaining_cards.is_empty():
-		var placement: Variant = find_weighted_placement(remaining_cards, enemy_data.difficulty)
+		var placement: WeightedPlacement = find_weighted_placement(remaining_cards, enemy_data.difficulty)
 		if placement == null:
 			print("No valid placements remaining")
 			return
@@ -34,7 +34,7 @@ func plan_turn() -> void:
 
 
 
-func find_weighted_placement(remaining_cards: Array[CardData], difficulty: float) -> Variant:
+func find_weighted_placement(remaining_cards: Array[CardData], difficulty: float) -> WeightedPlacement:
 	var candidates: Array[WeightedPlacement] = []
 
 	for card_data in remaining_cards:
@@ -43,7 +43,7 @@ func find_weighted_placement(remaining_cards: Array[CardData], difficulty: float
 		for row in range(GRID_ROWS):
 			for column in range(GRID_COLUMNS):
 				var coord: Vector2i = Vector2i(column, row)
-				if placement_grid.is_unoccupied_at(card_data, coord):
+				if placement_grid.can_place_card_at(card_data, coord):
 					var weight: float = get_placement_weight(card_data, coord, difficulty)
 					#print("Candidate added: ", card_data.name, ", coord ", coord, ", weight ", weight)
 					candidates.append(WeightedPlacement.new(card_data, coord, weight))
@@ -127,13 +127,13 @@ func get_eased_difficulty(difficulty: float) -> float:
 	return smoothstep(0.0, 1.0, difficulty)
 
 
-func get_occupant_match(coord: Vector2i, category: EffectResult.Category) -> Variant:
+func has_occupant(coord: Vector2i) -> bool:
+	return placement_grid.get_occupancy_at(coord) != null
+
+
+func occupant_has_category(coord: Vector2i, category: EffectResult.Category) -> bool:
 	var occupant: OccupancyBlock = placement_grid.get_occupancy_at(coord)
-	if occupant == null:
-		return null
-	if card_has_category(occupant.card_reference, category):
-		return true
-	return false
+	return occupant != null and card_has_category(occupant.card_reference, category)
 
 
 func get_occupant_match_multiplier(card_data: CardData, coord: Vector2i, eased_difficulty: float) -> float:
@@ -145,13 +145,15 @@ func get_occupant_match_multiplier(card_data: CardData, coord: Vector2i, eased_d
 
 	for modifier in get_modifiers(card_data):
 		for affected_coord in affected_coords:
-			var match_result: Variant = get_occupant_match(affected_coord, modifier.modifies_category)
-			if match_result == true:
+			if not has_occupant(affected_coord):
+				continue
+			if occupant_has_category(affected_coord, modifier.modifies_category):
 				multiplier *= 1 + (modifier.magnitude - 1) * eased_difficulty
-			elif match_result == false:
+			else:
 				multiplier *= 1 - (0.7 * eased_difficulty)
 
 	return multiplier
+
 
 func print_preview() -> void:
 	var grid: PlacementGrid = placement_grid
@@ -187,7 +189,7 @@ func get_placement_weight(card_data: CardData, coord: Vector2i, difficulty: floa
 	var flag: CellFlag = cell_flags.get(coord)
 	if flag != null:
 		weight *= 1 + (flag.get_magnitude_for(card_data) - 1) * eased_difficulty
-		if flag.matches_none(card_data):
+		if not flag.matches_any_category(card_data):
 			weight *= 1 - (0.7 * eased_difficulty)
 
 	if is_modifier_card(card_data) and has_out_of_bounds_target(card_data, coord):
@@ -207,7 +209,7 @@ class WeightedPlacement:
 	var weight: float
 
 
-	func _init(_card: CardData, _coord: Vector2i, _weight: float) -> void:
-		card_data = _card
-		coord = _coord
-		weight = _weight
+	func _init(p_card_data: CardData, p_coord: Vector2i, p_weight: float) -> void:
+		card_data = p_card_data
+		coord = p_coord
+		weight = p_weight

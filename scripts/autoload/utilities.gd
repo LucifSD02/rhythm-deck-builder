@@ -32,7 +32,7 @@ func load_resources_in_folder(folder: String) -> Array[Resource]:
 	return resources
 
 
-func load_images_in_folder(folder: String) -> Array[Texture2D]:
+func load_textures_in_folder(folder: String) -> Array[Texture2D]:
 	var textures: Array[Texture2D]
 	var directory: DirAccess = DirAccess.open(folder)
 	if directory == null:

@@ -3,21 +3,21 @@ extends StateBase
 
 var timeline: Timeline
 var combat_state_machine: CombatStateMachine
+var context: CombatContext
+var note_hits: Array[NoteHit] = []
 
 @onready var sequence_creator: SequenceCreator = %SequenceCreator
 @onready var state_label: Label = %StateLabel
-@onready var context: CombatContext
-@onready var note_hits: Array[NoteHit] = []
-@onready var timeline_ui: TimelineUi = %TimelineUI
+@onready var timeline_ui: TimelineUI = %TimelineUI
 
 
-func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -> void:
-	combat_state_machine = _combat_state_machine
-	context = _context
+func enter(p_context: CombatContext, p_combat_state_machine: CombatStateMachine) -> void:
+	combat_state_machine = p_combat_state_machine
+	context = p_context
 	timeline = context.timeline
 	sequence_creator.convert_to_sequence(timeline, false)
 	sequence_creator.convert_to_sequence(context.enemy_timeline, true)
-	state_label.text = "Current State: Rhythm state"
+	state_label.text = "Current state: Rhythm"
 
 
 func update(_delta: float) -> void:
@@ -31,13 +31,13 @@ func exit() -> void:
 	combat_state_machine.change_state(combat_state_machine.execution_state, self)
 
 
-func log_note_hits(id: int, judgement: float) -> void:
-	var new_hit: NoteHit = NoteHit.new(id, judgement)
+func on_note_hit(card_id: int, judgement: float) -> void:
+	var new_hit: NoteHit = NoteHit.new(card_id, judgement)
 	note_hits.append(new_hit)
-	print(id, " ", judgement)
+	print(card_id, " ", judgement)
 
 
-func sequence_complete() -> void:
+func on_last_note_reached() -> void:
 	print("Sequence complete")
 	var timeline_accuracy: float = get_accuracy_for_timeline(note_hits)
 	context.judgement_whole_timeline = timeline_accuracy
@@ -48,27 +48,27 @@ func sequence_complete() -> void:
 	exit()
 
 
-func card_complete(card_id: int) -> void:
+func on_card_last_note_reached(card_id: int) -> void:
 	var accuracy: float = get_accuracy_for_card(note_hits, card_id)
 	context.judgements_individual_cards.set(card_id, accuracy)
 	print("Card ", card_id, " complete, accuracy: ", accuracy)
 
 
-func get_accuracy_for_timeline(_note_hits: Array[NoteHit]) -> float:
+func get_accuracy_for_timeline(hits: Array[NoteHit]) -> float:
 	var total_timeline_score: float = 0
-	var total_note_hits: int = _note_hits.size()
+	var total_note_hits: int = hits.size()
 
-	for note_hit in note_hits:
+	for note_hit in hits:
 		total_timeline_score += note_hit.score
 
 	return total_timeline_score / total_note_hits
 
 
-func get_accuracy_for_card(_note_hits: Array[NoteHit], card_id: int) -> float:
+func get_accuracy_for_card(hits: Array[NoteHit], card_id: int) -> float:
 	var total_card_score: float = 0
 	var total_note_hits: int = 0
 
-	for note_hit in _note_hits:
+	for note_hit in hits:
 		if note_hit.card_id == card_id:
 			total_card_score += note_hit.score
 			total_note_hits += 1
@@ -81,6 +81,6 @@ class NoteHit:
 	var score: float
 
 
-	func _init(_card_id: int, _score: float) -> void:
-		self.card_id = _card_id
-		self.score = _score
+	func _init(p_card_id: int, p_score: float) -> void:
+		card_id = p_card_id
+		score = p_score

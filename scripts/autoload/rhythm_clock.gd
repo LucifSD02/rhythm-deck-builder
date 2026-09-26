@@ -66,7 +66,7 @@ func calculate_average_offset(offsets: Array[float]) -> float:
 
 
 static func calculate_timeline_start_beat(current_beat: float, slot_size_beats: int, min_lead_beats: float) -> int:
-	if slot_size_beats < 1 || min_lead_beats < 1:
+	if slot_size_beats < 1 or min_lead_beats < 1:
 		push_error("inputs are invalid, both should be greater than 0 but slot_size_beats is ", slot_size_beats, " and min_lead_beats is ", min_lead_beats)
 		return -1
 	var earliest_beat: float = current_beat + min_lead_beats

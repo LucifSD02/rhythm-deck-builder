@@ -13,10 +13,7 @@ func resolve(accuracy: float, _context: CombatContext, cell: TimelineCell, trigg
 	var portion: float = get_cell_allocation(cell.card_reference, trigger_offsets).get(cell.local_offset, 0.0)
 	if portion <= 0.0:
 		return null
-
-	var result: EffectResult = create_effect_result(cell, accuracy, portion)
-
-	return result
+	return create_effect_result(cell, accuracy, portion)
 
 
 func create_effect_result(cell: TimelineCell, accuracy: float, portion: float) -> EffectResult:

@@ -2,7 +2,7 @@
 @icon("res://addons/at-icons/control/pencil.svg")
 extends Control
 
-const cards_path: String = "res://data/cards/"
+const CARDS_PATH: String = "res://data/cards/"
 
 var card_resource_files: Array[Resource]
 var card_index: int
@@ -109,7 +109,7 @@ func _on_create_card_button_button_down() -> void:
 	if card_template.melody_notes.size() != 0:
 		new_card_resource.melody_notes = card_template.melody_notes
 	var file_name: String = Utilities.format_string(name_box.text)
-	var error: Error = ResourceSaver.save(new_card_resource, cards_path + file_name + ".tres")
+	var error: Error = ResourceSaver.save(new_card_resource, CARDS_PATH + file_name + ".tres")
 	if error:
 		print("error code: ", error)
-	Utilities.force_editor_file_refresh(cards_path)
+	Utilities.force_editor_file_refresh(CARDS_PATH)

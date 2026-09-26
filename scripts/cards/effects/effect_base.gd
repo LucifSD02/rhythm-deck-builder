@@ -14,7 +14,7 @@ var target: Target
 var category: EffectResult.Category
 
 
-func conditions_met(context: CombatContext, cell: TimelineCell) -> bool:
+func can_trigger(context: CombatContext, cell: TimelineCell) -> bool:
 	for condition: ConditionBase in conditions:
 		if not condition.is_met(context, cell):
 			return false

@@ -3,24 +3,17 @@ extends StateBase
 
 var timeline: Timeline
 var combat_state_machine: CombatStateMachine
+var context: CombatContext
 
-@onready var sequence_creator: SequenceCreator = %SequenceCreator
 @onready var state_label: Label = %StateLabel
-@onready var context: CombatContext
 @onready var return_to_preparation_button: Button = %BackToPreparationButton
-@onready var inventory: GridContainer = %InventoryUI
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -> void:
-	combat_state_machine = _combat_state_machine
-	context = _context
+func enter(p_context: CombatContext, p_combat_state_machine: CombatStateMachine) -> void:
+	combat_state_machine = p_combat_state_machine
+	context = p_context
 	timeline = context.timeline
-	state_label.text = "Current State: Execution State"
+	state_label.text = "Current state: Execution"
 	return_to_preparation_button.disabled = false
 	var results: Array[EffectResult] = EffectResolver.resolve_timeline(timeline, context)
 	for result in results:

@@ -6,51 +6,51 @@ signal note_hit
 signal last_note_reached
 signal card_last_note_reached
 
+const HIT_WINDOW_BEATS: float = 0.4
+const MISS_AFTER_BEATS: float = 0.5
+const NOTE_SCENE: PackedScene = preload("res://scenes/rhythm/note.tscn")
+
 @export var is_last_note: bool
 @export var is_last_note_of_card: bool
-@export var note_blueprint: PackedScene = preload("res://scenes/rhythm/note.tscn")
 @export var note_event: NoteEvent
 
-@onready var card_id: int
-@onready var label: Label
+var card_id: int
+var label: Label
 
 
 func _process(_delta: float) -> void:
 	position.y += 0.54
 
 
-func check_too_late() -> void:
+func on_miss_window_elapsed() -> void:
 	var current_beat: float = RhythmClock.get_current_beat(false)
-	if note_event.time - current_beat < -0.5:
-		emit_signal("note_hit", card_id, 0)
-		if is_last_note_of_card:
-			emit_signal("card_last_note_reached", card_id)
-		if is_last_note:
-			print("last note!")
-			emit_signal("last_note_reached")
-		queue_free()
+	if current_beat - note_event.time > MISS_AFTER_BEATS:
+		finish(0)
 
 
 func activate(hit_beat: float) -> void:
 	var hit_deviation: float = hit_beat - note_event.time
-	if abs(hit_deviation) > 0.40:
+	if abs(hit_deviation) > HIT_WINDOW_BEATS:
 		return
-	else:
-		print("Hit: ", name, " | Target Beat: ", note_event.time, " | Deviation: ", hit_deviation)
-		emit_signal("note_hit", card_id, get_hit_judgement(hit_deviation))
-		if is_last_note_of_card:
-			emit_signal("card_last_note_reached", card_id)
-		if is_last_note:
-			print("last note!")
-			emit_signal("last_note_reached")
-		queue_free()
+	print("Hit: ", name, " | Target Beat: ", note_event.time, " | Deviation: ", hit_deviation)
+	finish(get_hit_judgement(hit_deviation))
 
 
-func build_note(event: NoteEvent, _card_id: int, _is_last_note: bool) -> Note:
-	var new_note: Note = note_blueprint.instantiate()
+func finish(judgement: float) -> void:
+	note_hit.emit(card_id, judgement)
+	if is_last_note_of_card:
+		card_last_note_reached.emit(card_id)
+	if is_last_note:
+		print("last note!")
+		last_note_reached.emit()
+	queue_free()
+
+
+static func create(event: NoteEvent, source_card_id: int, is_last_in_sequence: bool) -> Note:
+	var new_note: Note = NOTE_SCENE.instantiate()
 	new_note.note_event = event.duplicate()
-	new_note.card_id = _card_id
-	new_note.is_last_note = _is_last_note
+	new_note.card_id = source_card_id
+	new_note.is_last_note = is_last_in_sequence
 	return new_note
 
 

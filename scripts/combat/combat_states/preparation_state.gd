@@ -9,16 +9,16 @@ var context: CombatContext
 
 @onready var state_label: Label = %StateLabel
 @onready var confirm_timeline_button: Button = %ConfirmTimelineButton
-@onready var inventory: InventoryUi = %InventoryUI
-@onready var timeline_ui: TimelineUi = %TimelineUI
+@onready var inventory: InventoryUI = %InventoryUI
+@onready var timeline_ui: TimelineUI = %TimelineUI
 @onready var return_to_preparation_button: Button = %BackToPreparationButton
 @onready var player: Player = %Player
 @onready var enemy: Enemy = %Enemy
 
 
-func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -> void:
-	combat_state_machine = _combat_state_machine
-	context = _context
+func enter(p_context: CombatContext, p_combat_state_machine: CombatStateMachine) -> void:
+	combat_state_machine = p_combat_state_machine
+	context = p_context
 
 	inventory.reload_inventory()
 	player.reset_energy()
@@ -27,7 +27,7 @@ func enter(_context: CombatContext, _combat_state_machine: CombatStateMachine) -
 	enemy.reset_grid()
 	enemy.plan_turn()
 
-	state_label.text = "Current State: Preparation state"
+	state_label.text = "Current state: Preparation"
 	confirm_timeline_button.disabled = false
 	timeline_ui.visible = true
 	inventory.visible = true
@@ -40,8 +40,8 @@ func update(_delta: float) -> void:
 
 func exit() -> void:
 	var starting_beat: int = RhythmClock.get_next_timeline_start_beat(START_SLOT_BARS, MIN_LEAD_BEATS)
-	context.timeline = player.build_timeline(starting_beat)
-	context.enemy_timeline = enemy.build_timeline(starting_beat)
+	context.timeline = player.create_timeline(starting_beat)
+	context.enemy_timeline = enemy.create_timeline(starting_beat)
 
 	combat_state_machine.change_state(combat_state_machine.rhythm_state, self)
 	confirm_timeline_button.disabled = true

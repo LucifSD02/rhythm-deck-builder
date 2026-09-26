@@ -5,8 +5,8 @@ var category_weights: Array[CategoryWeight] = []
 var enemy: Enemy
 
 
-func _init(_enemy: Enemy) -> void:
-	enemy = _enemy
+func _init(p_enemy: Enemy) -> void:
+	enemy = p_enemy
 
 
 func add_entry(category: EffectResult.Category, magnitude: float) -> void:
@@ -24,12 +24,11 @@ func get_magnitude_for(card_data: CardData) -> float:
 	return magnitude
 
 
-func matches_none(card_data: CardData) -> bool:
-	var verdict: bool = true
+func matches_any_category(card_data: CardData) -> bool:
 	for weight in category_weights:
 		if enemy.card_has_category(card_data, weight.category):
-			verdict = false
-	return verdict
+			return true
+	return false
 
 
 class CategoryWeight:
@@ -37,6 +36,6 @@ class CategoryWeight:
 	var magnitude: float
 
 
-	func _init(_category: EffectResult.Category, _magnitude: float) -> void:
-		category = _category
-		magnitude = _magnitude
+	func _init(p_category: EffectResult.Category, p_magnitude: float) -> void:
+		category = p_category
+		magnitude = p_magnitude

@@ -41,7 +41,7 @@ func reset_energy() -> void:
 	current_energy = max_energy
 
 
-func build_timeline(starting_beat: int) -> Timeline:
+func create_timeline(starting_beat: int) -> Timeline:
 	var timeline: Timeline = Timeline.new()
 	timeline.columns = GRID_COLUMNS
 	timeline.length_in_bars = TIMELINE_LENGTH_IN_BARS
