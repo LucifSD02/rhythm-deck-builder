@@ -42,7 +42,7 @@ project/assembly_name="RhythmDeckBuilder"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg", "res://addons/at-icons/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/yard/plugin.cfg")
+enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg", "res://addons/at-icons/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/yard/plugin.cfg")
 
 [file_customization]
 
@@ -51,7 +51,8 @@ folder_colors={
 "res://assets/": "red",
 "res://data/": "red",
 "res://scenes/": "green",
-"res://scripts/": "blue"
+"res://scripts/": "blue",
+"res://test/": "pink"
 }
 
 [input]

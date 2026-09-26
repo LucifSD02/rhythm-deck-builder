@@ -1,5 +1,6 @@
 extends Node
 
+const IMAGE_EXTENSIONS: Array[String] = ["png", "jpg", "jpeg", "webp"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,11 +13,13 @@ func _process(_delta: float) -> void:
 
 
 func load_resources_in_folder(folder: String) -> Array[Resource]:
-	var resources: Array[Resource]
+	var resources: Array[Resource] = []
 	var directory: DirAccess = DirAccess.open(folder)
-	var error: Error = directory.list_dir_begin()
-	if error:
-		print("Critical error with listing folder ", error, " path = ", folder)
+	if directory == null:
+		push_error("Could not open folder '%s': %s" % [folder, error_string(DirAccess.get_open_error())])
+		return resources
+
+	directory.list_dir_begin()
 	var file_name: String = directory.get_next()
 
 	while file_name != "":
@@ -24,27 +27,31 @@ func load_resources_in_folder(folder: String) -> Array[Resource]:
 			var file_path: String = folder + "/" + file_name
 			var loaded_resource: Resource = load(file_path)
 			resources.append(loaded_resource)
-			file_name = directory.get_next()
+		file_name = directory.get_next()
 
 	return resources
 
 
-func load_images_in_folder(folder: String) -> Array[Image]:
-	var images: Array[Image]
+func load_images_in_folder(folder: String) -> Array[Texture2D]:
+	var textures: Array[Texture2D]
 	var directory: DirAccess = DirAccess.open(folder)
-	var error: Error = directory.list_dir_begin()
-	if error:
-		print("Critical error with listing folder ", error, " path = ", folder)
+	if directory == null:
+		push_error("Could not open folder '%s': %s" % [folder, error_string(DirAccess.get_open_error())])
+		return textures
+
+	directory.list_dir_begin()
 	var file_name: String = directory.get_next()
 
 	while file_name != "":
-		if not directory.current_is_dir():
+		var extension: String = file_name.get_extension().to_lower()
+		if not directory.current_is_dir() and extension in IMAGE_EXTENSIONS:
 			var file_path: String = folder + "/" + file_name
-			var loaded_image: Image = load(file_path) as Image
-			images.append(loaded_image)
-			file_name = directory.get_next()
+			var texture: Texture2D = load(file_path) as Texture2D
+			if texture != null:
+				textures.append(texture)
+		file_name = directory.get_next()
 
-	return images
+	return textures
 
 
 func format_string(input_text: String) -> String:
@@ -57,6 +64,9 @@ func force_editor_file_refresh(absolute_path: String) -> void:
 
 
 func find_next_multiple_of_x(value: int, x: int) -> int:
+	if x <= 1:
+		push_error("input is invalid, should be greater than 0 but is ", x)
+		return -1
 	var starting_value: int = value + 1
 	var next_multiple_of_x: int
 	while starting_value % x != 0:
