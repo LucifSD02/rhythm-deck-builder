@@ -4,9 +4,9 @@ extends ConditionBase
 enum Scope { CARD, TIMELINE }
 enum Comparison { GREATER_EQUAL, GREATER, LESS_EQUAL, LESS, EQUAL }
 
-@export var scope: Scope = Scope.CARD
-@export var comparison: Comparison = Comparison.GREATER_EQUAL
-@export var threshold: float = 0.0
+@export var scope: Scope
+@export var comparison: Comparison
+@export var threshold: float
 
 
 func is_met(context: CombatContext, cell: TimelineCell) -> bool:

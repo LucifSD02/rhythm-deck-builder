@@ -29,6 +29,7 @@ func plan_turn() -> void:
 		update_cell_flags(placement.card_data, placement.coord)
 		spend_energy(placement.card_data)
 		print_preview()
+		print("")
 		remaining_cards.erase(placement.card_data)
 
 
@@ -44,7 +45,7 @@ func find_weighted_placement(remaining_cards: Array[CardData], difficulty: float
 				var coord: Vector2i = Vector2i(column, row)
 				if placement_grid.is_unoccupied_at(card_data, coord):
 					var weight: float = get_placement_weight(card_data, coord, difficulty)
-					print("Candidate added: ", card_data.name, ", coord ", coord, ", weight ", weight)
+					#print("Candidate added: ", card_data.name, ", coord ", coord, ", weight ", weight)
 					candidates.append(WeightedPlacement.new(card_data, coord, weight))
 
 	print("All candidates added, ", candidates.size(), " total options")
@@ -61,11 +62,11 @@ func find_weighted_placement(remaining_cards: Array[CardData], difficulty: float
 	var progress: float = 0.0
 	for candidate in candidates:
 		progress += candidate.weight
-		print("Trying ", candidate.card_data.name, " with a weight of ", candidate.weight)
+		#print("Trying ", candidate.card_data.name, " with a weight of ", candidate.weight)
 		if progress > roll:
 			print("Found match, target exceeded by ", progress - roll)
 			return candidate
-		print("No match, progress is ", progress, ", target is ", roll)
+		#print("No match, progress is ", progress, ", target is ", roll)
 	return candidates[-1]
 
 
