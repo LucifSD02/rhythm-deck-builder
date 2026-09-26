@@ -61,15 +61,3 @@ func format_string(input_text: String) -> String:
 func force_editor_file_refresh(absolute_path: String) -> void:
 	var global_path: String = ProjectSettings.globalize_path(absolute_path)
 	OS.execute("powershell", ["-Command", "(Get-Item '" + global_path + "').LastWriteTime = [DateTime]::Now"])
-
-
-func find_next_multiple_of_x(value: int, x: int) -> int:
-	if x <= 1:
-		push_error("input is invalid, should be greater than 0 but is ", x)
-		return -1
-	var starting_value: int = value + 1
-	var next_multiple_of_x: int
-	while starting_value % x != 0:
-		starting_value += 1
-	next_multiple_of_x = starting_value
-	return next_multiple_of_x

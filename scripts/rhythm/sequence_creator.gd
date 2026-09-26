@@ -68,9 +68,9 @@ func gather_all_notes(card_data: CardData) -> void:
 
 
 func create_all_notes(is_enemy_sequence: bool) -> void:
-	print("sequencing: starting_bar was ", timeline.starting_bar, ", clock now says ", RhythmClock.get_next_suitable_starting_bar(4), ", current beat ", RhythmClock.get_current_beat(false))
+	print("sequencing: starting_beat is ", timeline.starting_beat, ", current beat ", RhythmClock.get_current_beat(false))
 	all_notes.sort_custom(func(a: NoteEvent, b: NoteEvent) -> bool: return a.time < b.time)
-	var next_suitable_starting_beat: float = RhythmClock.get_next_suitable_starting_bar(4) * 4
+	var next_suitable_starting_beat: float = timeline.starting_beat
 	var current_beat: float = RhythmClock.get_current_beat(false)
 	var notes_offset: float = next_suitable_starting_beat - current_beat
 	for i in range(all_notes.size()):
@@ -78,7 +78,7 @@ func create_all_notes(is_enemy_sequence: bool) -> void:
 		var is_last: bool = (i == all_notes.size() - 1)
 		var note: Note = create_note(note_event, note_event.related_card_id, is_last, is_enemy_sequence)
 		@warning_ignore("integer_division")
-		note.position.y = ((note_event.time + notes_offset) * -75) + (1250 * RhythmClock.get_next_suitable_starting_bar(4) / 4)
+		note.position.y = ((note_event.time + notes_offset) * -75) + (1250 * timeline.starting_beat / 16)
 		if is_enemy_sequence:
 			note.label.text += " - enemy"
 			note.position.x += 200
@@ -86,7 +86,7 @@ func create_all_notes(is_enemy_sequence: bool) -> void:
 
 func adjust_note_events(_note: NoteEvent) -> void:
 	var note_event: NoteEvent = _note
-	note_event.time += timeline.starting_bar * timeline.beats_per_bar
+	note_event.time += timeline.starting_beat
 
 
 func create_note(note_event: NoteEvent, card_id: int, is_last_note: bool, is_enemy_sequence: bool) -> Note:

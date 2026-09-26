@@ -1,8 +1,8 @@
 @icon("res://addons/at-icons/node/stopwatch.svg")
 extends Node
 
-#@export var manual_calibration_offset_seconds: float = -0.067
-@export var manual_calibration_offset_seconds: float = -0.147
+@export var manual_calibration_offset_seconds: float = -0.067
+#@export var manual_calibration_offset_seconds: float = -0.147
 
 var ten_hit_offsets: Array[float]
 var accumulated_time_seconds: float = 0.0
@@ -36,7 +36,6 @@ func _process(delta: float) -> void:
 
 func _input(space: InputEvent) -> void: #Calibration hits registration
 	if space.is_action_pressed("rhythm_special", true):
-		print(get_time_until_suitable_timeline_start())
 		var target: float = round(get_current_beat(false))
 		var actual: float = get_current_beat(true)
 		ten_hit_offsets.append(actual - target)
@@ -66,24 +65,15 @@ func calculate_average_offset(offsets: Array[float]) -> float:
 	return average_offset
 
 
-func get_time_until_next_bar(current_bar: int) -> float:
-	var current_beat: float = get_current_beat(false) + 1
-	var target_beat: float = current_bar * (music_player.time_signature())
-	var time_until_next_bar: float = target_beat - current_beat
-	return time_until_next_bar
+static func calculate_timeline_start_beat(current_beat: float, slot_size_beats: int, min_lead_beats: float) -> int:
+	if slot_size_beats < 1 || min_lead_beats < 1:
+		push_error("inputs are invalid, both should be greater than 0 but slot_size_beats is ", slot_size_beats, " and min_lead_beats is ", min_lead_beats)
+		return -1
+	var earliest_beat: float = current_beat + min_lead_beats
+	var start_slot_number: int = ceili(earliest_beat / slot_size_beats)
+	return start_slot_number * slot_size_beats
 
 
-func get_time_until_suitable_timeline_start() -> float:
-	var current_beat: float = get_current_beat(true)
-	var current_bar: int = get_current_bar()
-	var target_bar: int = Utilities.find_next_multiple_of_x(current_bar, 4)
-	var target_beat: int = target_bar * music_player.time_signature()
-	return (target_beat) - current_beat
-
-
-func get_next_suitable_starting_bar(multiple_of: int) -> int:
-	var current_bar: int = get_current_bar()
-	var target_bar: int = Utilities.find_next_multiple_of_x(current_bar, multiple_of)
-	if target_bar - current_bar >= 1:
-		return target_bar
-	return target_bar + multiple_of
+func get_next_timeline_start_beat(slot_size_bars: int, min_lead_beats: float) -> int:
+	var slot_size_beats: int = slot_size_bars * music_player.time_signature()
+	return calculate_timeline_start_beat(get_current_beat(false), slot_size_beats, min_lead_beats)

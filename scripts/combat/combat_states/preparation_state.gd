@@ -1,6 +1,9 @@
 @icon("res://addons/at-icons/node/brain.svg")
 extends StateBase
 
+const START_SLOT_BARS: int = 4
+const MIN_LEAD_BEATS: float = 2.0
+
 var combat_state_machine: CombatStateMachine
 var context: CombatContext
 
@@ -36,9 +39,9 @@ func update(_delta: float) -> void:
 
 
 func exit() -> void:
-	var starting_bar: int = RhythmClock.get_next_suitable_starting_bar(4)
-	context.timeline = player.build_timeline(starting_bar)
-	context.enemy_timeline = enemy.build_timeline(starting_bar)
+	var starting_beat: int = RhythmClock.get_next_timeline_start_beat(START_SLOT_BARS, MIN_LEAD_BEATS)
+	context.timeline = player.build_timeline(starting_beat)
+	context.enemy_timeline = enemy.build_timeline(starting_beat)
 
 	combat_state_machine.change_state(combat_state_machine.rhythm_state, self)
 	confirm_timeline_button.disabled = true
